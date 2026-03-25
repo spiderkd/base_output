@@ -1,0 +1,86 @@
+/* === RISO CSS VARIABLES === */
+/* These are set by RisoProvider via inline style on a wrapper div.
+   Components read them via var(--riso-*). */
+
+:root {
+  --riso-primary:   #ff5e7e;  /* fluorescent-pink default */
+  --riso-secondary: #00a99d;  /* teal default */
+  --riso-overlap:   #7b4f7a;  /* multiply overlap default */
+  --riso-paper:     #f7f0e2;  /* cream paper default */
+
+  /* Muted / transparent versions for subtle fills */
+  --riso-primary-20:   color-mix(in srgb, var(--riso-primary)   20%, transparent);
+  --riso-primary-10:   color-mix(in srgb, var(--riso-primary)   10%, transparent);
+  --riso-secondary-20: color-mix(in srgb, var(--riso-secondary) 20%, transparent);
+  --riso-secondary-10: color-mix(in srgb, var(--riso-secondary) 10%, transparent);
+  --riso-overlap-60:   color-mix(in srgb, var(--riso-overlap)   60%, transparent);
+
+  /* Fonts — set these in layout.tsx */
+  --font-riso-headline: "Epilogue", sans-serif;
+  --font-riso-label:    "Space Grotesk", sans-serif;
+  --font-riso-body:     "Work Sans", sans-serif;
+}
+
+/* === RISO UTILITY CLASSES === */
+
+/* Hard offset shadow — the riso "stacking principle" */
+.riso-shadow-primary {
+  filter: drop-shadow(4px 4px 0px var(--riso-primary));
+}
+.riso-shadow-secondary {
+  filter: drop-shadow(4px 4px 0px var(--riso-secondary));
+}
+.riso-shadow-overlap {
+  filter: drop-shadow(4px 4px 0px var(--riso-overlap));
+}
+
+/* Halftone dot fills */
+.riso-halftone-primary {
+  background-image: radial-gradient(circle, var(--riso-primary) 1.5px, transparent 0);
+  background-size: 4px 4px;
+}
+.riso-halftone-secondary {
+  background-image: radial-gradient(circle, var(--riso-secondary) 1.5px, transparent 0);
+  background-size: 4px 4px;
+}
+
+/* Ghost text misregistration — headline offset effect */
+.riso-ghost-text {
+  position: relative;
+}
+.riso-ghost-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  color: var(--riso-secondary);
+  z-index: -1;
+  opacity: 0.55;
+}
+
+/* Grain overlay — apply to a full-bleed fixed element */
+.riso-grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Ink-bleed text — slight glow spreading from letterforms */
+.riso-ink-bleed {
+  filter: url(#riso-bleed-soft);
+}
+
+/* Two-layer misreg box — apply to container, children use CSS vars */
+.riso-misreg {
+  position: relative;
+}
+
+/* === RISO DATA ATTRIBUTES (for PreviewContainer theming) === */
+[data-riso-theme] {
+  /* Consumed by RisoProvider inline styles */
+}

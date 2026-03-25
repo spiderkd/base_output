@@ -1,0 +1,47 @@
+---
+title: Badge
+description: Status indicators with hard-shadow misregistration. The overprint variant creates a third ink color via multiply blend.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { Badge } from "@/registry/new-york/ui/badge";
+
+<PreviewContainer
+  componentName="badge"
+  code={`import { Badge } from '@/registry/new-york/ui/badge'
+
+<Badge variant="primary">Active</Badge>`}
+>
+  <Badge variant="stamp">Stamp</Badge>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/badge.json
+```
+
+## Variants
+
+<PreviewContainer
+  componentName="badge"
+  code={`<Badge variant="default">Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="outline">Outline</Badge>
+<Badge variant="stamp">Stamp</Badge>
+<Badge variant="overprint">Overprint</Badge>`}
+>
+  <div className="flex flex-wrap items-center gap-3">
+    <Badge variant="default">Default</Badge>
+    <Badge variant="secondary">Secondary</Badge>
+    <Badge variant="outline">Outline</Badge>
+    <Badge variant="stamp">Stamp</Badge>
+    <Badge variant="overprint">Overprint</Badge>
+  </div>
+</PreviewContainer>
+
+## Design notes
+
+The **overprint** variant renders two rectangles with `mix-blend-mode: multiply`. The overlap region produces the "third ink" color automatically — just like physical riso printing where two ink layers create a new color where they cross.
+
+The **stamp** variant uses `border-style: dashed` to simulate a rubber stamp impression.

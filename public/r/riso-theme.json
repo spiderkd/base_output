@@ -1,0 +1,44 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "riso-theme",
+  "type": "registry:theme",
+  "title": "Riso Theme",
+  "description": "Risograph ink palette CSS variables. Installs --riso-primary/secondary/overlap/paper into :root plus four named theme overrides.",
+  "docs": "Add data-riso-theme=\"pink-teal\" | \"red-yellow\" | \"blue-pink\" | \"black-yellow\" to your <html> or any wrapper element to switch themes. Override individual vars in your own CSS: :root { --riso-primary: #yourcolor; }",
+  "cssVars": {
+    "light": {
+      "riso-primary": "#ff5e7e",
+      "riso-secondary": "#00a99d",
+      "riso-overlap": "#7b4f7a",
+      "riso-paper": "#f7f0e2"
+    }
+  },
+  "css": {
+    "@layer base": {
+      "[data-riso-theme='pink-teal']": {
+        "--riso-primary": "#ff5e7e",
+        "--riso-secondary": "#00a99d",
+        "--riso-overlap": "#7b4f7a",
+        "--riso-paper": "#f7f0e2"
+      },
+      "[data-riso-theme='red-yellow']": {
+        "--riso-primary": "#e8362a",
+        "--riso-secondary": "#f5d800",
+        "--riso-overlap": "#c07a00",
+        "--riso-paper": "#f6f0e0"
+      },
+      "[data-riso-theme='blue-pink']": {
+        "--riso-primary": "#3d6bce",
+        "--riso-secondary": "#ff5e7e",
+        "--riso-overlap": "#7b3fa0",
+        "--riso-paper": "#f8f6ff"
+      },
+      "[data-riso-theme='black-yellow']": {
+        "--riso-primary": "#1a1a1a",
+        "--riso-secondary": "#f5d800",
+        "--riso-overlap": "#3a3200",
+        "--riso-paper": "#f5efdc"
+      }
+    }
+  }
+}

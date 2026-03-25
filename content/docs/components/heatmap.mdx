@@ -1,0 +1,82 @@
+---
+title: Heatmap
+description: Grid where intensity is shown by halftone dot density — not color alpha. Sparse 0.8px dots at low values, overlapping 5px dots at high values. Hover reveals numeric value.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Heatmap } from "@/registry/new-york/ui/heatmap"
+
+<PreviewContainer
+  componentName="heatmap"
+  code={`import { Heatmap } from '@/registry/new-york/ui/heatmap'
+
+<Heatmap
+  data={[
+    [0.1, 0.4, 0.8, 0.6, 0.3],
+    [0.3, 0.9, 0.7, 0.2, 0.8],
+    [0.5, 0.6, 0.4, 0.9, 0.1],
+    [0.7, 0.2, 0.6, 0.5, 0.4],
+  ]}
+  rowLabels={["Mon", "Tue", "Wed", "Thu"]}
+  colLabels={["Q1", "Q2", "Q3", "Q4", "Q5"]}
+/>`}
+>
+  <Heatmap
+    data={[
+      [0.1, 0.4, 0.8, 0.6, 0.3],
+      [0.3, 0.9, 0.7, 0.2, 0.8],
+      [0.5, 0.6, 0.4, 0.9, 0.1],
+      [0.7, 0.2, 0.6, 0.5, 0.4],
+    ]}
+    rowLabels={["Mon", "Tue", "Wed", "Thu"]}
+    colLabels={["Q1", "Q2", "Q3", "Q4", "Q5"]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/heatmap.json
+```
+
+## Larger cells
+
+<PreviewContainer
+  componentName="heatmap"
+  code={`<Heatmap
+  cellSize={48}
+  data={[
+    [0.2, 0.7, 0.4],
+    [0.9, 0.3, 0.8],
+    [0.5, 0.6, 0.1],
+  ]}
+  rowLabels={["A", "B", "C"]}
+  colLabels={["X", "Y", "Z"]}
+/>`}
+>
+  <Heatmap
+    cellSize={48}
+    data={[
+      [0.2, 0.7, 0.4],
+      [0.9, 0.3, 0.8],
+      [0.5, 0.6, 0.1],
+    ]}
+    rowLabels={["A", "B", "C"]}
+    colLabels={["X", "Y", "Z"]}
+  />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `data` | `number[][]` | — | 2D array of values 0–1 |
+| `rowLabels` | `string[]` | — | Left-side row labels |
+| `colLabels` | `string[]` | — | Top column labels |
+| `cellSize` | `number` | `36` | Cell width and height in px |
+
+## Design notes
+
+This is the defining riso-unique data display. Each cell gets a unique SVG `<pattern>` with a dot radius mapped from the value (0.8px → 5px). At high values dots overlap, creating the overlap ink color naturally — the paper shows through less.
+
+Hover shows the numeric percentage (0–100) centered in the cell and jumps the outline to 2px. Hover shadow is a secondary-color div offset `2px right, 2px down` at 35% opacity.

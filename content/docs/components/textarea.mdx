@@ -1,0 +1,89 @@
+---
+title: Textarea
+description: Multi-line input with misregistration shadow. Grain filter intensifies on focus. Custom SVG resize handle — two diagonal lines in primary + secondary ink.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Textarea } from "@/registry/new-york/ui/textarea"
+
+<PreviewContainer
+  componentName="textarea"
+  code={`import { Textarea } from '@/registry/new-york/ui/textarea'
+
+<Textarea
+  label="Job Notes"
+  placeholder="Describe the print job requirements…"
+/>`}
+>
+  <div style={{ width: 360 }}>
+    <Textarea label="Job Notes" placeholder="Describe the print job requirements…" />
+  </div>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/textarea.json
+```
+
+## With character count
+
+<PreviewContainer
+  componentName="textarea"
+  code={`<Textarea
+  label="Press Release"
+  placeholder="Enter copy…"
+  showCount
+  maxLength={280}
+/>`}
+>
+  <div style={{ width: 360 }}>
+    <Textarea label="Press Release" placeholder="Enter copy…" showCount maxLength={280} />
+  </div>
+</PreviewContainer>
+
+## Error state
+
+<PreviewContainer
+  componentName="textarea"
+  code={`<Textarea
+  label="Registration ID"
+  defaultValue="INVALID_FORMAT"
+  error="Must be PLATE-XXXX format"
+/>`}
+>
+  <div style={{ width: 360 }}>
+    <Textarea label="Registration ID" defaultValue="INVALID_FORMAT" error="Must be PLATE-XXXX format" />
+  </div>
+</PreviewContainer>
+
+## With hint
+
+<PreviewContainer
+  componentName="textarea"
+  code={`<Textarea
+  label="Special Instructions"
+  hint="Include paper stock, bleed, and registration requirements"
+  placeholder="e.g. 3mm bleed on all sides, coated 100gsm"
+/>`}
+>
+  <div style={{ width: 360 }}>
+    <Textarea label="Special Instructions" hint="Include paper stock, bleed, and registration requirements" placeholder="e.g. 3mm bleed on all sides, coated 100gsm" />
+  </div>
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | — | Field label |
+| `hint` | `string` | — | Helper text below |
+| `error` | `string` | — | Error text (turns label red) |
+| `showCount` | `boolean` | `false` | Show character count |
+| `maxLength` | `number` | — | Character limit |
+
+## Design notes
+
+Extends the `Input` misregistration pattern. On focus, the secondary shadow opacity transitions from `0.22` to `0.35` and the outline switches from secondary to primary color.
+
+The browser's native resize handle is replaced by two SVG `<line>` elements: one primary (1.5px) and one secondary (1px, offset 1.5px). The custom handle preserves resize functionality while staying on-aesthetic.

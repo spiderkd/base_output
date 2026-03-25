@@ -1,0 +1,76 @@
+---
+title: Alert
+description: Full-width print block notification with a solid left accent bar. Danger variant overlays a cross-hatch SVG pattern. Dismissible.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Alert } from "@/registry/new-york/ui/alert"
+import { AllAlertsDemo, DismissibleAlertDemo } from "@/components/demos/alert-demos"
+
+<PreviewContainer
+  componentName="alert"
+  code={`import { Alert } from '@/registry/new-york/ui/alert'
+
+<Alert variant="info" title="Registration tip">
+  Use PLATE-XXXX format for all job IDs.
+</Alert>`}
+>
+  <Alert variant="info" title="Registration tip">
+    Use PLATE-XXXX format for all job IDs.
+  </Alert>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/alert.json
+```
+
+## All variants
+
+<PreviewContainer
+  componentName="alert"
+  code={`<Alert variant="info" title="Info">
+  Use PLATE-XXXX format for all job IDs.
+</Alert>
+<Alert variant="success" title="Job Queued">
+  JOB-0992 has been added to the print queue.
+</Alert>
+<Alert variant="warning" title="Ink Level Low">
+  Secondary drum at 12% — consider reloading.
+</Alert>
+<Alert variant="danger" title="Paper Jam Detected" dismissible>
+  Feed halted. Clear tray 2 before resuming.
+</Alert>`}
+>
+  <AllAlertsDemo />
+</PreviewContainer>
+
+## Dismissible
+
+<PreviewContainer
+  componentName="alert"
+  code={`<Alert
+  variant="warning"
+  title="Maintenance scheduled"
+  dismissible
+  onDismiss={() => console.log('dismissed')}
+>
+  Full drum cleaning at 17:00. Expect 45 minutes downtime.
+</Alert>`}
+>
+  <DismissibleAlertDemo />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `"info" \| "success" \| "warning" \| "danger"` | `"info"` | Visual style |
+| `title` | `string` | — | Bold headline |
+| `dismissible` | `boolean` | `false` | Show close button |
+| `onDismiss` | `() => void` | — | Called on dismiss |
+
+## Design notes
+
+The 5px left accent bar is the core structural element — a solid strip in the accent color running the full height. The `danger` variant overlays a 45° diagonal cross-hatch `<pattern>` at 12% opacity over the red fill, simulating a warning print texture.

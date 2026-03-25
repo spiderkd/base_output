@@ -1,0 +1,88 @@
+---
+title: SidebarNav
+description: Navigation sidebar with PrintBlock-style active strip, hover secondary misreg strip, and double-rule section headers.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { BasicSidebarDemo, BadgeSidebarDemo } from "@/components/demos/sidebar-nav-demos"
+
+<PreviewContainer
+  componentName="sidebar-nav"
+  code={`import { SidebarNav } from '@/registry/new-york/ui/sidebar-nav'
+
+const [active, setActive] = React.useState("button")
+
+<SidebarNav
+  activeId={active}
+  onSelect={setActive}
+  sections={[
+    {
+      title: "Foundation",
+      items: [
+        { id: "button", label: "Button" },
+        { id: "card",   label: "Card" },
+        { id: "badge",  label: "Badge", badge: "New" },
+      ],
+    },
+    {
+      title: "Data",
+      items: [
+        { id: "table",     label: "Table" },
+        { id: "bar-chart", label: "BarChart" },
+      ],
+    },
+  ]}
+/>`}
+>
+  <BasicSidebarDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/sidebar-nav.json
+```
+
+## With badges
+
+<PreviewContainer
+  componentName="sidebar-nav"
+  code={`<SidebarNav
+  activeId="jobs"
+  onSelect={setActive}
+  sections={[
+    {
+      title: "Workspace",
+      items: [
+        { id: "jobs",     label: "Print Jobs", badge: 3 },
+        { id: "settings", label: "Settings" },
+        { id: "archive",  label: "Archive", badge: "12" },
+      ],
+    },
+  ]}
+/>`}
+>
+  <BadgeSidebarDemo />
+</PreviewContainer>
+
+## Item definition
+
+```tsx
+interface NavItem {
+  id: string
+  label: string
+  href?: string             // optional — used for <a> href
+  icon?: ReactNode          // optional inline SVG
+  badge?: string | number   // optional badge value (right-aligned)
+}
+```
+
+## Design notes
+
+Active item: a 4px solid primary left strip grows from `width: 0` via CSS transition, plus 10% primary tint background. Uses `position: absolute; left: 0` — not CSS `border-left`, which would shift the layout.
+
+Hover: a 2px secondary left strip fades in with 12% secondary tint background.
+
+Section headers sit above a double-rule at reduced opacity (secondary 40% top, primary 20% bottom) — quieter than the full Separator component.
+
+Badge values use solid primary fill if active, solid secondary fill otherwise — 8px uppercase, flush right.

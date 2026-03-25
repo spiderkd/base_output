@@ -1,0 +1,79 @@
+---
+title: CommandPalette
+description: Keyboard-driven search overlay with halftone backdrop, primary-fill active result, and grouped category headers. Arrow keys to navigate, Enter to select, Escape to close.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { CommandPaletteDemo } from "@/components/demos/command-palette-demos"
+
+<PreviewContainer
+  componentName="command-palette"
+  code={`import { CommandPalette } from '@/registry/new-york/ui/command-palette'
+import { Button } from '@/registry/new-york/ui/button'
+
+const [open, setOpen] = React.useState(false)
+
+// Wire to keyboard shortcut
+React.useEffect(() => {
+  const handler = (e: KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault()
+      setOpen(o => !o)
+    }
+  }
+  document.addEventListener("keydown", handler)
+  return () => document.removeEventListener("keydown", handler)
+}, [])
+
+<Button onClick={() => setOpen(true)}>Open Palette ⌘K</Button>
+
+<CommandPalette
+  open={open}
+  onClose={() => setOpen(false)}
+  items={[
+    { id: "new",   label: "New Print Job", description: "Create a job", category: "Jobs",     onSelect: () => {} },
+    { id: "docs",  label: "Documentation", description: "Browse docs",  category: "Navigate", onSelect: () => {} },
+    { id: "theme", label: "Change Theme",  description: "Switch inks",  category: "Settings", onSelect: () => {} },
+  ]}
+/>`}
+>
+  <CommandPaletteDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/command-palette.json
+```
+
+## Item definition
+
+```tsx
+interface CommandItem {
+  id: string
+  label: string
+  description?: string    // shown below label
+  category?: string       // groups items under a header
+  keywords?: string[]     // extra search terms beyond label/description
+  onSelect?: () => void   // called on click or Enter
+}
+```
+
+## Keyboard navigation
+
+| Key | Action |
+|---|---|
+| `↑` / `↓` | Move between results |
+| `Enter` | Select active result |
+| `Escape` | Close palette |
+| `⌘K` / `Ctrl+K` | Open (wire in your layout) |
+
+## Design notes
+
+The search input has no full outline — only a 2px primary rule at the bottom of the header section. Results are separated from the input by a 2px primary border.
+
+Active/hovered result: solid primary fill with a halftone dot overlay (`radial-gradient` at 3px spacing, 15% white opacity) — the same halftone-on-fill used in BarChart bars.
+
+Category headers are 8px Space Grotesk uppercase with extra letter spacing and a light secondary-tint rule below.
+
+The panel shadow layer starts at `translate(6px, 6px)` — larger than the standard `4px` because it is a top-level overlay.

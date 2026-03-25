@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+/* ── Riso ink system ──────────────────────────────────────────── */
+:root {
+  /* Core riso inks — updated by RisoProvider via inline style */
+  --riso-primary: #ff5e7e;
+  --riso-secondary: #00a99d;
+  --riso-overlap: #7b4f7a;
+  --riso-paper: #f7f0e2;
+
+  /* Wire fumadocs surface tokens to riso palette */
+  --color-fd-background: var(--riso-paper);
+  --color-fd-foreground: var(--riso-overlap);
+  --color-fd-muted: color-mix(
+    in srgb,
+    var(--riso-paper) 85%,
+    var(--riso-primary)
+  );
+  --color-fd-muted-foreground: color-mix(
+    in srgb,
+    var(--riso-overlap) 70%,
+    transparent
+  );
+  --color-fd-border: color-mix(in srgb, var(--riso-primary) 22%, transparent);
+  --color-fd-ring: var(--riso-primary);
+  --color-fd-primary: var(--riso-primary);
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: color-mix(
+    in srgb,
+    var(--riso-paper) 80%,
+    var(--riso-primary)
+  );
+  --color-fd-secondary-foreground: var(--riso-primary);
+  --color-fd-accent: color-mix(
+    in srgb,
+    var(--riso-secondary) 12%,
+    var(--riso-paper)
+  );
+  --color-fd-accent-foreground: var(--riso-primary);
+  --color-fd-popover: var(--riso-paper);
+  --color-fd-popover-foreground: var(--riso-overlap);
+  --color-fd-card: var(--riso-paper);
+  --color-fd-card-foreground: var(--riso-overlap);
+
+  /* Sidebar specifically */
+  --color-fd-sidebar: var(--riso-paper);
+  --color-fd-sidebar-foreground: var(--riso-overlap);
+  --color-fd-sidebar-primary: var(--riso-primary);
+  --color-fd-sidebar-primary-foreground: #ffffff;
+  --color-fd-sidebar-accent: color-mix(
+    in srgb,
+    var(--riso-primary) 10%,
+    var(--riso-paper)
+  );
+  --color-fd-sidebar-accent-foreground: var(--riso-primary);
+  --color-fd-sidebar-border: color-mix(
+    in srgb,
+    var(--riso-primary) 20%,
+    transparent
+  );
+
+  /* No border-radius in riso */
+  --radius: 0px;
+  --fd-radius: 0px;
+}
+
+/* Body background = paper */
+body {
+  background: var(--riso-paper);
+  color: var(--riso-overlap);
+  font-family: var(--font-riso-body, "Work Sans", sans-serif);
+}
+
+/* ── Fumadocs sidebar riso overrides ─────────────────────────── */
+
+/* Sidebar border — primary ink left rule + secondary offset */
+[data-docs-sidebar] {
+  border-right: 2px solid var(--riso-primary) !important;
+  box-shadow: 2px 0 0 var(--riso-secondary) !important;
+  background: var(--riso-paper) !important;
+}
+
+/* Sidebar nav items */
+[data-docs-sidebar] a {
+  font-family: var(--font-riso-label, "Space Grotesk", sans-serif);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 0 !important;
+  transition:
+    background 120ms,
+    color 120ms;
+}
+
+/* Active item — solid primary fill */
+[data-docs-sidebar] a[data-active="true"],
+[data-docs-sidebar] a[aria-current="page"] {
+  background: var(--riso-primary) !important;
+  color: white !important;
+  box-shadow: 3px 3px 0 var(--riso-secondary) !important;
+}
+
+/* Sidebar section headers */
+[data-docs-sidebar] .fd-text-xs {
+  font-family: var(--font-riso-label, "Space Grotesk", sans-serif);
+  font-weight: 700;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--riso-secondary) !important;
+}
+
+/* ── Fumadocs TOC riso overrides ─────────────────────────────── */
+[data-toc] a {
+  font-family: var(--font-riso-label, "Space Grotesk", sans-serif);
+  font-weight: 700;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 0 !important;
+}
+
+[data-toc] a[aria-selected="true"],
+[data-toc] a[data-active="true"] {
+  color: var(--riso-primary) !important;
+  border-left-color: var(--riso-primary) !important;
+}
+
+/* ── Fumadocs prose overrides ────────────────────────────────── */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-riso-headline, "Epilogue", sans-serif);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--riso-primary);
+}
+
+.prose h2 {
+  border-bottom: 3px solid var(--riso-primary);
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.prose h2::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--riso-secondary);
+  opacity: 0.7;
+}
+
+.prose p,
+.prose li {
+  font-family: var(--font-riso-body, "Work Sans", sans-serif);
+  color: var(--riso-overlap);
+  line-height: 1.7;
+}
+
+.prose code {
+  font-family: var(--font-mono, "Geist Mono", monospace);
+  background: color-mix(in srgb, var(--riso-primary) 8%, var(--riso-paper));
+  border: 1px solid color-mix(in srgb, var(--riso-primary) 20%, transparent);
+  border-radius: 0;
+  color: var(--riso-primary);
+  padding: 1px 5px;
+}
+
+.prose a {
+  color: var(--riso-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── No radius anywhere ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+/* ── Fumadocs code block ─────────────────────────────────────── */
+pre {
+  border: 2px solid var(--riso-primary) !important;
+  border-radius: 0 !important;
+  background: color-mix(
+    in srgb,
+    var(--riso-paper) 95%,
+    var(--riso-primary)
+  ) !important;
+  box-shadow: 4px 4px 0 var(--riso-secondary) !important;
+}
+
+/* ── Fumadocs search ─────────────────────────────────────────── */
+[role="dialog"][data-search] {
+  border: 2px solid var(--riso-primary) !important;
+  border-radius: 0 !important;
+  box-shadow: 6px 6px 0 var(--riso-secondary) !important;
+  background: var(--riso-paper) !important;
+}
+
+/* ── Breadcrumb in docs ──────────────────────────────────────── */
+nav[aria-label="breadcrumb"] {
+  font-family: var(--font-riso-label, "Space Grotesk", sans-serif);
+  font-weight: 700;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* ── Docs page footer nav ────────────────────────────────────── */
+.fd-docs-footer a {
+  border: 2px solid var(--riso-primary) !important;
+  border-radius: 0 !important;
+  font-family: var(--font-riso-label, "Space Grotesk", sans-serif);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition:
+    box-shadow 120ms,
+    transform 120ms;
+}
+
+.fd-docs-footer a:hover {
+  box-shadow: 4px 4px 0 var(--riso-secondary);
+  transform: translate(-1px, -1px);
+}
+
+/* .fd-sidebar [data-radix-scroll-area-viewport] a,
+.fd-sidebar [data-radix-scroll-area-viewport] span,
+[data-sidebar] a,
+[data-sidebar] span {
+  color: #1a1a1a !important; 
+} */

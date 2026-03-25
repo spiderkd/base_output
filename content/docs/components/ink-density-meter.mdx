@@ -1,0 +1,82 @@
+---
+title: InkDensityMeter
+description: Vertical fill meter where intensity is shown by halftone dot density — sparse dots at 0%, overlapping dots at 100%. Animates smoothly on value change. ★ Innovative
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { InkDensityMeter } from "@/registry/new-york/ui/ink-density-meter"
+
+<PreviewContainer
+  componentName="ink-density-meter"
+  code={`import { InkDensityMeter } from '@/registry/new-york/ui/ink-density-meter'
+
+<InkDensityMeter value={72} label="Primary Ink" />`}
+>
+  <InkDensityMeter value={72} label="Primary Ink" />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/ink-density-meter.json
+```
+
+## Multiple meters
+
+<PreviewContainer
+  componentName="ink-density-meter"
+  code={`<div className="flex gap-6 items-end">
+  <InkDensityMeter value={72}  label="Primary"   height={160} />
+  <InkDensityMeter value={38}  label="Secondary"  height={160} />
+  <InkDensityMeter value={95}  label="Accuracy"   height={160} />
+</div>`}
+>
+  <div style={{ display: "flex", gap: 24, alignItems: "flex-end" }}>
+    <InkDensityMeter value={72}  label="Primary"   height={160} />
+    <InkDensityMeter value={38}  label="Secondary"  height={160} />
+    <InkDensityMeter value={95}  label="Accuracy"   height={160} />
+  </div>
+</PreviewContainer>
+
+## Custom size
+
+<PreviewContainer
+  componentName="ink-density-meter"
+  code={`<div className="flex gap-4 items-end">
+  <InkDensityMeter value={60} width={32} height={120} showValue />
+  <InkDensityMeter value={80} width={44} height={160} label="Default" showValue />
+  <InkDensityMeter value={40} width={60} height={200} label="Large" showValue />
+</div>`}
+>
+  <div style={{ display: "flex", gap: 16, alignItems: "flex-end" }}>
+    <InkDensityMeter value={60} width={32} height={120} showValue />
+    <InkDensityMeter value={80} width={44} height={160} label="Default" showValue />
+    <InkDensityMeter value={40} width={60} height={200} label="Large" showValue />
+  </div>
+</PreviewContainer>
+
+## Without animation
+
+<PreviewContainer
+  componentName="ink-density-meter"
+  code={`<InkDensityMeter value={65} animated={false} />`}
+>
+  <InkDensityMeter value={65} animated={false} />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `number` | — | Fill level 0–100 |
+| `label` | `string` | — | Rotated vertical label |
+| `height` | `number` | `160` | Meter height in px |
+| `width` | `number` | `44` | Meter width in px |
+| `showValue` | `boolean` | `true` | Show percentage below meter |
+| `animated` | `boolean` | `true` | Animate fill on value change |
+
+## How the density fill works
+
+The meter is divided into 12 horizontal bands. Each band has a unique SVG `<pattern>` with dot radius growing from `0.8px` (bottom, dense end for low values) to `5px` (top, dense end for high values). Only bands within the fill level render.
+
+On value change, the fill animates via `requestAnimationFrame` with an `ease-out-cubic` curve over 600ms. Three tick marks at 25%, 50%, 75% use the double-rule pattern (primary + secondary offset).

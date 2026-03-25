@@ -1,0 +1,73 @@
+---
+title: InkCursor
+description: Canvas cursor trail of alternating primary and secondary ink dots. Dots have a bleed radius that shrinks over ~800ms. Overlapping dots produce the third ink color via multiply blend. ★ Innovative
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InkCursorDemo } from "@/components/demos/ink-cursor-demos";
+
+<PreviewContainer
+  componentName="ink-cursor"
+  code={`import { InkCursor } from '@/registry/new-york/ui/ink-cursor'
+
+// Place once in your root layout — attaches to the entire window
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<>
+<InkCursor />
+{children}
+</>
+)
+}`}
+
+>
+
+  <InkCursorDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/ink-cursor.json
+```
+
+## Layout placement
+
+```tsx
+// app/layout.tsx
+import { InkCursor } from "@/registry/new-york/ui/ink-cursor";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <InkCursor /> {/* fixed canvas, pointer-events: none */}
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+## Props
+
+| Prop        | Type     | Default | Description                   |
+| ----------- | -------- | ------- | ----------------------------- |
+| `maxDots`   | `number` | `80`    | Max dots alive at once        |
+| `dotLife`   | `number` | `800`   | Milliseconds each dot lives   |
+| `dotRadius` | `number` | `5`     | Base dot radius in px         |
+| `density`   | `number` | `12`    | Min px between deposited dots |
+
+## How it works
+
+A `<canvas>` fixed to `position: fixed; inset: 0` with `pointer-events: none; mix-blend-mode: multiply`. It never blocks interaction.
+
+Dots deposit on `mousemove` if the cursor has moved at least `density` px from the last point. Each dot alternates between primary and secondary ink. Position has `±1.5px` random offset simulating ink spread irregularity.
+
+Each dot's radius grows slightly as it ages (`r = baseR × (1 + age × 0.3)`) — simulating ink bleeding outward. Alpha fades from 0.8 to 0.
+
+`ctx.globalCompositeOperation = "multiply"` means overlapping primary + secondary dots produce the overlap color automatically — no explicit color set for it.

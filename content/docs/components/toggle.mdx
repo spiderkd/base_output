@@ -1,0 +1,50 @@
+---
+title: Toggle
+description: A rectangular switch with ON/OFF labels. Track floods with primary ink on enable.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Toggle } from "@/registry/new-york/ui/toggle"
+
+<PreviewContainer
+  componentName="toggle"
+  code={`import { Toggle } from '@/registry/new-york/ui/toggle'
+
+<Toggle label="Grain Effect" />`}
+>
+  <Toggle label="Grain Effect" />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/toggle.json
+```
+
+## Pre-enabled
+
+<PreviewContainer
+  componentName="toggle"
+  code={`<Toggle label="Misregistration" defaultChecked />`}
+>
+  <Toggle label="Misregistration" defaultChecked />
+</PreviewContainer>
+
+## Sizes
+
+<PreviewContainer
+  componentName="toggle"
+  code={`<Toggle size="sm" label="Small" />
+<Toggle size="md" label="Medium" />
+<Toggle size="lg" label="Large" />`}
+>
+  <div className="flex flex-col gap-3">
+    <Toggle size="sm" label="Small" />
+    <Toggle size="md" label="Medium" />
+    <Toggle size="lg" label="Large" />
+  </div>
+</PreviewContainer>
+
+## Design notes
+
+The toggle thumb is a **square** — no border-radius. It slides via `transform: translateX()` driven by a CSS transition. ON/OFF labels are SVG `<text>` elements that swap visibility with the thumb position. The track misreg shadow is a second absolutely-positioned div in secondary color, offset `3px` down-right.

@@ -1,0 +1,73 @@
+---
+title: Button
+description: A risograph-style button with hard-shadow misregistration and hover plate-compression.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Button } from "@/registry/new-york/ui/button"
+
+<PreviewContainer
+  componentName="button"
+  code={`import { Button } from '@/registry/new-york/ui/button'
+
+<Button variant="primary">Submit Job</Button>`}
+>
+  <Button variant="primary">Submit Job</Button>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/button.json
+```
+
+## Variants
+
+<PreviewContainer
+  componentName="button"
+  code={`<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="danger">Danger</Button>`}
+>
+  <div className="flex flex-wrap gap-3">
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="danger">Danger</Button>
+  </div>
+</PreviewContainer>
+
+## Sizes
+
+<PreviewContainer
+  componentName="button"
+  code={`<Button size="sm">Small</Button>
+<Button size="md">Default</Button>
+<Button size="lg">Large</Button>`}
+>
+  <div className="flex items-center gap-3">
+    <Button size="sm">Small</Button>
+    <Button size="md">Default</Button>
+    <Button size="lg">Large</Button>
+  </div>
+</PreviewContainer>
+
+## States
+
+<PreviewContainer
+  componentName="button"
+  code={`<Button disabled>Disabled</Button>
+<Button loading>Loading</Button>`}
+>
+  <div className="flex gap-3">
+    <Button disabled>Disabled</Button>
+    <Button loading>Loading</Button>
+  </div>
+</PreviewContainer>
+
+## Design notes
+
+The primary button uses a **hard drop shadow** in the secondary ink color — no blur, no spread. On hover the shadow compresses from `4px` to `1px` and the button translates `3px` to match, simulating the ink plate pressing down. On active/click the shadow collapses completely and the button sits flush.
+
+This is the **stacking principle**: depth through hard offset, not gaussian shadow.

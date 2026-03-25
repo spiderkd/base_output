@@ -1,0 +1,115 @@
+---
+title: Select
+description: Misregistration-shadow dropdown with a two-ink chevron trigger. Hard primary outline on the open list. No border-radius.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Select } from "@/registry/new-york/ui/select"
+
+<PreviewContainer
+  componentName="select"
+  code={`import { Select } from '@/registry/new-york/ui/select'
+
+<Select
+  label="Ink Combination"
+  placeholder="Choose inks…"
+  options={[
+    { value: "pink-teal",    label: "Fluorescent Pink + Teal" },
+    { value: "red-yellow",   label: "Bright Red + Yellow" },
+    { value: "blue-pink",    label: "Blue + Fluorescent Pink" },
+    { value: "black-yellow", label: "Black + Yellow" },
+  ]}
+  onChange={value => console.log(value)}
+/>`}
+>
+  <div style={{ width: 300 }}>
+    <Select
+      label="Ink Combination"
+      placeholder="Choose inks…"
+      options={[
+        { value: "pink-teal",    label: "Fluorescent Pink + Teal" },
+        { value: "red-yellow",   label: "Bright Red + Yellow" },
+        { value: "blue-pink",    label: "Blue + Fluorescent Pink" },
+        { value: "black-yellow", label: "Black + Yellow" },
+      ]}
+    />
+  </div>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/select.json
+```
+
+## With default value
+
+<PreviewContainer
+  componentName="select"
+  code={`<Select
+  label="Paper Stock"
+  defaultValue="bond"
+  options={[
+    { value: "bond",      label: "Bond 80gsm" },
+    { value: "coated",    label: "Coated 100gsm" },
+    { value: "newsprint", label: "Newsprint 60gsm" },
+  ]}
+/>`}
+>
+  <div style={{ width: 280 }}>
+    <Select
+      label="Paper Stock"
+      defaultValue="bond"
+      options={[
+        { value: "bond",      label: "Bond 80gsm" },
+        { value: "coated",    label: "Coated 100gsm" },
+        { value: "newsprint", label: "Newsprint 60gsm" },
+      ]}
+    />
+  </div>
+</PreviewContainer>
+
+## With disabled options
+
+<PreviewContainer
+  componentName="select"
+  code={`<Select
+  label="Drum Position"
+  options={[
+    { value: "primary",   label: "Primary Drum" },
+    { value: "secondary", label: "Secondary Drum" },
+    { value: "third",     label: "Third Drum", disabled: true },
+  ]}
+/>`}
+>
+  <div style={{ width: 280 }}>
+    <Select
+      label="Drum Position"
+      options={[
+        { value: "primary",   label: "Primary Drum" },
+        { value: "secondary", label: "Secondary Drum" },
+        { value: "third",     label: "Third Drum", disabled: true },
+      ]}
+    />
+  </div>
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `options` | `SelectOption[]` | — | `{ value, label, disabled? }[]` |
+| `value` | `string` | — | Controlled value |
+| `defaultValue` | `string` | — | Uncontrolled default |
+| `onChange` | `(value: string) => void` | — | Change handler |
+| `placeholder` | `string` | `"Select…"` | Placeholder text |
+| `label` | `string` | — | Field label |
+| `disabled` | `boolean` | `false` | Disables the entire select |
+
+## Design notes
+
+The trigger uses the same misregistration shadow as `Input` — a secondary-color div offset `2px right, 2px down`, opacity jumping from `0.22` (idle) to `0.35` (open).
+
+The chevron is four SVG `<line>` elements: two primary arms (2px, square cap) + two secondary arms (1px, offset 1.5px, opacity 0.6) — the same chevron used in Accordion and Tabs.
+
+The dropdown list gets `drop-shadow(4px 4px 0 var(--riso-secondary))`. Selected option: solid primary fill. Hover: 15% secondary tint. No border-radius anywhere.

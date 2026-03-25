@@ -1,0 +1,67 @@
+---
+title: BarChart
+description: Flat solid ink bars with no gradient, no hachure. Alternates primary and secondary ink per bar. Hover drops a hard shadow.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { BarChart } from "@/registry/new-york/ui/bar-chart";
+
+<PreviewContainer
+  componentName="bar-chart"
+  code={`import { BarChart } from '@/registry/new-york/ui/bar-chart'
+
+<BarChart data={[
+  { label: "Jan", value: 68 },
+  { label: "Feb", value: 82 },
+  { label: "Mar", value: 55 },
+  { label: "Apr", value: 91 },
+]} />`}
+>
+  <BarChart data={[
+    { label: "Jan", value: 68 },
+    { label: "Feb", value: 82 },
+    { label: "Mar", value: 55 },
+    { label: "Apr", value: 91 },
+    { label: "May", value: 74 },
+    { label: "Jun", value: 87 },
+  ]} />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/bar-chart.json
+```
+
+## Explicit ink colors
+
+<PreviewContainer
+  componentName="bar-chart"
+  code={`<BarChart data={[
+  { label: "Q1", value: 240, ink: "primary" },
+  { label: "Q2", value: 310, ink: "secondary" },
+  { label: "Q3", value: 280, ink: "overlap" },
+  { label: "Q4", value: 390, ink: "primary" },
+]} />`}
+>
+  <BarChart
+    data={[
+      { label: "Q1", value: 240, ink: "primary" },
+      { label: "Q2", value: 310, ink: "secondary" },
+      { label: "Q3", value: 280, ink: "overlap" },
+      { label: "Q4", value: 390, ink: "primary" },
+    ]}
+  />
+</PreviewContainer>
+
+## Design notes
+
+**No gradients, no hachure.** Each bar is a solid `<rect>` in a flat ink color. This is the core discipline of the riso aesthetic — ink is opaque and flat, not decorative.
+
+**Double-rule X axis.** The baseline is two lines: 2px primary and 1px secondary at `y + 3`. This is the same pattern as the Separator component.
+
+**Dotted grid lines.** Instead of solid grey lines, horizontal grid markers are dashed secondary-color lines at 35% opacity.
+
+**Hover shadow.** On hover, a same-size rectangle in the opposite ink color appears at `+3px, +3px` offset behind the bar at 38% opacity. The cursor becomes `pointer`. No animation — it appears instantly (120ms would feel slow for a chart).
+
+**Halftone overlay on fill.** Every bar has a `radial-gradient` dot pattern at 22% white opacity overlaid — very subtle on screen, simulates the paper showing through the ink.

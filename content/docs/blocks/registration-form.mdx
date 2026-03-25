@@ -1,0 +1,63 @@
+---
+title: Registration Form
+description: A complete print job submission form with PrintBlock header, validation states, and success Toast feedback on submit.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { RegistrationForm } from "@/registry/new-york/blocks/registration-form"
+import { ToastProvider } from "@/registry/new-york/ui/toast"
+
+<PreviewContainer
+  componentName="registration-form"
+  code={`import { RegistrationForm } from '@/registry/new-york/blocks/registration-form'
+
+// Requires ToastProvider in your layout
+<RegistrationForm />`}
+>
+  <ToastProvider>
+    <RegistrationForm />
+  </ToastProvider>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/registration-form.json
+```
+
+## Prerequisites
+
+Wrap your layout in `<ToastProvider>`:
+
+```tsx
+import { ToastProvider } from '@/registry/new-york/ui/toast'
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>
+        <ToastProvider>{children}</ToastProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+## Components used
+
+| Component | Count | Purpose |
+|---|---|---|
+| `Input` | 2 | Job name and client ID fields |
+| `Select` | 1 | Ink combination dropdown |
+| `Checkbox` | 2 | Rush order and proof-first flags |
+| `Button` | 2 | Submit (with loading state) and clear |
+| `Toast` | 1 | Success notification on submit |
+| `Separator` | 1 | Dotted divider between fields and checkboxes |
+
+## Composition notes
+
+The form header uses `PrintBlock` with `ink="primary"` and a halftone dot overlay — white text on solid primary ink, with the ghost `textShadow` on the heading. This establishes the print-job identity before the user reads the fields.
+
+The dotted `Separator` separates the core fields from the optional flags — a quieter divider for an internal section break rather than between page sections.
+
+On submit: the Button shows the three-dot loading animation. A `toast({ variant: "success" })` fires on completion. The button changes to "Queued ✓" with `disabled` state — one-shot submission pattern.

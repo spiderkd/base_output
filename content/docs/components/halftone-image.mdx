@@ -1,0 +1,92 @@
+---
+title: HalftoneImage
+description: SVG filter composite that converts any image to a two-color riso halftone using only primary and secondary ink. Dot size and angle are configurable. ★ Innovative
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { HalftoneImage } from "@/registry/new-york/ui/halftone-image"
+
+<PreviewContainer
+  componentName="halftone-image"
+  code={`import { HalftoneImage } from '@/registry/new-york/ui/halftone-image'
+
+<HalftoneImage
+  src="/photos/print-setup.jpg"
+  alt="Print shop setup"
+  width={400}
+  dotSize={3}
+  angle={15}
+/>`}
+>
+  <HalftoneImage
+    src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=260&fit=crop&auto=format"
+    alt="Books on shelf"
+    width={400}
+    dotSize={3}
+    angle={15}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/halftone-image.json
+```
+
+## Fine halftone (magazine style)
+
+<PreviewContainer
+  componentName="halftone-image"
+  code={`<HalftoneImage
+  src="/photo.jpg"
+  alt="Fine halftone"
+  dotSize={2}
+  angle={22}
+/>`}
+>
+  <HalftoneImage
+    src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=220&fit=crop&auto=format"
+    alt="Fine halftone"
+    dotSize={2}
+    angle={22}
+  />
+</PreviewContainer>
+
+## Coarse newsprint style
+
+<PreviewContainer
+  componentName="halftone-image"
+  code={`<HalftoneImage
+  src="/photo.jpg"
+  alt="Coarse newsprint"
+  dotSize={5}
+  angle={0}
+/>`}
+>
+  <HalftoneImage
+    src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=220&fit=crop&auto=format"
+    alt="Coarse newsprint"
+    dotSize={5}
+    angle={0}
+  />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `src` | `string` | — | Image URL |
+| `alt` | `string` | — | Accessible alt text |
+| `width` | `number \| string` | `"100%"` | Container width |
+| `dotSize` | `number` | `3` | Dot radius in px (1–8) |
+| `angle` | `number` | `15` | Dot grid rotation in degrees |
+
+## How it works
+
+Three layers render over the source image:
+
+1. The image filtered through `feColorMatrix(saturate, 0)` + `feComponentTransfer(discrete)` to posterize
+2. A rotated `<pattern>` of circles in the primary ink color
+3. A second offset `<pattern>` in secondary ink at `angle + 30°`, 45% opacity
+
+Where both layers overlap, `mix-blend-mode: multiply` produces the overlap color — exactly as if two ink passes were physically made. A grain overlay (7% opacity SVG data URI) finalizes the printed-paper texture.

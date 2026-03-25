@@ -1,0 +1,63 @@
+---
+title: InkBlotLoader
+description: Two CSS-morphing SVG blobs with mix-blend-mode multiply. The overlap region produces the third riso ink color automatically. No spinner, no dots — organic ink behavior. ★ Innovative
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { InkBlotLoader } from "@/registry/new-york/ui/ink-blot-loader"
+
+<PreviewContainer
+  componentName="ink-blot-loader"
+  code={`import { InkBlotLoader } from '@/registry/new-york/ui/ink-blot-loader'
+
+<InkBlotLoader size="md" label="Processing…" />`}
+>
+  <InkBlotLoader size="md" label="Processing…" />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/ink-blot-loader.json
+```
+
+## Sizes
+
+<PreviewContainer
+  componentName="ink-blot-loader"
+  code={`<div className="flex items-end gap-8">
+  <InkBlotLoader size="sm" label="Small" />
+  <InkBlotLoader size="md" label="Medium" />
+  <InkBlotLoader size="lg" label="Large" />
+</div>`}
+>
+  <div style={{ display: "flex", alignItems: "flex-end", gap: 32 }}>
+    <InkBlotLoader size="sm" label="Small" />
+    <InkBlotLoader size="md" label="Medium" />
+    <InkBlotLoader size="lg" label="Large" />
+  </div>
+</PreviewContainer>
+
+## Without label
+
+<PreviewContainer
+  componentName="ink-blot-loader"
+  code={`<InkBlotLoader size="lg" />`}
+>
+  <InkBlotLoader size="lg" />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Diameter: 48/80/120px |
+| `label` | `string` | — | Text below loader |
+
+## How it works
+
+Two organic SVG `<path>` elements animate between three keyframe shapes using CSS `d: path(...)` morphing — no JavaScript in the animation loop.
+
+The primary blob animates on a 2.4s cycle. The secondary blob on a 2.8s cycle with a 0.4s delay — so they are never perfectly in phase, creating a continuously shifting overlap region. Where they overlap, `mix-blend-mode: multiply` produces `var(--riso-overlap)` — the third ink color — without any explicit color being set.
+
+`prefers-reduced-motion: reduce` stops both animations, leaving the blobs in their default positions.

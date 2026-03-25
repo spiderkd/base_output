@@ -1,0 +1,77 @@
+---
+title: RisoChart
+description: Pie/donut chart where flat ink segments use mix-blend-mode multiply — boundary overlaps automatically produce the third riso ink color. Unique to Riso UI.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { BasicRisoChartDemo, PieRisoChartDemo, NoLegendRisoChartDemo } from "@/components/demos/riso-chart-demos"
+
+<PreviewContainer
+  componentName="riso-chart"
+  code={`import { RisoChart } from '@/registry/new-york/ui/riso-chart'
+
+<RisoChart
+  data={[
+    { label: "Primary",   value: 38, ink: "primary" },
+    { label: "Secondary", value: 28, ink: "secondary" },
+    { label: "Overlap",   value: 21, ink: "overlap" },
+    { label: "Blue",      value: 13 },
+  ]}
+/>`}
+>
+  <BasicRisoChartDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/riso-chart.json
+```
+
+## Pie (no donut hole)
+
+<PreviewContainer
+  componentName="riso-chart"
+  code={`<RisoChart
+  donut={false}
+  data={[
+    { label: "Pink",  value: 45, ink: "primary" },
+    { label: "Teal",  value: 35, ink: "secondary" },
+    { label: "Other", value: 20 },
+  ]}
+/>`}
+>
+  <PieRisoChartDemo />
+</PreviewContainer>
+
+## Without legend
+
+<PreviewContainer
+  componentName="riso-chart"
+  code={`<RisoChart
+  showLegend={false}
+  size={160}
+  data={[
+    { label: "A", value: 50, ink: "primary" },
+    { label: "B", value: 30, ink: "secondary" },
+    { label: "C", value: 20, ink: "overlap" },
+  ]}
+/>`}
+>
+  <NoLegendRisoChartDemo />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `data` | `ChartSegment[]` | — | Array of `{ label, value, ink? }` |
+| `size` | `number` | `200` | Diameter in px |
+| `donut` | `boolean` | `true` | Show center hole |
+| `showLegend` | `boolean` | `true` | Show legend below chart |
+
+## Design notes
+
+Each segment is an SVG arc path with `style={{ mixBlendMode: "multiply" }}`. Where two segments share a boundary, their colors multiply — primary pink × secondary teal = overlap purple, automatically, from the blend mode. No explicit overlap color is set.
+
+The `feTurbulence` grain filter is applied per segment giving each a slightly different texture. Hover lifts a segment with `drop-shadow(4px 4px 0 var(--riso-overlap))`.

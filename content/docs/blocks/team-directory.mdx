@@ -1,0 +1,101 @@
+---
+title: Team Directory
+description: A people page section combining AvatarGroup, StatCard, sortable Table with halftone rows, department Badges, and per-row Stamps for member status.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { TeamDirectory } from "@/registry/new-york/blocks/team-directory"
+
+<PreviewContainer
+  componentName="team-directory"
+  code={`import { TeamDirectory } from '@/registry/new-york/blocks/team-directory'
+
+<TeamDirectory />`}
+>
+  <TeamDirectory />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/team-directory.json
+```
+
+## Components used
+
+| Component | Count | Purpose |
+|---|---|---|
+| `Avatar` | 6 | Group preview + inline in each table row |
+| `AvatarGroup` | 1 | Stacked avatar preview in header |
+| `StatCard` | 1 | Member count with trend indicator |
+| `Table` | 1 | Sortable member list with custom cell rendering |
+| `Badge` | 5 | Department labels cycling through variants |
+| `Stamp` | 5 | Per-row status marks with individual rotation |
+| `Separator` | 2 | Header divider + department legend divider |
+
+## Custom data
+
+```tsx
+import { TeamDirectory } from '@/registry/new-york/blocks/team-directory'
+
+// The block uses hardcoded MEMBERS array internally.
+// To use your own data, copy the source and replace:
+
+const MEMBERS: TeamMember[] = yourTeamData.map(person => ({
+  id:       person.id,
+  initials: person.name.split(" ").map(n => n[0]).join("").slice(0, 2),
+  name:     person.name,
+  role:     person.role,
+  department: person.department,
+  jobs:     person.printJobCount,
+  status:   person.approved ? "approved" : "pending",
+}))
+```
+
+## Table column breakdown
+
+```tsx
+const columns = [
+  {
+    key: "name",
+    header: "Member",
+    render: (_, row) => (
+      // Inline Avatar (size="sm") + name in uppercase label style
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <Avatar initials={row.initials} size="sm" />
+        <span>{row.name}</span>
+      </div>
+    ),
+  },
+  {
+    key: "department",
+    header: "Dept",
+    render: (_, row) => (
+      // Badge cycling through default / secondary / outline
+      <Badge variant={deptVariant(row.department)}>{row.department}</Badge>
+    ),
+  },
+  {
+    key: "jobs",
+    header: "Jobs",
+    align: "right",
+    sortable: true,      // click to sort by job count
+  },
+  {
+    key: "status",
+    header: "Status",
+    render: (_, row) => (
+      // Small Stamp (size=36) with per-row rotation
+      <Stamp variant={row.status} size={36} rotate={rowRotations[row.id]} />
+    ),
+  },
+]
+```
+
+## Composition notes
+
+Each `Stamp` has a different rotation (`-1, +1, -1.5, +0.5, -2` degrees) to simulate hand-stamping. At `size={36}` the serrated dashed circle still reads legibly and doesn't overwhelm the table row.
+
+The `Table` halftone pattern on odd rows is at `opacity: 0.06` — slightly lower than the standalone Table's `0.07` — because the table already has dense visual content (inline avatars, badges, stamps) per row. Less texture lets the components breathe.
+
+The `AvatarGroup` and `StatCard` sit side-by-side in the header: the group shows who's on the team visually; the stat card gives the count with a `trend={2}` sparkline showing team growth over time. These two components answer the same question ("how many people?") at different levels of detail.

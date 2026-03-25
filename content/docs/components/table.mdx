@@ -1,0 +1,96 @@
+---
+title: Table
+description: Sortable data table. Solid primary fill header. Halftone dot pattern on odd rows. Two-ink sort chevrons. Hard drop shadow on the whole table.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { BasicTableDemo, RichTableDemo, StickyHeaderTableDemo } from "@/components/demos/table-demos"
+
+<PreviewContainer
+  componentName="table"
+  code={`import { Table } from '@/registry/new-york/ui/table'
+
+<Table
+  columns={[
+    { key: "name",   header: "Job Name" },
+    { key: "sheets", header: "Sheets", align: "right", sortable: true },
+    { key: "status", header: "Status" },
+  ]}
+  data={[
+    { name: "Zine Issue 04", sheets: 500,  status: "Complete" },
+    { name: "Poster Run A",  sheets: 200,  status: "Pending"  },
+    { name: "Annual Report", sheets: 1200, status: "Approved" },
+  ]}
+/>`}
+>
+  <BasicTableDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/table.json
+```
+
+## With custom cell rendering
+
+<PreviewContainer
+  componentName="table"
+  code={`import { Table } from '@/registry/new-york/ui/table'
+import { Badge } from '@/registry/new-york/ui/badge'
+
+<Table
+  columns={[
+    { key: "name",   header: "Job Name" },
+    { key: "sheets", header: "Sheets", align: "right", sortable: true },
+    { key: "dept",   header: "Dept" },
+    {
+      key: "status",
+      header: "Status",
+      render: (value) => (
+        <Badge variant={value === "Complete" ? "secondary" : "outline"}>
+          {value}
+        </Badge>
+      ),
+    },
+  ]}
+  data={data}
+  caption="Recent print jobs"
+/>`}
+>
+  <RichTableDemo />
+</PreviewContainer>
+
+## Sticky header
+
+<PreviewContainer
+  componentName="table"
+  code={`<div style={{ maxHeight: 200, overflowY: "auto" }}>
+  <Table columns={columns} data={data} stickyHeader />
+</div>`}
+>
+  <StickyHeaderTableDemo />
+</PreviewContainer>
+
+## Column definition
+
+```tsx
+interface TableColumn<T> {
+  key: keyof T | string
+  header: string
+  width?: number | string
+  align?: "left" | "center" | "right"
+  sortable?: boolean
+  render?: (value: unknown, row: T, index: number) => ReactNode
+}
+```
+
+## Design notes
+
+Header row: solid `var(--riso-primary)` fill, white 9px Space Grotesk uppercase. Column dividers are `1px rgba(255,255,255,0.2)`.
+
+Odd data rows use an absolutely-positioned halftone dot overlay (`radial-gradient` at 4px spacing, 7% opacity) — not a background color tint.
+
+Row hover: `color-mix(in srgb, var(--riso-secondary) 12%, transparent)` — a very light secondary tint, not grey.
+
+Sort: active column shows bright white chevrons; inactive sortable columns show `rgba(255,255,255,0.5)` chevrons. Both up/down arrows always visible — active direction highlighted.

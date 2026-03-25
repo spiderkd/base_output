@@ -1,0 +1,103 @@
+---
+title: RadioGroup
+description: Two concentric circles per option — outer primary border, inner fills primary on select. Secondary shadow ring offset 2px behind. The only circle-shaped selector in Riso UI.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { RadioGroup } from "@/registry/new-york/ui/radio-group"
+
+<PreviewContainer
+  componentName="radio-group"
+  code={`import { RadioGroup } from '@/registry/new-york/ui/radio-group'
+
+<RadioGroup
+  label="Paper Stock"
+  defaultValue="bond"
+  options={[
+    { value: "bond",      label: "Bond 80gsm" },
+    { value: "coated",    label: "Coated 100gsm" },
+    { value: "newsprint", label: "Newsprint 60gsm" },
+  ]}
+/>`}
+>
+  <RadioGroup
+    label="Paper Stock"
+    defaultValue="bond"
+    options={[
+      { value: "bond",      label: "Bond 80gsm" },
+      { value: "coated",    label: "Coated 100gsm" },
+      { value: "newsprint", label: "Newsprint 60gsm" },
+    ]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/radio-group.json
+```
+
+## Horizontal layout
+
+<PreviewContainer
+  componentName="radio-group"
+  code={`<RadioGroup
+  label="Orientation"
+  orientation="horizontal"
+  options={[
+    { value: "portrait",   label: "Portrait" },
+    { value: "landscape",  label: "Landscape" },
+    { value: "square",     label: "Square" },
+  ]}
+/>`}
+>
+  <RadioGroup
+    label="Orientation"
+    orientation="horizontal"
+    options={[
+      { value: "portrait",   label: "Portrait" },
+      { value: "landscape",  label: "Landscape" },
+      { value: "square",     label: "Square" },
+    ]}
+  />
+</PreviewContainer>
+
+## With descriptions
+
+<PreviewContainer
+  componentName="radio-group"
+  code={`<RadioGroup
+  label="Print Pass"
+  options={[
+    { value: "single", label: "Single Pass", description: "One ink color, fast" },
+    { value: "double", label: "Double Pass", description: "Two ink colors + overlap zone" },
+    { value: "triple", label: "Triple Pass", description: "Full CMYK simulation", disabled: true },
+  ]}
+/>`}
+>
+  <RadioGroup
+    label="Print Pass"
+    options={[
+      { value: "single", label: "Single Pass", description: "One ink color, fast" },
+      { value: "double", label: "Double Pass", description: "Two ink colors + overlap zone" },
+      { value: "triple", label: "Triple Pass", description: "Full CMYK simulation", disabled: true },
+    ]}
+  />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `options` | `RadioOption[]` | — | `{ value, label, description?, disabled? }[]` |
+| `value` | `string` | — | Controlled value |
+| `defaultValue` | `string` | — | Uncontrolled default |
+| `onChange` | `(value: string) => void` | — | Change handler |
+| `label` | `string` | — | Group label |
+| `orientation` | `"vertical" \| "horizontal"` | `"vertical"` | Layout direction |
+
+## Design notes
+
+The radio indicator is two concentric SVG circles — the same geometry as the Avatar component. Outer circle: 2px primary border. Inner: paper background idle, floods with primary on select. A secondary shadow circle (1.5px, offset 2.5px) sits behind the outer ring.
+
+RadioGroup uses circles rather than the squares used everywhere else in the system. Circles are reserved for radio buttons and avatars — the only rounded shapes in Riso UI (aside from pills and stamps).

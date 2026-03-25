@@ -1,0 +1,72 @@
+---
+title: MisregTextReveal
+description: Animated headline where the primary layer slides in first and the secondary ghost follows 80ms later — simulating a second ink plate settling into registration. Hover exaggerates the separation. ★ Innovative
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { MisregTextReveal } from "@/registry/new-york/ui/misreg-text-reveal"
+
+<PreviewContainer
+  componentName="misreg-text-reveal"
+  code={`import { MisregTextReveal } from '@/registry/new-york/ui/misreg-text-reveal'
+
+<MisregTextReveal text="Analog Press" size={48} />`}
+>
+  <MisregTextReveal text="Analog Press" size={48} />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/misreg-text-reveal.json
+```
+
+## Different heading levels
+
+<PreviewContainer
+  componentName="misreg-text-reveal"
+  code={`<div className="flex flex-col gap-4">
+  <MisregTextReveal as="h1" text="RISO UI" size={56} />
+  <MisregTextReveal as="h2" text="Two-Ink System" size={36} />
+  <MisregTextReveal as="h3" text="Misregistration" size={24} />
+</div>`}
+>
+  <div className="flex flex-col gap-4">
+    <MisregTextReveal as="h1" text="RISO UI" size={56} />
+    <MisregTextReveal as="h2" text="Two-Ink System" size={36} />
+    <MisregTextReveal as="h3" text="Misregistration" size={24} />
+  </div>
+</PreviewContainer>
+
+## Scroll-triggered (below the fold)
+
+<PreviewContainer
+  componentName="misreg-text-reveal"
+  code={`// Plays when the element enters the viewport
+<MisregTextReveal
+  text="Scroll Triggered"
+  animateOnMount={false}
+  size={36}
+/>`}
+>
+  <MisregTextReveal text="Scroll Triggered" animateOnMount={false} size={36} />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `text` | `string` | — | The text to display |
+| `as` | `"h1" \| "h2" \| "h3" \| "p" \| "span"` | `"h2"` | HTML element |
+| `size` | `number` | `36` | Font size in px |
+| `animateOnMount` | `boolean` | `true` | Play immediately or wait for scroll |
+
+## How the animation works
+
+Two absolutely-positioned `<Tag>` elements share the same text.
+
+The primary layer (`color: var(--riso-primary)`) slides in from `translateX(-24px)` over 400ms. The secondary layer (`color: var(--riso-secondary)`, opacity 0.42) follows 80ms later with an overshoot to `translate(6px, 6px)` before settling to `translate(2px, 2px)` via `cubic-bezier(0.22, 1, 0.36, 1)`.
+
+On hover: the secondary layer separates further to `translate(6px, 4px)` — simulating plate misalignment — then snaps back on mouse leave.
+
+When `animateOnMount: false`, `IntersectionObserver` triggers the animation when 30% of the element is visible.

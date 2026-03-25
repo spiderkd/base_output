@@ -1,0 +1,65 @@
+---
+title: Calendar
+description: Date picker with PrintBlock selected days, bleed event squares, and two-ink navigation chevrons. Weekends in secondary color.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Calendar } from "@/registry/new-york/ui/calendar"
+
+<PreviewContainer
+  componentName="calendar"
+  code={`import { Calendar } from '@/registry/new-york/ui/calendar'
+
+<Calendar defaultValue={new Date()} />`}
+>
+  <Calendar defaultValue={new Date()} />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/calendar.json
+```
+
+## With events
+
+<PreviewContainer
+  componentName="calendar"
+  code={`<Calendar
+  defaultValue={new Date()}
+  events={[
+    { date: "2025-03-15", label: "Print run",   ink: "primary" },
+    { date: "2025-03-18", label: "Maintenance", ink: "secondary" },
+    { date: "2025-03-22", label: "QA review",   ink: "overlap" },
+  ]}
+  onChange={date => console.log(date)}
+/>`}
+>
+  <Calendar
+    defaultValue={new Date()}
+    events={[
+      { date: "2025-03-15", label: "Print run",   ink: "primary" },
+      { date: "2025-03-18", label: "Maintenance", ink: "secondary" },
+      { date: "2025-03-22", label: "QA review",   ink: "overlap" },
+    ]}
+  />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `Date` | — | Controlled selected date |
+| `defaultValue` | `Date` | — | Uncontrolled default |
+| `onChange` | `(date: Date) => void` | — | Change handler |
+| `events` | `CalendarEvent[]` | — | `{ date: "YYYY-MM-DD", label, ink? }[]` |
+
+## Design notes
+
+Selected date: solid `var(--riso-primary)` fill — flat ink square covering the cell. No border-radius.
+
+Today (if not selected): 2px primary outline with `drop-shadow(2px 2px 0 var(--riso-secondary))`.
+
+Event indicators are 5×5 squares (not dots) below the date number, with a negative `2px` bottom margin making them bleed past the cell boundary.
+
+Month header lives in a PrintBlock (solid primary fill). Day-of-week headers are secondary uppercase labels. Weekends are secondary color numbers.

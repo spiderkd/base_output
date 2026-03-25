@@ -1,0 +1,114 @@
+---
+title: LineChart
+description: Two-layer SVG polyline — primary 2.5px + secondary 1.5px offset 1.5px behind. Halftone dot area fill. Square data points. Hover shows vertical guide and value.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { LineChart } from "@/registry/new-york/ui/line-chart"
+
+<PreviewContainer
+  componentName="line-chart"
+  code={`import { LineChart } from '@/registry/new-york/ui/line-chart'
+
+<LineChart
+  data={[
+    { label: "Mon", value: 42 },
+    { label: "Tue", value: 68 },
+    { label: "Wed", value: 55 },
+    { label: "Thu", value: 81 },
+    { label: "Fri", value: 74 },
+    { label: "Sat", value: 87 },
+  ]}
+/>`}
+>
+  <LineChart
+    data={[
+      { label: "Mon", value: 42 },
+      { label: "Tue", value: 68 },
+      { label: "Wed", value: 55 },
+      { label: "Thu", value: 81 },
+      { label: "Fri", value: 74 },
+      { label: "Sat", value: 87 },
+    ]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/line-chart.json
+```
+
+## Without area fill
+
+<PreviewContainer
+  componentName="line-chart"
+  code={`<LineChart
+  showArea={false}
+  data={[
+    { label: "Q1", value: 68 },
+    { label: "Q2", value: 82 },
+    { label: "Q3", value: 55 },
+    { label: "Q4", value: 91 },
+  ]}
+/>`}
+>
+  <LineChart
+    showArea={false}
+    data={[
+      { label: "Q1", value: 68 },
+      { label: "Q2", value: 82 },
+      { label: "Q3", value: 55 },
+      { label: "Q4", value: 91 },
+    ]}
+  />
+</PreviewContainer>
+
+## Without dots
+
+<PreviewContainer
+  componentName="line-chart"
+  code={`<LineChart
+  showDots={false}
+  height={120}
+  data={[
+    { label: "Jan", value: 42 },
+    { label: "Feb", value: 68 },
+    { label: "Mar", value: 55 },
+    { label: "Apr", value: 81 },
+    { label: "May", value: 74 },
+    { label: "Jun", value: 87 },
+  ]}
+/>`}
+>
+  <LineChart
+    showDots={false}
+    height={120}
+    data={[
+      { label: "Jan", value: 42 },
+      { label: "Feb", value: 68 },
+      { label: "Mar", value: 55 },
+      { label: "Apr", value: 81 },
+      { label: "May", value: 74 },
+      { label: "Jun", value: 87 },
+    ]}
+  />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `data` | `{ label: string, value: number }[]` | — | Chart data |
+| `height` | `number` | `180` | SVG height in px |
+| `showArea` | `boolean` | `true` | Halftone area fill |
+| `showGrid` | `boolean` | `true` | Dotted horizontal grid |
+| `showDots` | `boolean` | `true` | Square data point markers |
+
+## Design notes
+
+The area fill is a `<polygon>` filled with a `<pattern>` of 1px circles at 4px spacing — a halftone wash rather than a transparent alpha fill.
+
+Data points are 6×6 `<rect>` squares, not circles. All riso chart data points are squares consistently.
+
+On hover, a dashed vertical guide appears at the hovered x-position and the value floats above the data point in primary color.

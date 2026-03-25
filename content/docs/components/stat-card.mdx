@@ -1,0 +1,56 @@
+---
+title: StatCard
+description: Large display numbers with ghost-text misregistration. Includes optional sparkline and trend indicator.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { StatCard } from "@/registry/new-york/ui/stat-card"
+
+<PreviewContainer
+  componentName="stat-card"
+  code={`import { StatCard } from '@/registry/new-york/ui/stat-card'
+
+<StatCard value="9,247" label="Sheets Printed" trend={12} trendLabel="vs last week" />`}
+>
+  <StatCard value="9,247" label="Sheets Printed" trend={12} trendLabel="vs last week" />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/stat-card.json
+```
+
+## Filled variant
+
+<PreviewContainer
+  componentName="stat-card"
+  code={`<StatCard value="2.1px" label="Avg Misreg" trend={-0.3} filled />`}
+>
+  <StatCard value="2.1px" label="Avg Misreg" trend={-0.3} filled />
+</PreviewContainer>
+
+## With sparkline
+
+<PreviewContainer
+  componentName="stat-card"
+  code={`<StatCard
+  value="847"
+  label="Print Jobs"
+  sparkline={[32, 58, 41, 67, 55, 72, 64, 80, 75, 91]}
+  trend={8}
+/>`}
+>
+  <StatCard
+    value="847"
+    label="Print Jobs"
+    sparkline={[32, 58, 41, 67, 55, 72, 64, 80, 75, 91]}
+    trend={8}
+  />
+</PreviewContainer>
+
+## The ghost text effect
+
+The display number is rendered twice: the primary value at full opacity in `var(--riso-primary)`, and a ghost copy at 35% opacity in `var(--riso-secondary)` positioned `2px right, 2px down` using `position: absolute`. This creates the misregistration effect on the number itself.
+
+The sparkline follows the same two-layer rule: a secondary ink polyline at 1.5px sits offset behind the primary 2px polyline. Both use `strokeLinecap="square"` — no rounded ends.

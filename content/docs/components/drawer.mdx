@@ -1,0 +1,80 @@
+---
+title: Drawer
+description: Slides in from any edge. Secondary shadow layer trails behind the primary panel and snaps to 4px offset when settled — the same plate-registration mechanic as Dialog.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { RightDrawerDemo, LeftDrawerDemo } from "@/components/demos/drawer-demos"
+
+<PreviewContainer
+  componentName="drawer"
+  code={`import { Drawer } from '@/registry/new-york/ui/drawer'
+import { Button } from '@/registry/new-york/ui/button'
+
+const [open, setOpen] = React.useState(false)
+
+<Button onClick={() => setOpen(true)}>Open Drawer</Button>
+
+<Drawer
+  open={open}
+  onClose={() => setOpen(false)}
+  side="right"
+  title="Job Settings"
+  description="Configure print parameters"
+>
+  <Input label="Paper Stock" defaultValue="Bond 80gsm" />
+  <Input label="Sheet Count" type="number" />
+  <div className="flex gap-2 mt-4">
+    <Button size="sm" onClick={() => setOpen(false)}>Save</Button>
+    <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+  </div>
+</Drawer>`}
+>
+  <RightDrawerDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/drawer.json
+```
+
+## Left drawer
+
+<PreviewContainer
+  componentName="drawer"
+  code={`<Drawer
+  open={open}
+  onClose={() => setOpen(false)}
+  side="left"
+  title="Navigation"
+  description="Main menu"
+>
+  {menuItems.map(item => (
+    <div key={item} style={{ padding: "12px 0", borderBottom: "1px solid ..." }}>
+      {item}
+    </div>
+  ))}
+</Drawer>`}
+>
+  <LeftDrawerDemo />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `open` | `boolean` | — | Controls visibility |
+| `onClose` | `() => void` | — | Called on backdrop click or close button |
+| `side` | `"right" \| "left" \| "top" \| "bottom"` | `"right"` | Entry edge |
+| `title` | `string` | — | Header title with ghost misreg |
+| `description` | `string` | — | Subtitle in secondary color |
+| `width` | `number \| string` | `360` | Panel width (height for top/bottom) |
+
+## Design notes
+
+The secondary shadow layer enters with a 60ms delay after the primary panel, creating the "trailing misregistration" effect. At rest it settles to `translate(4px, 4px)` (or the directional equivalent for each side) via `cubic-bezier(0.22, 1, 0.36, 1)`.
+
+The halftone backdrop (`radial-gradient` of overlap-color dots at 5px spacing, 20% opacity) replaces `backdrop-filter: blur()`. There is no blur anywhere in Riso UI.
+
+The header uses the PrintBlock treatment: solid primary fill, ghost text `textShadow: "1.5px 1.5px 0 var(--riso-secondary)"`.

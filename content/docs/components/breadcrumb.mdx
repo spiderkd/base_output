@@ -1,0 +1,85 @@
+---
+title: Breadcrumb
+description: Navigation trail with a diagonal double-slash separator — one primary line and one secondary offset line. Collapses long paths to ellipsis.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Breadcrumb } from "@/registry/new-york/ui/breadcrumb"
+import { CollapsedBreadcrumbDemo, ClickHandlerBreadcrumbDemo } from "@/components/demos/breadcrumb-demos"
+
+<PreviewContainer
+  componentName="breadcrumb"
+  code={`import { Breadcrumb } from '@/registry/new-york/ui/breadcrumb'
+
+<Breadcrumb
+  items={[
+    { label: "Docs",       href: "/docs" },
+    { label: "Components", href: "/docs/components" },
+    { label: "Breadcrumb" },
+  ]}
+/>`}
+>
+  <Breadcrumb
+    items={[
+      { label: "Docs",       href: "#" },
+      { label: "Components", href: "#" },
+      { label: "Breadcrumb" },
+    ]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/breadcrumb.json
+```
+
+## With long paths (auto-collapse)
+
+<PreviewContainer
+  componentName="breadcrumb"
+  code={`<Breadcrumb
+  maxItems={3}
+  items={[
+    { label: "Home",       href: "/" },
+    { label: "Print Jobs", href: "/jobs" },
+    { label: "2025",       href: "/jobs/2025" },
+    { label: "March",      href: "/jobs/2025/march" },
+    { label: "JOB-0992" },
+  ]}
+/>`}
+>
+  <CollapsedBreadcrumbDemo />
+</PreviewContainer>
+
+## With click handlers
+
+<PreviewContainer
+  componentName="breadcrumb"
+  code={`const [path, setPath] = React.useState("Ink Config")
+
+<Breadcrumb
+  items={[
+    { label: "Dashboard", onClick: () => setPath("Dashboard") },
+    { label: "Settings",  onClick: () => setPath("Settings") },
+    { label: path },
+  ]}
+/>`}
+>
+  <ClickHandlerBreadcrumbDemo />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `BreadcrumbItem[]` | — | `{ label, href?, onClick? }[]` |
+| `maxItems` | `number` | `4` | Max visible before collapsing to `···` |
+
+## Design notes
+
+The separator is two SVG `<line>` elements: a 2.5px primary diagonal slash (`10,2 → 4,18`) and a 1px secondary slash offset 2px right (`12,4 → 6,20`).
+
+When collapsed, the ellipsis button renders three 4×4 squares in alternating primary, secondary, and overlap colors. Clicking expands the full path.
+
+Active (last) item has a 2px primary underline. Parent items are secondary color with no underline.

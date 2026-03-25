@@ -1,0 +1,45 @@
+---
+title: Progress
+description: A progress bar with a hard offset shadow, halftone dot fill option, and ink-bleed leading edge.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Progress } from "@/registry/new-york/ui/progress"
+
+<PreviewContainer
+  componentName="progress"
+  code={`import { Progress } from '@/registry/new-york/ui/progress'
+
+<Progress value={72} label="Print Progress" />`}
+>
+  <div style={{ width: 360 }}>
+    <Progress value={72} label="Print Progress" />
+  </div>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/progress.json
+```
+
+## Halftone variant
+
+<PreviewContainer
+  componentName="progress"
+  code={`<Progress value={38} label="Ink Remaining" variant="halftone" />`}
+>
+  <div style={{ width: 360 }}>
+    <Progress value={38} label="Ink Remaining" variant="halftone" />
+  </div>
+</PreviewContainer>
+
+## Design notes
+
+Three key details make this feel like a riso component:
+
+**The hard shadow.** A secondary-color rectangle sits `translate(3px, 3px)` behind the track with zero blur. The track appears to float above the paper on a thin ink pad.
+
+**The halftone unfilled area.** When `variant="halftone"`, the empty portion of the track shows a radial-gradient dot pattern at 18% opacity — like the paper is visible through a coarse screen.
+
+**The ink bleed at the leading edge.** Where the filled area meets unfilled, a 16px gradient bleeds from primary into the overlap color. This simulates ink spreading beyond the sharp edge of a riso plate — the fill literally "bleeds" at its boundary.

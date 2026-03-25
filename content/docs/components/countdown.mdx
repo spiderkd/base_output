@@ -1,0 +1,65 @@
+---
+title: Countdown
+description: Timer with digits in two SVG layers. Digit transitions use a plate-swap animation — old digit exits downward, new digit enters from above. Secondary ghost lags 60ms behind. ★ Innovative
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Countdown } from "@/registry/new-york/ui/countdown"
+
+<PreviewContainer
+  componentName="countdown"
+  code={`import { Countdown } from '@/registry/new-york/ui/countdown'
+
+// Count down from 1 hour
+<Countdown seconds={3600} />`}
+>
+  <Countdown seconds={3723} />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/countdown.json
+```
+
+## Countdown to a target date
+
+<PreviewContainer
+  componentName="countdown"
+  code={`<Countdown
+  targetDate={new Date("2026-01-01T00:00:00")}
+  onComplete={() => console.log("Done!")}
+/>`}
+>
+  <Countdown targetDate={new Date("2026-01-01T00:00:00")} />
+</PreviewContainer>
+
+## Without labels
+
+<PreviewContainer
+  componentName="countdown"
+  code={`<Countdown seconds={90} showLabels={false} />`}
+>
+  <Countdown seconds={5490} showLabels={false} />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `targetDate` | `Date` | — | Target date to count down to |
+| `seconds` | `number` | — | Alternative: count down from N seconds |
+| `onComplete` | `() => void` | — | Called when timer reaches zero |
+| `showLabels` | `boolean` | `true` | Show HRS / MIN / SEC labels |
+
+## How the plate-swap animation works
+
+Each digit pair is a 72×88px container with two absolutely-positioned elements:
+
+**Secondary ghost** — `color: var(--riso-secondary)`, `opacity: 0.45`, offset `3px right/down`. Transitions with a 60ms delay behind the primary.
+
+**Primary digit** — `color: var(--riso-primary)`, `font-size: 52px Epilogue 900`. When the digit changes: enters via `translateY(-100% → 0%)` over 220ms.
+
+The secondary layer lags with a separate 280ms spring transition — it overshoots slightly then settles. The result looks like two ink plates swapping independently.
+
+The colon separators are two 6×6 squares in primary ink each with a secondary shadow square offset 2.5px — the double-square version of the double-rule.

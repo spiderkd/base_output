@@ -1,0 +1,56 @@
+---
+title: Stamp
+description: A serrated dashed-border circle simulating a rubber stamp impression. Unique to Riso UI.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Stamp } from "@/registry/new-york/ui/stamp"
+
+<PreviewContainer
+  componentName="stamp"
+  code={`import { Stamp } from '@/registry/new-york/ui/stamp'
+
+<Stamp variant="approved" sublabel="Print Pass 01" />`}
+>
+  <Stamp variant="approved" sublabel="Print Pass 01" />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/stamp.json
+```
+
+## All variants
+
+<PreviewContainer
+  componentName="stamp"
+  code={`<Stamp variant="approved" />
+<Stamp variant="rejected" />
+<Stamp variant="draft" size={120} sublabel="Rev 03 · 2025" />
+<Stamp variant="pending" size={90} />`}
+>
+  <div style={{ display: "flex", gap: 24, flexWrap: "wrap", alignItems: "center" }}>
+    <Stamp variant="approved" />
+    <Stamp variant="rejected" />
+    <Stamp variant="draft" size={120} sublabel="Rev 03 · 2025" />
+    <Stamp variant="pending" size={90} />
+  </div>
+</PreviewContainer>
+
+## Custom label
+
+<PreviewContainer
+  componentName="stamp"
+  code={`<Stamp label="PLATE 01" sublabel="Fluorescent Pink" size={110} />`}
+>
+  <Stamp label="PLATE 01" sublabel="Fluorescent Pink" size={110} />
+</PreviewContainer>
+
+## Design notes
+
+The stamp is built entirely in SVG — two concentric `<circle>` elements with `stroke-dasharray` to create the serrated border. The outer circle uses the main ink color; the inner circle uses a complementary ink at lower opacity. Their `strokeDasharray` values are offset so the dashes don't align — the inner and outer teeth interlock like a real stamp die.
+
+The `filter: url(#riso-bleed-soft)` makes the stroke slightly ink-bleed at its edges — a soft version of the same bleed filter used on avatar circles.
+
+The `rotate` prop (default varies by variant) applies a small CSS rotation to the container, making the stamp look hand-placed. Rotation is applied *outside* the SVG so the drop shadow also rotates with it.

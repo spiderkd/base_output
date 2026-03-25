@@ -1,0 +1,95 @@
+---
+title: Tooltip
+description: Hard-offset speech bubble with no blur. Appears instantly on hover. Secondary shadow arrow offset 2px behind primary arrow. Four placements.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Tooltip } from "@/registry/new-york/ui/tooltip"
+import { Button } from "@/registry/new-york/ui/button"
+
+<PreviewContainer
+  componentName="tooltip"
+  code={`import { Tooltip } from '@/registry/new-york/ui/tooltip'
+import { Button } from '@/registry/new-york/ui/button'
+
+<Tooltip content="Primary ink" placement="top">
+  <Button>Hover me</Button>
+</Tooltip>`}
+>
+  <Tooltip content="Primary ink" placement="top">
+    <Button>Hover me</Button>
+  </Tooltip>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/tooltip.json
+```
+
+## Placements
+
+<PreviewContainer
+  componentName="tooltip"
+  code={`<div className="flex flex-wrap gap-6 items-center">
+  <Tooltip content="Top" placement="top">
+    <Button size="sm">Top</Button>
+  </Tooltip>
+  <Tooltip content="Bottom" placement="bottom">
+    <Button size="sm">Bottom</Button>
+  </Tooltip>
+  <Tooltip content="Left" placement="left">
+    <Button size="sm">Left</Button>
+  </Tooltip>
+  <Tooltip content="Right" placement="right">
+    <Button size="sm">Right</Button>
+  </Tooltip>
+</div>`}
+>
+  <div className="flex flex-wrap gap-6 items-center" style={{ padding: "24px 0" }}>
+    <Tooltip content="Top placement" placement="top">
+      <Button size="sm">Top</Button>
+    </Tooltip>
+    <Tooltip content="Bottom placement" placement="bottom">
+      <Button size="sm">Bottom</Button>
+    </Tooltip>
+    <Tooltip content="Left placement" placement="left">
+      <Button size="sm">Left</Button>
+    </Tooltip>
+    <Tooltip content="Right placement" placement="right">
+      <Button size="sm">Right</Button>
+    </Tooltip>
+  </div>
+</PreviewContainer>
+
+## Rich content
+
+<PreviewContainer
+  componentName="tooltip"
+  code={`<Tooltip
+  content="Grain intensity controls the feTurbulence baseFrequency"
+  placement="top"
+>
+  <Button variant="ghost" size="sm">What is grain?</Button>
+</Tooltip>`}
+>
+  <Tooltip content="Grain intensity controls the feTurbulence baseFrequency" placement="top">
+    <Button variant="ghost" size="sm">What is grain?</Button>
+  </Tooltip>
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `content` | `ReactNode` | — | Tooltip text or content |
+| `placement` | `"top" \| "bottom" \| "left" \| "right"` | `"top"` | Position relative to trigger |
+| `children` | `ReactElement` | — | The element that triggers the tooltip |
+
+## Design notes
+
+The tooltip body is a solid primary ink rectangle — no border-radius, no blur, no fade-in. It appears in 80ms and disappears in 80ms because riso ink doesn't fade.
+
+The arrow pointer is two overlapping SVG `<polygon>` elements: a secondary shadow triangle offset `2px right, 2px down` behind the primary triangle. This gives the pointer the same misregistration depth as every other component.
+
+The `2px` secondary shadow behind the main tooltip box is lighter than the button's `4px` shadow — tooltips sit closer to the surface than interactive elements.

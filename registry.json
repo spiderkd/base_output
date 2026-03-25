@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "riso",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "riso-utils",
+      "type": "registry:lib",
+      "title": "Riso Utils",
+      "description": "Shared resolveRisoVars() helper. Converts a theme name and/or raw color props into an inline CSS variables object. Required by all riso UI components.",
+      "files": [
+        {
+          "path": "registry/riso/lib/riso-utils.ts",
+          "type": "registry:lib",
+          "target": "lib/riso-utils.ts"
+        }
+      ]
+    },
+
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Risograph-style accordion with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/accordion.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/accordion.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+---
+title: Avatar
+description: Two concentric circles — primary border foreground with secondary offset shadow behind. Misregistration built into the geometry.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Avatar, AvatarGroup } from "@/registry/new-york/ui/avatar"
+
+<PreviewContainer
+  componentName="avatar"
+  code={`import { Avatar } from '@/registry/new-york/ui/avatar'
+
+<Avatar initials="JD" size="md" />`}
+>
+  <Avatar initials="JD" size="md" />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/avatar.json
+```
+
+## Sizes
+
+<PreviewContainer
+  componentName="avatar"
+  code={`<Avatar initials="SM" size="sm" />
+<Avatar initials="MD" size="md" />
+<Avatar initials="LG" size="lg" />
+<Avatar initials="XL" size="xl" />`}
+>
+  <div className="flex items-center gap-4">
+    <Avatar initials="SM" size="sm" />
+    <Avatar initials="MD" size="md" />
+    <Avatar initials="LG" size="lg" />
+    <Avatar initials="XL" size="xl" />
+  </div>
+</PreviewContainer>
+
+## Variants
+
+<PreviewContainer
+  componentName="avatar"
+  code={`<Avatar initials="AB" variant="default" />
+<Avatar initials="CD" variant="filled" />
+<Avatar initials="EF" variant="stamp" />`}
+>
+  <div className="flex items-center gap-4">
+    <Avatar initials="AB" variant="default" />
+    <Avatar initials="CD" variant="filled" />
+    <Avatar initials="EF" variant="stamp" />
+  </div>
+</PreviewContainer>
+
+## AvatarGroup
+
+<PreviewContainer
+  componentName="avatar"
+  code={`<AvatarGroup>
+  <Avatar initials="JD" />
+  <Avatar initials="AB" />
+  <Avatar initials="MK" />
+  <Avatar initials="+4" variant="filled" />
+</AvatarGroup>`}
+>
+  <AvatarGroup>
+    <Avatar initials="JD" />
+    <Avatar initials="AB" />
+    <Avatar initials="MK" />
+    <Avatar initials="+4" variant="filled" />
+  </AvatarGroup>
+</PreviewContainer>

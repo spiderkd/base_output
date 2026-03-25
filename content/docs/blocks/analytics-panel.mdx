@@ -1,0 +1,72 @@
+---
+title: Analytics Panel
+description: A live data panel using Tabs to switch between Overview (RisoChart + StatCards), Activity (Timeline), and Status (Badge table) views.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { AnalyticsPanel } from "@/registry/new-york/blocks/analytics-panel"
+
+<PreviewContainer
+  componentName="analytics-panel"
+  code={`import { AnalyticsPanel } from '@/registry/new-york/blocks/analytics-panel'
+
+<AnalyticsPanel />`}
+>
+  <AnalyticsPanel />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/analytics-panel.json
+```
+
+## Components used
+
+| Component | Count | Purpose |
+|---|---|---|
+| `Tabs` | 1 | Three-view switcher: Overview / Activity / Status |
+| `RisoChart` | 1 | Donut chart in the Overview tab |
+| `StatCard` | 2 | Total jobs and accuracy in the Overview tab |
+| `Timeline` | 1 | Recent events in the Activity tab |
+| `Badge` | 4+ | System status indicators in the Status tab |
+| `Separator` | 1 | Header divider |
+
+## Tab content breakdown
+
+**Overview tab** — Two `StatCard` components above a `RisoChart` (donut, 180px). The stat cards use the sparkline variant. The donut uses `mix-blend-mode: multiply` on all four segments so boundary arcs produce the overlap color naturally.
+
+**Activity tab** — A `Timeline` with four events: two complete, one current, one upcoming. Complete events use the solid primary stamp node; current gets the outlined node with secondary shadow; future events use dashed outlines.
+
+**Status tab** — A list of system components (`Print Engine`, `Drum System`, `Paper Feed`, `Ink Supply`) each paired with a `Badge` status indicator. Items use the same outline style as Table rows — `1px solid color-mix(in srgb, var(--riso-primary) 25%, transparent)`.
+
+## Customising the data
+
+```tsx
+// The tab content is defined inline — replace with your live data:
+
+const overviewContent = (
+  <div className="flex flex-col gap-5">
+    <div className="grid grid-cols-2 gap-4">
+      <StatCard value={stats.jobCount.toString()} label="Total Jobs" trend={stats.jobTrend} sparkline={stats.jobHistory} />
+      <StatCard value={`${stats.accuracy}%`}     label="Accuracy"   trend={stats.accTrend}  filled />
+    </div>
+    <RisoChart data={stats.distribution} size={180} />
+  </div>
+)
+
+<Tabs
+  tabs={[
+    { value: "overview",  label: "Overview",  content: overviewContent },
+    { value: "activity",  label: "Activity",  content: activityContent },
+    { value: "status",    label: "Status",    content: statusContent   },
+  ]}
+  defaultValue="overview"
+/>
+```
+
+## Composition notes
+
+The `Badge variant="overprint"` in the panel header uses multiply blend to simulate a physical status sticker layered over the document — the most direct expression of the overprint aesthetic at component scale.
+
+The `Tabs` component's misreg underline runs the full width of the tab list, visible at the ends where no tab covers it. This detail — the second ink plate never perfectly aligned — is what makes it feel like a riso print rather than a standard tab bar.

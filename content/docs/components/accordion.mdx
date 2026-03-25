@@ -1,0 +1,49 @@
+---
+title: Accordion
+description: Collapsible sections with a two-ink chevron and double-rule separator between items.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Accordion } from "@/registry/new-york/ui/accordion"
+
+<PreviewContainer
+  componentName="accordion"
+  code={`import { Accordion } from '@/registry/new-york/ui/accordion'
+
+<Accordion
+  defaultOpen="item-1"
+  items={[
+    { value: "item-1", label: "1. Plate Preparation", content: <p>The thermal master is created…</p> },
+    { value: "item-2", label: "2. Registration",      content: <p>Use registration pins…</p> },
+  ]}
+/>`}
+>
+  <Accordion
+    defaultOpen="item-1"
+    items={[
+      { value: "item-1", label: "1. Plate Preparation", content: <p>The thermal master is created via high-heat burning onto a resin-coated screen.</p> },
+      { value: "item-2", label: "2. Registration Alignment", content: <p>Use the registration pins to align the paper feed guide. A 1–2px misalignment is acceptable.</p> },
+      { value: "item-3", label: "3. Ink Load & Test Print", content: <p>Load the primary ink cylinder first. Run three test sheets at low speed to prime the drum.</p> },
+    ]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/accordion.json
+```
+
+## Multiple open
+
+```tsx
+<Accordion multiple items={[...]} />
+```
+
+## Design notes
+
+The chevron is drawn as two sets of SVG `<line>` elements — primary ink arms and secondary ink arms offset 1.5px down-right. This is the misregistration applied to iconography: even a simple shape gets the two-ink treatment.
+
+The separator between items is the double-rule: a 2px primary line and a 1px secondary line 4px below it. This is the same separator component used throughout Riso UI.
+
+Open item header: floods with `var(--riso-primary)`, text turns white. Content area gets a left border in secondary color and a faint halftone dot background — the content feels like it's printed on a separate, slightly textured sheet inside the accordion.

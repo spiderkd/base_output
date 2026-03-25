@@ -1,0 +1,78 @@
+---
+title: Card
+description: A risograph card container with optional stacked paper and interactive press effects.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { Button } from "@/registry/new-york/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/registry/new-york/ui/card";
+
+<PreviewContainer
+  componentName="card"
+  code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/registry/new-york/ui/card'
+
+<Card padding={24}>
+  <CardHeader>
+    <CardTitle>Analog Press</CardTitle>
+    <CardDescription>Two-ink system</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p className="text-sm">Content goes here</p>
+  </CardContent>
+  <CardFooter>
+    <Button size="sm">Continue</Button>
+  </CardFooter>
+</Card>`}
+>
+  <Card padding={24} style={{ width: 260 }}>
+    <CardHeader>
+      <CardTitle>Analog Press</CardTitle>
+      <CardDescription>Two-ink system</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm">Every surface celebrates intentional imperfection.</p>
+    </CardContent>
+    <CardFooter>
+      <Button size="sm">Continue</Button>
+    </CardFooter>
+  </Card>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/card.json
+```
+
+## Filled variant
+
+<PreviewContainer
+  componentName="card"
+  code={`<Card filled padding={24}>
+  <CardTitle style={{ color: 'white' }}>Filled Card</CardTitle>
+</Card>`}
+>
+  <Card filled padding={24} style={{ width: 220 }}>
+    <CardTitle style={{ color: "white" }}>Filled Card</CardTitle>
+  </Card>
+</PreviewContainer>
+
+## Interactive
+
+<PreviewContainer
+  componentName="card"
+  code={`<Card interactive padding={20}>
+  <p className="text-sm">Hover to compress the shadow</p>
+</Card>`}
+>
+  <Card interactive padding={20} style={{ width: 220 }}>
+    <p className="text-sm">Hover to compress the shadow</p>
+  </Card>
+</PreviewContainer>

@@ -1,0 +1,63 @@
+---
+title: Print Block
+description: A solid flat ink fill with grain texture and no border. The purest expression of a single riso ink pass. Unique to Riso UI.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { PrintBlock } from "@/registry/new-york/ui/print-block"
+
+<PreviewContainer
+  componentName="print-block"
+  code={`import { PrintBlock } from '@/registry/new-york/ui/print-block'
+
+<PrintBlock ink="primary">
+  <p style={{ fontFamily: 'Epilogue', fontWeight: 900, fontSize: 24, color: 'white' }}>
+    RISO PRINT
+  </p>
+</PrintBlock>`}
+>
+  <PrintBlock ink="primary" style={{ width: 200 }}>
+    <p style={{ fontFamily: "var(--font-riso-headline, Epilogue)", fontWeight: 900, fontSize: 22, color: "white", textTransform: "uppercase", lineHeight: 1, letterSpacing: ".04em" }}>RISO<br/>PRINT</p>
+    <p style={{ fontFamily: "var(--font-riso-label, 'Space Grotesk')", fontWeight: 700, fontSize: 9, color: "rgba(255,255,255,.7)", textTransform: "uppercase", letterSpacing: ".18em", marginTop: 8 }}>Block print · primary ink</p>
+  </PrintBlock>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/print-block.json
+```
+
+## All ink variants
+
+<PreviewContainer
+  componentName="print-block"
+  code={`<PrintBlock ink="primary">Primary</PrintBlock>
+<PrintBlock ink="secondary">Secondary</PrintBlock>
+<PrintBlock ink="overlap">Overlap</PrintBlock>`}
+>
+  <div style={{ display: "flex", gap: 16 }}>
+    <PrintBlock ink="primary" style={{ width: 160 }}><p style={{ color: "white", fontWeight: 900 }}>Primary</p></PrintBlock>
+    <PrintBlock ink="secondary" style={{ width: 160 }}><p style={{ color: "white", fontWeight: 900 }}>Secondary</p></PrintBlock>
+    <PrintBlock ink="overlap" style={{ width: 160 }}><p style={{ color: "white", fontWeight: 900 }}>Overlap</p></PrintBlock>
+  </div>
+</PreviewContainer>
+
+## Rotated (hand-placed)
+
+<PreviewContainer
+  componentName="print-block"
+  code={`<PrintBlock ink="overlap" rotate={-1.5}>Overprint</PrintBlock>`}
+>
+  <PrintBlock ink="overlap" rotate={-1.5} style={{ width: 200 }}>
+    <p style={{ color: "white", fontWeight: 900, fontSize: 20, textTransform: "uppercase" }}>Overprint</p>
+  </PrintBlock>
+</PreviewContainer>
+
+## Design notes
+
+Print Block is the simplest riso component — a single flat ink color with grain texture applied via `feTurbulence`. It has **no border, no outline, no hard shadow**. The grain filter is the only texture.
+
+This simulates what a single ink pass looks like on paper: flat, opaque, slightly irregular at the edges from the drum. Content inside should be white or very light.
+
+The `rotate` prop accepts a small degree value (typically -2 to +2°) to simulate the block being hand-placed on the paper before print — a common riso design convention.

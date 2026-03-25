@@ -1,0 +1,75 @@
+---
+title: Timeline
+description: Vertical double-rule spine with stamp-style nodes. Complete = filled primary circle with checkmark. Current = outlined with shadow. Upcoming = dashed outline.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Timeline } from "@/registry/new-york/ui/timeline"
+
+<PreviewContainer
+  componentName="timeline"
+  code={`import { Timeline } from '@/registry/new-york/ui/timeline'
+
+<Timeline
+  items={[
+    { id: "1", label: "Plate Created",  date: "09:00", status: "complete", content: "Thermal master burned" },
+    { id: "2", label: "Print Started",  date: "10:15", status: "current",  content: "Pass 1 of 2 running" },
+    { id: "3", label: "QA Inspection",  date: "14:00", status: "upcoming" },
+    { id: "4", label: "Delivery",       date: "16:30", status: "upcoming" },
+  ]}
+/>`}
+>
+  <Timeline
+    items={[
+      { id: "1", label: "Plate Created",  date: "09:00", status: "complete", content: "Thermal master burned and seated" },
+      { id: "2", label: "Print Started",  date: "10:15", status: "current",  content: "Pass 1 of 2 — primary ink running" },
+      { id: "3", label: "QA Inspection",  date: "14:00", status: "upcoming" },
+      { id: "4", label: "Delivery",       date: "16:30", status: "upcoming" },
+    ]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/timeline.json
+```
+
+## Auto status (inferred from position)
+
+<PreviewContainer
+  componentName="timeline"
+  code={`// If status is omitted, it's inferred:
+// first item = current, middle items = complete, last = upcoming
+<Timeline
+  items={[
+    { id: "a", label: "Design",   content: "Artwork finalised" },
+    { id: "b", label: "Plates",   content: "Masters burned" },
+    { id: "c", label: "Print Run" },
+    { id: "d", label: "Delivery" },
+  ]}
+/>`}
+>
+  <Timeline
+    items={[
+      { id: "a", label: "Design",   content: "Artwork finalised" },
+      { id: "b", label: "Plates",   content: "Masters burned" },
+      { id: "c", label: "Print Run" },
+      { id: "d", label: "Delivery" },
+    ]}
+  />
+</PreviewContainer>
+
+## Item status reference
+
+| Status | Node | Content card |
+|---|---|---|
+| `complete` | Solid primary + white checkmark | Light tint outline |
+| `current` | Primary outline + inner dot | Full `drop-shadow(3px 3px 0 var(--riso-secondary))` |
+| `upcoming` | Dashed primary outline | Reduced opacity outline |
+
+## Design notes
+
+The spine is two vertical lines: 2px primary + 1px secondary offset 4px right at 70% opacity — the double-rule applied vertically.
+
+Date labels sit left of the spine in secondary uppercase. Content cards sit right. `current` cards get the full hard shadow treatment. Dates use `white-space: nowrap` and `text-align: right`.

@@ -1,0 +1,91 @@
+---
+title: Press Release Card
+description: A complete editorial content card with a PrintBlock header, an overlapping rotated Stamp, tag Badges, and an Avatar author footer.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { PressReleaseCard } from "@/registry/new-york/blocks/press-release-card"
+
+<PreviewContainer
+  componentName="press-release-card"
+  code={`import { PressReleaseCard } from '@/registry/new-york/blocks/press-release-card'
+
+<PressReleaseCard
+  title="Riso UI Version 2.0"
+  subtitle="Two-ink misregistration component library"
+  date="March 2025"
+  author="Analog Press Studio"
+  authorInitials="AP"
+  tags={["Open Source", "Design System", "Risograph"]}
+  status="approved"
+  body="Riso UI introduces a complete two-ink misregistration design system built with zero runtime dependencies."
+/>`}
+>
+  <PressReleaseCard
+    title="Riso UI Version 2.0"
+    subtitle="Two-ink misregistration component library"
+    date="March 2025"
+    author="Analog Press Studio"
+    authorInitials="AP"
+    tags={["Open Source", "Design System", "Risograph"]}
+    status="approved"
+    body="Riso UI introduces a complete two-ink misregistration design system built with zero runtime dependencies. All visual effects — grain, bleed, halftone, hard shadow — are achieved through pure SVG filters and CSS blend modes."
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/press-release-card.json
+```
+
+## Status variants
+
+<PreviewContainer
+  componentName="press-release-card"
+  code={`<div className="flex flex-col gap-6">
+  <PressReleaseCard title="Draft Release" status="draft"    body="Content pending review." />
+  <PressReleaseCard title="Under Review"  status="pending"  body="Awaiting final approval." />
+  <PressReleaseCard title="Rejected"      status="rejected" body="Requires revision." />
+</div>`}
+>
+  <div className="flex flex-col gap-6">
+    <PressReleaseCard title="Draft Release" status="draft"    tags={["Draft"]}   body="Content pending final review before publication." />
+    <PressReleaseCard title="Under Review"  status="pending"  tags={["Pending"]} body="Awaiting sign-off from the editorial team." />
+    <PressReleaseCard title="Rejected Copy" status="rejected" tags={["Rework"]}  body="Requires revision — see feedback document." />
+  </div>
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `title` | `string` | `"Riso UI Version 2.0"` | Headline in PrintBlock header |
+| `subtitle` | `string` | — | Subtitle below title |
+| `date` | `string` | — | Date label in header |
+| `author` | `string` | — | Author name in footer |
+| `authorInitials` | `string` | — | Two-letter initials for Avatar |
+| `tags` | `string[]` | — | Badge array below header |
+| `status` | `"approved" \| "draft" \| "pending" \| "rejected"` | `"approved"` | Controls Stamp variant |
+| `body` | `string` | — | Body paragraph text |
+
+## Components used
+
+| Component | Count | Purpose |
+|---|---|---|
+| `PrintBlock` | 1 | Solid primary header with grain texture |
+| `Stamp` | 1 | Status overlapping the header corner |
+| `Badge` | 3 | Tag row below header |
+| `Separator` | 2 | Double-rule + dotted dividers |
+| `Avatar` | 1 | Author initials circle |
+| `Button` | 2 | Share and Read More CTAs |
+
+## Composition notes
+
+The `Stamp` is `position: absolute` with `top: 12px; right: 16px; z-index: 10` — it deliberately overlaps the `PrintBlock` header, simulating a rubber stamp applied after the document was printed. The rotation (−2°) reinforces the hand-stamped feel.
+
+The `PrintBlock` header has `paddingRight: 80px` to leave room for the stamp so text never runs underneath it.
+
+The `status` prop maps directly to the `Stamp` `variant` prop — `"approved" | "draft" | "pending" | "rejected"` — using each variant's configured ink colors automatically.
+
+The two `Separator` components serve different visual weights: the first (double-rule, heavier) divides the tags from the body; the second (dotted) separates the body from the author footer.

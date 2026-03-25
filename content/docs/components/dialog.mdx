@@ -1,0 +1,81 @@
+---
+title: Dialog
+description: Native <dialog> with a secondary ink layer that snaps from large offset into registration on open. Halftone dot backdrop. Two-ink X close button.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { BasicDialogDemo, DangerDialogDemo } from "@/components/demos/dialog-demos"
+
+<PreviewContainer
+  componentName="dialog"
+  code={`import { Dialog } from '@/registry/new-york/ui/dialog'
+import { Button } from '@/registry/new-york/ui/button'
+
+const [open, setOpen] = React.useState(false)
+
+<Button onClick={() => setOpen(true)}>Open Dialog</Button>
+
+<Dialog
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Print Job Details"
+  description="Job ID: JOB-0992-A"
+>
+  <p style={{ fontSize: 13, lineHeight: 1.6, marginBottom: 16 }}>
+    Two-pass risograph configuration: fluorescent pink primary, teal secondary.
+    Estimated 847 sheets.
+  </p>
+  <div className="flex gap-2">
+    <Button size="sm" onClick={() => setOpen(false)}>Confirm Job</Button>
+    <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+  </div>
+</Dialog>`}
+>
+  <BasicDialogDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/dialog.json
+```
+
+## Destructive variant
+
+<PreviewContainer
+  componentName="dialog"
+  code={`<Dialog
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Purge Drum System?"
+  description="This action cannot be undone"
+>
+  <p style={{ fontSize: 13, marginBottom: 16 }}>
+    Purging clears all ink from both drums. Allow 12 minutes.
+  </p>
+  <div className="flex gap-2">
+    <Button variant="danger" size="sm" onClick={() => setOpen(false)}>Purge Now</Button>
+    <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+  </div>
+</Dialog>`}
+>
+  <DangerDialogDemo />
+</PreviewContainer>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `open` | `boolean` | — | Controls visibility |
+| `onClose` | `() => void` | — | Called on backdrop click or close button |
+| `title` | `string` | — | Title with ghost-text misreg (`textShadow`) |
+| `description` | `string` | — | Uppercase label in secondary color |
+| `children` | `ReactNode` | — | Dialog body content |
+
+## Design notes
+
+The secondary ink layer starts at `translate(12px, 12px)` and springs to `translate(4px, 4px)` with `cubic-bezier(0.22, 1, 0.36, 1)` over 280ms on open — simulating the second riso plate dropping into rough registration.
+
+The backdrop is a halftone dot pattern in the overlap color at 18% opacity. No `backdrop-filter: blur()`. There is no blur anywhere in Riso UI.
+
+Uses the native `<dialog>` element. Focus is trapped automatically by the browser. `Escape` closes it.

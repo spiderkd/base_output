@@ -1,0 +1,61 @@
+---
+title: Input
+description: A sharp-cornered input field with misregistration shadow layer and focus state that shifts the ink offset.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Input } from "@/registry/new-york/ui/input"
+
+<PreviewContainer
+  componentName="input"
+  code={`import { Input } from '@/registry/new-york/ui/input'
+
+<Input label="Username" placeholder="Enter username…" />`}
+>
+  <div style={{ width: 280 }}>
+    <Input label="Username" placeholder="Enter username…" />
+  </div>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/input.json
+```
+
+## With hint
+
+<PreviewContainer
+  componentName="input"
+  code={`<Input
+  label="Email"
+  type="email"
+  placeholder="hello@analog.press"
+  hint="We'll never share your address"
+/>`}
+>
+  <div style={{ width: 280 }}>
+    <Input label="Email" type="email" placeholder="hello@analog.press" hint="We'll never share your address" />
+  </div>
+</PreviewContainer>
+
+## Error state
+
+<PreviewContainer
+  componentName="input"
+  code={`<Input
+  label="Registration ID"
+  defaultValue="PLATE-00X"
+  error="Invalid plate registration format"
+/>`}
+>
+  <div style={{ width: 280 }}>
+    <Input label="Registration ID" defaultValue="PLATE-00X" error="Invalid plate registration format" />
+  </div>
+</PreviewContainer>
+
+## Design notes
+
+The misregistration effect is achieved with an absolutely-positioned `div` in the secondary ink color, offset `2px right, 2px down` behind the input frame. On focus, the outline shifts from secondary → primary color, simulating the second ink plate snapping into sharper registration.
+
+There is intentionally **no border-radius**. All riso components use `0px` corners — the only exception is pill badges.

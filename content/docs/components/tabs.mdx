@@ -1,0 +1,44 @@
+---
+title: Tabs
+description: Active tab floods with primary ink. A misregistration underline runs beneath the entire tab list in secondary color.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Tabs } from "@/registry/new-york/ui/tabs"
+
+<PreviewContainer
+  componentName="tabs"
+  code={`import { Tabs } from '@/registry/new-york/ui/tabs'
+
+<Tabs
+  defaultValue="setup"
+  tabs={[
+    { value: "setup", label: "Plate Setup", content: <p>Prepare the thermal screen…</p> },
+    { value: "ink",   label: "Ink Config",  content: <p>Configure ink density…</p> },
+    { value: "out",   label: "Output",      content: <p>Review the print queue…</p> },
+  ]}
+/>`}
+>
+  <Tabs
+    defaultValue="setup"
+    tabs={[
+      { value: "setup", label: "Plate Setup", content: <p>Prepare the master plate by attaching the thermal screen to the drum. Each drum holds a single ink channel.</p> },
+      { value: "ink",   label: "Ink Config",  content: <p>Configure ink density, misregistration tolerance, and bleed radius for the two-pass print job.</p> },
+      { value: "out",   label: "Output",      content: <p>Review the print queue and verify paper stock selection before engaging the feed mechanism.</p> },
+    ]}
+  />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/tabs.json
+```
+
+## Design notes
+
+The active tab has `background: var(--riso-primary)` and sits 2px lower than the tab list border — visually merging with the content below it. Inactive tabs are transparent with primary-colored text.
+
+The secondary misregistration line runs the entire width of the tab list at `translateY(2px)` below the primary border — visible at the ends of the list where no tab covers it. This detail is the risograph effect: the second ink plate never quite lines up.
+
+There is intentionally **no border-radius** on any tab. All corners are sharp 90°.

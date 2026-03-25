@@ -1,0 +1,52 @@
+---
+title: Separator
+description: A double-rule divider — two parallel lines in primary and secondary colors, offset to simulate misregistration.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { Separator } from "@/registry/new-york/ui/separator"
+
+<PreviewContainer
+  componentName="separator"
+  code={`import { Separator } from '@/registry/new-york/ui/separator'
+
+<Separator />`}
+>
+  <div style={{ width: "100%", padding: "0 16px" }}>
+    <Separator />
+  </div>
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/separator.json
+```
+
+## Variants
+
+<PreviewContainer
+  componentName="separator"
+  code={`<Separator variant="default" />
+<Separator variant="heavy" />
+<Separator variant="dotted" />`}
+>
+  <div style={{ width: "100%", padding: "0 16px", display: "flex", flexDirection: "column", gap: 20 }}>
+    <Separator variant="default" />
+    <Separator variant="heavy" />
+    <Separator variant="dotted" />
+  </div>
+</PreviewContainer>
+
+## Vertical
+
+<PreviewContainer
+  componentName="separator"
+  code={`<div style={{ display: 'flex', height: 60, alignItems: 'stretch' }}>
+  <Separator orientation="vertical" />
+</div>`}
+>
+  <div style={{ display: "flex", height: 60, alignItems: "stretch" }}>
+    <Separator orientation="vertical" />
+  </div>
+</PreviewContainer>

@@ -1,0 +1,70 @@
+---
+title: Stepper
+description: Multi-step progress indicator. Completed steps get a stamp-approved node with white checkmark. Current step has an inner dot. Upcoming steps use a dashed outline. Double-rule connectors.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { InteractiveStepperDemo, VerticalStepperDemo } from "@/components/demos/stepper-demos"
+
+<PreviewContainer
+  componentName="stepper"
+  code={`import { Stepper } from '@/registry/new-york/ui/stepper'
+
+const [current, setCurrent] = React.useState(1)
+
+<Stepper
+  currentStep={current}
+  steps={[
+    { id: "plate", label: "Plate Prep",  description: "Thermal master" },
+    { id: "ink",   label: "Ink Load",   description: "Two-drum setup" },
+    { id: "align", label: "Alignment",  description: "Registration" },
+    { id: "print", label: "Print Run",  description: "Full production" },
+  ]}
+/>`}
+>
+  <InteractiveStepperDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/stepper.json
+```
+
+## Vertical orientation
+
+<PreviewContainer
+  componentName="stepper"
+  code={`<Stepper
+  orientation="vertical"
+  currentStep={1}
+  steps={[
+    { id: "upload", label: "Upload Artwork",  description: "PDF or AI file" },
+    { id: "proof",  label: "Proof Review",   description: "Check registration" },
+    { id: "print",  label: "Print",          description: "Two-pass production" },
+    { id: "ship",   label: "Delivery" },
+  ]}
+/>`}
+>
+  <VerticalStepperDemo />
+</PreviewContainer>
+
+## Node states
+
+| Status | Visual |
+|---|---|
+| `complete` (`idx < currentStep`) | Solid primary fill, white checkmark, secondary shadow circle |
+| `current` (`idx === currentStep`) | Primary outline, secondary shadow, inner filled dot |
+| `upcoming` (`idx > currentStep`) | Dashed `strokeDasharray="3 2.5"` primary circle at 50% opacity |
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `steps` | `Step[]` | — | `{ id, label, description? }[]` |
+| `currentStep` | `number` | — | 0-based index of the current step |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Layout direction |
+
+## Design notes
+
+Connector lines between steps use the double-rule pattern: 2px primary + 1px secondary offset 3px. Completed connectors are solid at full opacity. Upcoming connectors drop to 35% opacity. No transition on the connector — it changes immediately when `currentStep` updates, consistent with the stamp's instantaneous quality.

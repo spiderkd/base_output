@@ -1,0 +1,91 @@
+---
+title: SparklineRow
+description: Composable inline mini-chart for table cells and lists. Two-layer shadow line, square terminal point. Designed to sit inline without a wrapper div.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer"
+import { SparklineRow } from "@/registry/new-york/ui/sparkline-row"
+
+<PreviewContainer
+  componentName="sparkline-row"
+  code={`import { SparklineRow } from '@/registry/new-york/ui/sparkline-row'
+
+<SparklineRow
+  data={[32, 58, 41, 67, 55, 72, 64, 80]}
+  width={80}
+  height={28}
+/>`}
+>
+  <SparklineRow data={[32, 58, 41, 67, 55, 72, 64, 80]} width={80} height={28} />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/sparkline-row.json
+```
+
+## Ink variants
+
+<PreviewContainer
+  componentName="sparkline-row"
+  code={`<div className="flex flex-col gap-4">
+  <div className="flex items-center gap-4">
+    <span style={{ fontFamily: "var(--font-riso-label)", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--riso-primary)", width: 80 }}>Primary</span>
+    <SparklineRow data={[20, 45, 32, 68, 55, 78, 62, 90]} ink="primary" />
+    <span style={{ fontFamily: "var(--font-riso-label)", fontWeight: 700, fontSize: 10, color: "var(--riso-secondary)" }}>90</span>
+  </div>
+  <div className="flex items-center gap-4">
+    <span style={{ fontFamily: "var(--font-riso-label)", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--riso-secondary)", width: 80 }}>Secondary</span>
+    <SparklineRow data={[80, 65, 70, 58, 62, 50, 55, 45]} ink="secondary" />
+    <span style={{ fontFamily: "var(--font-riso-label)", fontWeight: 700, fontSize: 10, color: "var(--riso-secondary)" }}>45</span>
+  </div>
+</div>`}
+>
+  <div className="flex flex-col gap-4">
+    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+      <span style={{ fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--riso-primary)", width: 80 }}>Primary</span>
+      <SparklineRow data={[20, 45, 32, 68, 55, 78, 62, 90]} ink="primary" />
+      <span style={{ fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)", fontWeight: 700, fontSize: 10, color: "var(--riso-secondary)" }}>90</span>
+    </div>
+    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+      <span style={{ fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--riso-secondary)", width: 80 }}>Secondary</span>
+      <SparklineRow data={[80, 65, 70, 58, 62, 50, 55, 45]} ink="secondary" />
+      <span style={{ fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)", fontWeight: 700, fontSize: 10, color: "var(--riso-secondary)" }}>45</span>
+    </div>
+  </div>
+</PreviewContainer>
+
+## Inside a table cell
+
+```tsx
+<Table
+  columns={[
+    { key: "label", header: "Metric" },
+    {
+      key: "trend",
+      header: "7-day trend",
+      render: (_, row) => (
+        <SparklineRow data={row.trendData} width={80} height={24} />
+      ),
+    },
+    { key: "value", header: "Latest", align: "right" },
+  ]}
+  data={metrics}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `data` | `number[]` | — | Array of values (min 2) |
+| `width` | `number` | `80` | SVG width in px |
+| `height` | `number` | `28` | SVG height in px |
+| `ink` | `"primary" \| "secondary"` | `"primary"` | Line color |
+
+## Design notes
+
+A minimal SVG — shadow polyline (1px, 45% opacity, offset 1.5px) behind the primary line (2px). Both use `strokeLinecap="square"`. The final data point gets a 6×6 square marker — no circle, consistent with all riso chart data points.
+
+Requires no wrapper div. Set `width` and `height` directly.
