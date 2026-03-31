@@ -3,12 +3,13 @@ title: Button
 description: A risograph-style button with hard-shadow misregistration and hover plate-compression.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Button } from "@/registry/new-york/ui/button"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Button } from "@/registry/riso/ui/button";
 
 <PreviewContainer
   componentName="button"
-  code={`import { Button } from '@/registry/new-york/ui/button'
+  code={`import { Button } from '@/registry/riso/ui/button'
 
 <Button variant="primary">Submit Job</Button>`}
 >
@@ -17,9 +18,19 @@ import { Button } from "@/registry/new-york/ui/button"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/button.json
-```
+<InstallTabs slug="button"  />
+
+## Props
+
+The examples above cover the most common ways to use `Button`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `variant` | `RisoButtonVariant` | `"primary"` | Visual variant for the component. |
+| `size` | `RisoButtonSize` | `"md"` | Controls the overall component scale. |
+| `loading` | `boolean` | `false` | Configures `loading` for the component. |
+
+Because `Button` extends the native button element, standard button props like `type`, `onClick`, and `disabled` continue to work as expected.
 
 ## Variants
 
@@ -71,3 +82,5 @@ npx shadcn add https://riso.dev/r/button.json
 The primary button uses a **hard drop shadow** in the secondary ink color — no blur, no spread. On hover the shadow compresses from `4px` to `1px` and the button translates `3px` to match, simulating the ink plate pressing down. On active/click the shadow collapses completely and the button sits flush.
 
 This is the **stacking principle**: depth through hard offset, not gaussian shadow.
+
+That restraint is what keeps `Button` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

@@ -3,12 +3,13 @@ title: Slider
 description: A double-rule track with a square secondary-color thumb. Value annotation appears inline.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Slider } from "@/registry/new-york/ui/slider"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Slider } from "@/registry/riso/ui/slider";
 
 <PreviewContainer
   componentName="slider"
-  code={`import { Slider } from '@/registry/new-york/ui/slider'
+  code={`import { Slider } from '@/registry/riso/ui/slider'
 
 <Slider label="Grain Intensity" defaultValue={65} />`}
 >
@@ -19,9 +20,26 @@ import { Slider } from "@/registry/new-york/ui/slider"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/slider.json
-```
+<InstallTabs slug="slider"  />
+
+## Props
+
+The examples above cover the most common ways to use `Slider`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `min` | `number` | `0` | Minimum slider value. |
+| `max` | `number` | `100` | Maximum slider value. |
+| `step` | `number` | `1` | Step size between values. |
+| `value` | `number` | - | Controlled slider value. |
+| `defaultValue` | `number` | `0` | Initial value for uncontrolled usage. |
+| `onChange` | `(value: number) => void` | - | Called when the slider value changes. |
+| `showValue` | `boolean` | `true` | Shows the current numeric value. |
+| `showTicks` | `boolean` | `false` | Shows tick marks along the track. |
+| `label` | `string` | - | Optional slider label. |
+| `disabled` | `boolean` | `false` | Disables interaction. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## With ticks
 
@@ -30,10 +48,19 @@ npx shadcn add https://riso.dev/r/slider.json
   code={`<Slider label="Ink Passes" min={1} max={5} step={1} defaultValue={2} showTicks />`}
 >
   <div style={{ width: 280 }}>
-    <Slider label="Ink Passes" min={1} max={5} step={1} defaultValue={2} showTicks />
+    <Slider
+      label="Ink Passes"
+      min={1}
+      max={5}
+      step={1}
+      defaultValue={2}
+      showTicks
+    />
   </div>
 </PreviewContainer>
 
 ## Design notes
 
 The track is a pure SVG — two `<line>` elements (primary 4px + secondary 1.5px) offset `2px` apart, simulating a double-rule misregistration. The thumb is a `<rect>` with a hard shadow behind it in the primary color. The native `<input type="range">` sits invisibly over the SVG and handles all browser interaction.
+
+That restraint is what keeps `Slider` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/slider.tsx — Risograph Slider
+// registry/riso/ui/slider.tsx — Risograph Slider
 //
 // Visual system:
 //   - Track: double-rule (primary 2px + secondary 1px, offset 2px below)
@@ -28,7 +28,8 @@ interface SliderProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-export function Slider({ min = 0,
+export function Slider({
+  min = 0,
   max = 100,
   step = 1,
   value: controlledValue,
@@ -38,8 +39,21 @@ export function Slider({ min = 0,
   showTicks = false,
   label,
   className,
-  disabled = false, theme, primary, secondary, overlap, paper, style }: SliderProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  disabled = false,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: SliderProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [value, setValue] = React.useState(defaultValue);
   const controlled = controlledValue !== undefined;
   const current = controlled ? controlledValue : value;
@@ -57,18 +71,23 @@ export function Slider({ min = 0,
   const svgH = showTicks ? 32 : 20;
 
   return (
-    <div className={cn("relative flex flex-col gap-2 w-full", disabled && "opacity-40", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      className={cn(
+        "relative flex flex-col gap-2 w-full",
+        disabled && "opacity-40",
+        className,
+      )}
+      style={{ ...risoStyle, ...style }}
+    >
       {(label || showValue) && (
         <div className="flex justify-between items-baseline">
           {label && (
-            <span
-              className="text-[10px] font-bold uppercase tracking-[0.15em] font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[var(--riso-primary)]"            >
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[var(--riso-primary)]">
               {label}
             </span>
           )}
           {showValue && (
-            <span
-              className="text-xs font-bold tabular-nums font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[var(--riso-secondary)]"            >
+            <span className="text-xs font-bold tabular-nums font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[var(--riso-secondary)]">
               {current}
             </span>
           )}
@@ -85,8 +104,10 @@ export function Slider({ min = 0,
         >
           {/* Secondary misreg track line — offset 2px below primary */}
           <line
-            x1="0" y1={trackH + 2 + 2}
-            x2="100%" y2={trackH + 2 + 2}
+            x1="0"
+            y1={trackH + 2 + 2}
+            x2="100%"
+            y2={trackH + 2 + 2}
             stroke="var(--riso-secondary)"
             strokeWidth={1.5}
             opacity={0.6}
@@ -94,8 +115,10 @@ export function Slider({ min = 0,
 
           {/* Primary track background */}
           <line
-            x1="0" y1={trackH + 2}
-            x2="100%" y2={trackH + 2}
+            x1="0"
+            y1={trackH + 2}
+            x2="100%"
+            y2={trackH + 2}
             stroke="var(--riso-primary)"
             strokeWidth={trackH}
             opacity={0.2}
@@ -103,34 +126,43 @@ export function Slider({ min = 0,
 
           {/* Primary fill (0 → current value) */}
           <line
-            x1="0" y1={trackH + 2}
-            x2={`${pct}%`} y2={trackH + 2}
+            x1="0"
+            y1={trackH + 2}
+            x2={`${pct}%`}
+            y2={trackH + 2}
             stroke="var(--riso-primary)"
             strokeWidth={trackH}
           />
 
           {/* Tick marks */}
-          {showTicks && (() => {
-            const steps = Math.floor((max - min) / step);
-            return Array.from({ length: steps + 1 }, (_, i) => {
-              const tickPct = (i / steps) * 100;
-              return (
-                <line
-                  key={i}
-                  x1={`${tickPct}%`} y1={svgH - 8}
-                  x2={`${tickPct}%`} y2={svgH - 2}
-                  stroke={tickPct <= pct ? "var(--riso-primary)" : "var(--riso-secondary)"}
-                  strokeWidth={1}
-                  opacity={0.6}
-                />
-              );
-            });
-          })()}
+          {showTicks &&
+            (() => {
+              const steps = Math.floor((max - min) / step);
+              return Array.from({ length: steps + 1 }, (_, i) => {
+                const tickPct = (i / steps) * 100;
+                return (
+                  <line
+                    key={i}
+                    x1={`${tickPct}%`}
+                    y1={svgH - 8}
+                    x2={`${tickPct}%`}
+                    y2={svgH - 2}
+                    stroke={
+                      tickPct <= pct
+                        ? "var(--riso-primary)"
+                        : "var(--riso-secondary)"
+                    }
+                    strokeWidth={1}
+                    opacity={0.6}
+                  />
+                );
+              });
+            })()}
 
           {/* Thumb — secondary color square */}
           <rect
             x={`${pct}%`}
-            y={(trackH + 2) - thumbSize / 2}
+            y={trackH + 2 - thumbSize / 2}
             width={thumbSize}
             height={thumbSize}
             fill="var(--riso-secondary)"
@@ -141,7 +173,7 @@ export function Slider({ min = 0,
           {/* Secondary shadow behind thumb */}
           <rect
             x={`${pct}%`}
-            y={(trackH + 2) - thumbSize / 2 + 2}
+            y={trackH + 2 - thumbSize / 2 + 2}
             width={thumbSize}
             height={thumbSize}
             fill="var(--riso-primary)"
@@ -159,10 +191,9 @@ export function Slider({ min = 0,
           value={current}
           onChange={handleChange}
           disabled={disabled}
-          className="absolute inset-0 w-full opacity-0 cursor-pointer h-full z-10" />
+          className="absolute inset-0 w-full opacity-0 cursor-pointer h-full z-10"
+        />
       </div>
     </div>
   );
 }
-
-

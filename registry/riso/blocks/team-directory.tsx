@@ -1,16 +1,16 @@
 "use client";
 
-// registry/new-york/blocks/team-directory.tsx — Team Directory Block ★
+// registry/riso/blocks/team-directory.tsx — Team Directory Block ★
 //
 // Combines: AvatarGroup + StatCard + Table + Badge + Stamp
 
 import * as React from "react";
 import { Avatar, AvatarGroup } from "@/registry/riso/ui/avatar";
-import { StatCard } from "@/registry/riso/ui/stat-card";
-import { Table } from "@/registry/riso/ui/table";
-import { Badge } from "@/registry/riso/ui/badge";
-import { Stamp } from "@/registry/riso/ui/stamp";
-import { Separator } from "@/registry/riso/ui/separator";
+import { StatCard } from "@/components/riso/ui/stat-card";
+import { Table } from "@/components/riso/ui/table";
+import { Badge } from "@/components/riso/ui/badge";
+import { Stamp } from "@/components/riso/ui/stamp";
+import { Separator } from "@/components/riso/ui/separator";
 
 type MemberStatus = "approved" | "pending" | "draft";
 

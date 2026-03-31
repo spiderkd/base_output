@@ -3,12 +3,13 @@ title: Toggle
 description: A rectangular switch with ON/OFF labels. Track floods with primary ink on enable.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Toggle } from "@/registry/new-york/ui/toggle"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Toggle } from "@/registry/riso/ui/toggle";
 
 <PreviewContainer
   componentName="toggle"
-  code={`import { Toggle } from '@/registry/new-york/ui/toggle'
+  code={`import { Toggle } from '@/registry/riso/ui/toggle'
 
 <Toggle label="Grain Effect" />`}
 >
@@ -17,9 +18,18 @@ import { Toggle } from "@/registry/new-york/ui/toggle"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/toggle.json
-```
+<InstallTabs slug="toggle"  />
+
+## Props
+
+The examples above cover the most common ways to use `Toggle`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `label` | `string` | - | Optional label text. |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Controls the overall component scale. |
+
+`Toggle` also accepts the usual checkbox-style props such as `checked`, `defaultChecked`, `onChange`, `name`, and `disabled`.
 
 ## Pre-enabled
 
@@ -48,3 +58,5 @@ npx shadcn add https://riso.dev/r/toggle.json
 ## Design notes
 
 The toggle thumb is a **square** — no border-radius. It slides via `transform: translateX()` driven by a CSS transition. ON/OFF labels are SVG `<text>` elements that swap visibility with the thumb position. The track misreg shadow is a second absolutely-positioned div in secondary color, offset `3px` down-right.
+
+That restraint is what keeps `Toggle` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

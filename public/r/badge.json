@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "description": "Risograph-style Badge component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+  "registryDependencies": [
+    "http://localhost:3000/r/riso-theme.json",
+    "http://localhost:3000/r/riso-utils.json"
+  ],
+  "files": [
+    {
+      "path": "registry/riso/ui/badge.tsx",
+      "content": "\"use client\";\n\n// registry/riso/ui/badge.tsx — Risograph Badge\n//\n// Visual system:\n//   - Rectangular (0px radius) — sharp press print feel\n//   - Hard offset shadow in secondary acts as misregistration indicator\n//   - \"stamp\" variant: dashed border like a rubber stamp\n//   - \"overprint\" variant: two rectangles overlapping with multiply blend = third color\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { resolveRisoVars, type RisoThemeProps } from \"@/lib/riso-utils\";\n\ntype BadgeVariant = \"default\" | \"secondary\" | \"outline\" | \"stamp\" | \"overprint\";\n\ninterface BadgeProps\n  extends React.HTMLAttributes<HTMLSpanElement>, RisoThemeProps {\n  variant?: BadgeVariant;\n}\n\nexport function Badge({\n  variant = \"default\",\n  className,\n  children,\n  theme,\n  primary,\n  secondary,\n  overlap,\n  paper,\n  style,\n  ...props\n}: BadgeProps) {\n  const risoStyle = resolveRisoVars({\n    theme,\n    primary,\n    secondary,\n    overlap,\n    paper,\n  });\n  const base = [\n    \"relative inline-flex items-center\",\n    \"px-2.5 py-0.5\",\n    \"font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)]\",\n    \"text-[10px] font-bold uppercase tracking-[0.15em]\",\n  ].join(\" \");\n\n  const variants: Record<BadgeVariant, string> = {\n    default: [\n      \"bg-[var(--riso-primary)] text-white\",\n      \"[filter:drop-shadow(2px_2px_0px_var(--riso-secondary))]\",\n    ].join(\" \"),\n\n    secondary: [\n      \"bg-[var(--riso-secondary)] text-white\",\n      \"[filter:drop-shadow(2px_2px_0px_var(--riso-primary))]\",\n    ].join(\" \"),\n\n    outline: [\n      \"bg-transparent text-[var(--riso-primary)]\",\n      \"outline outline-2 outline-[var(--riso-primary)]\",\n      \"[filter:drop-shadow(2px_2px_0px_var(--riso-secondary))]\",\n    ].join(\" \"),\n\n    stamp: [\n      \"bg-[var(--riso-paper,#f7f0e2)] text-[var(--riso-primary)]\",\n      \"border-[2px] border-dashed border-[var(--riso-primary)]\",\n      // Stamp has serrated inner — achieved via dashed border with px spacing\n    ].join(\" \"),\n\n    overprint: \"\", // handled specially below\n  };\n\n  if (variant === \"overprint\") {\n    // Two overlapping rectangles at different positions with multiply blend\n    // The overlap area becomes the \"third ink\" color automatically\n    return (\n      <span\n        className={cn(\"relative inline-flex\", className)}\n        {...props}\n        style={{ ...risoStyle, ...style }}\n      >\n        <span className=\"absolute inset-0  bg-[var(--riso-primary)] -translate-x-0.5 -translate-y-px opacity-85 mix-blend-multiply\" />\n        <span className=\"relative px-2.5 py-0.5 z-10 bg-[var(--riso-secondary)] mix-blend-multiply font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[10px] font-bold uppercase tracking-[0.15em] text-white\">\n          {children}\n        </span>\n      </span>\n    );\n  }\n\n  return (\n    <span\n      className={cn(base, variants[variant], className)}\n      {...props}\n      style={{ ...risoStyle, ...style }}\n    >\n      {children}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/riso/ui/badge.tsx"
+    }
+  ],
+  "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming."
+}

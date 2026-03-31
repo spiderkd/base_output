@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/toggle.tsx — Risograph Toggle Switch
+// registry/riso/ui/toggle.tsx — Risograph Toggle Switch
 //
 // Visual system:
 //   - Track is a plain rect with primary outline
@@ -13,20 +13,68 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
-interface ToggleProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size">, RisoThemeProps {
+interface ToggleProps
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size">,
+    RisoThemeProps {
   label?: string;
   size?: "sm" | "md" | "lg";
 }
 
 const SIZES = {
-  sm: { w: 36, h: 18, thumb: 12, travel: 16, font: "9px", wrapperClass: "w-[39px] h-[21px]" },
-  md: { w: 48, h: 24, thumb: 16, travel: 22, font: "10px", wrapperClass: "w-[51px] h-[27px]" },
-  lg: { w: 64, h: 32, thumb: 22, travel: 30, font: "11px", wrapperClass: "w-[67px] h-[35px]" },
+  sm: {
+    w: 36,
+    h: 18,
+    thumb: 12,
+    travel: 16,
+    font: "9px",
+    wrapperClass: "w-[39px] h-[21px]",
+  },
+  md: {
+    w: 48,
+    h: 24,
+    thumb: 16,
+    travel: 22,
+    font: "10px",
+    wrapperClass: "w-[51px] h-[27px]",
+  },
+  lg: {
+    w: 64,
+    h: 32,
+    thumb: 22,
+    travel: 30,
+    font: "11px",
+    wrapperClass: "w-[67px] h-[35px]",
+  },
 };
 
 export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
-  ({ label, size = "md", className, onChange, checked, defaultChecked, disabled, theme, primary, secondary, overlap, paper, style, ...props }, ref) => {
-    const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  (
+    {
+      label,
+      size = "md",
+      className,
+      onChange,
+      checked,
+      defaultChecked,
+      disabled,
+      theme,
+      primary,
+      secondary,
+      overlap,
+      paper,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    const risoStyle = resolveRisoVars({
+      theme,
+      primary,
+      secondary,
+      overlap,
+      paper,
+    });
     const [isOn, setIsOn] = React.useState(defaultChecked ?? false);
     const controlled = checked !== undefined;
     const active = controlled ? checked : isOn;
@@ -44,8 +92,9 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
         className={cn(
           "inline-flex items-center gap-3 cursor-pointer select-none",
           disabled && "opacity-40 cursor-not-allowed",
-          className
-        )} style={{ ...risoStyle, ...style }}
+          className,
+        )}
+        style={{ ...risoStyle, ...style }}
       >
         <div className={cn("relative", wrapperClass)}>
           <input
@@ -63,10 +112,13 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
             aria-hidden
             width={w}
             height={h}
-            className="absolute top-[3px] left-[3px] opacity-50"          >
+            className="absolute top-[3px] left-[3px] opacity-50"
+          >
             <rect
-              x={0} y={0}
-              width={w} height={h}
+              x={0}
+              y={0}
+              width={w}
+              height={h}
               fill={active ? "var(--riso-secondary)" : "transparent"}
               stroke="var(--riso-secondary)"
               strokeWidth={1.5}
@@ -79,12 +131,17 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
             aria-hidden
             width={w}
             height={h}
-            className="absolute top-0 left-0"          >
+            className="absolute top-0 left-0"
+          >
             {/* Track background */}
             <rect
-              x={1} y={1}
-              width={w - 2} height={h - 2}
-              fill={active ? "var(--riso-primary)" : "var(--riso-paper, #f7f0e2)"}
+              x={1}
+              y={1}
+              width={w - 2}
+              height={h - 2}
+              fill={
+                active ? "var(--riso-primary)" : "var(--riso-paper, #f7f0e2)"
+              }
               stroke="var(--riso-primary)"
               strokeWidth={2}
               rx={0}
@@ -93,12 +150,15 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
             {/* Halftone overlay on active track */}
             {active && (
               <rect
-                x={1} y={1}
-                width={w - 2} height={h - 2}
+                x={1}
+                y={1}
+                width={w - 2}
+                height={h - 2}
                 fill="none"
                 stroke="none"
                 style={{
-                  backgroundImage: "radial-gradient(circle, white 1px, transparent 0)",
+                  backgroundImage:
+                    "radial-gradient(circle, white 1px, transparent 0)",
                   backgroundSize: "4px 4px",
                 }}
                 opacity={0.15}
@@ -145,17 +205,13 @@ export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(
         </div>
 
         {label && (
-          <span
-            className="text-sm font-bold uppercase tracking-wider font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[var(--riso-overlap,#7b4f7a)]"
-          >
+          <span className="text-sm font-bold uppercase tracking-wider font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[var(--riso-overlap,#7b4f7a)]">
             {label}
           </span>
         )}
       </label>
     );
-  }
+  },
 );
 
 Toggle.displayName = "Toggle";
-
-

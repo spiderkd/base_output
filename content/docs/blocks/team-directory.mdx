@@ -4,11 +4,11 @@ description: A people page section combining AvatarGroup, StatCard, sortable Tab
 ---
 
 import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { TeamDirectory } from "@/registry/new-york/blocks/team-directory"
+import { TeamDirectory } from "@/registry/riso/blocks/team-directory"
 
 <PreviewContainer
   componentName="team-directory"
-  code={`import { TeamDirectory } from '@/registry/new-york/blocks/team-directory'
+  code={`import { TeamDirectory } from '@/registry/riso/blocks/team-directory'
 
 <TeamDirectory />`}
 >
@@ -36,7 +36,7 @@ npx shadcn add https://riso.dev/r/team-directory.json
 ## Custom data
 
 ```tsx
-import { TeamDirectory } from '@/registry/new-york/blocks/team-directory'
+import { TeamDirectory } from '@/registry/riso/blocks/team-directory'
 
 // The block uses hardcoded MEMBERS array internally.
 // To use your own data, copy the source and replace:

@@ -3,14 +3,15 @@ title: Tooltip
 description: Hard-offset speech bubble with no blur. Appears instantly on hover. Secondary shadow arrow offset 2px behind primary arrow. Four placements.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Tooltip } from "@/registry/new-york/ui/tooltip"
-import { Button } from "@/registry/new-york/ui/button"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Tooltip } from "@/registry/riso/ui/tooltip";
+import { Button } from "@/registry/riso/ui/button";
 
 <PreviewContainer
   componentName="tooltip"
-  code={`import { Tooltip } from '@/registry/new-york/ui/tooltip'
-import { Button } from '@/registry/new-york/ui/button'
+  code={`import { Tooltip } from '@/registry/riso/ui/tooltip'
+import { Button } from '@/registry/riso/ui/button'
 
 <Tooltip content="Primary ink" placement="top">
   <Button>Hover me</Button>
@@ -23,9 +24,19 @@ import { Button } from '@/registry/new-york/ui/button'
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/tooltip.json
-```
+<InstallTabs slug="tooltip"  />
+
+## Props
+
+The examples above cover the most common ways to use `Tooltip`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `content` | `React.ReactNode` | - | Tooltip content shown on hover or focus. |
+| `placement` | `TooltipPlacement` | `"top"` | Position of the tooltip relative to the trigger. |
+| `children` | `React.ReactElement` | - | Single trigger element wrapped by the tooltip. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Placements
 
@@ -46,7 +57,10 @@ npx shadcn add https://riso.dev/r/tooltip.json
   </Tooltip>
 </div>`}
 >
-  <div className="flex flex-wrap gap-6 items-center" style={{ padding: "24px 0" }}>
+  <div
+    className="flex flex-wrap gap-6 items-center"
+    style={{ padding: "24px 0" }}
+  >
     <Tooltip content="Top placement" placement="top">
       <Button size="sm">Top</Button>
     </Tooltip>
@@ -73,18 +87,15 @@ npx shadcn add https://riso.dev/r/tooltip.json
   <Button variant="ghost" size="sm">What is grain?</Button>
 </Tooltip>`}
 >
-  <Tooltip content="Grain intensity controls the feTurbulence baseFrequency" placement="top">
-    <Button variant="ghost" size="sm">What is grain?</Button>
+  <Tooltip
+    content="Grain intensity controls the feTurbulence baseFrequency"
+    placement="top"
+  >
+    <Button variant="ghost" size="sm">
+      What is grain?
+    </Button>
   </Tooltip>
 </PreviewContainer>
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `content` | `ReactNode` | — | Tooltip text or content |
-| `placement` | `"top" \| "bottom" \| "left" \| "right"` | `"top"` | Position relative to trigger |
-| `children` | `ReactElement` | — | The element that triggers the tooltip |
 
 ## Design notes
 
@@ -93,3 +104,5 @@ The tooltip body is a solid primary ink rectangle — no border-radius, no blur,
 The arrow pointer is two overlapping SVG `<polygon>` elements: a secondary shadow triangle offset `2px right, 2px down` behind the primary triangle. This gives the pointer the same misregistration depth as every other component.
 
 The `2px` secondary shadow behind the main tooltip box is lighter than the button's `4px` shadow — tooltips sit closer to the surface than interactive elements.
+
+That restraint is what keeps `Tooltip` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

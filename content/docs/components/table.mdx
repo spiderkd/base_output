@@ -3,12 +3,17 @@ title: Table
 description: Sortable data table. Solid primary fill header. Halftone dot pattern on odd rows. Two-ink sort chevrons. Hard drop shadow on the whole table.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { BasicTableDemo, RichTableDemo, StickyHeaderTableDemo } from "@/components/demos/table-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import {
+  BasicTableDemo,
+  RichTableDemo,
+  StickyHeaderTableDemo,
+} from "@/components/demos/table-demos";
 
 <PreviewContainer
   componentName="table"
-  code={`import { Table } from '@/registry/new-york/ui/table'
+  code={`import { Table } from '@/registry/riso/ui/table'
 
 <Table
   columns={[
@@ -28,16 +33,27 @@ import { BasicTableDemo, RichTableDemo, StickyHeaderTableDemo } from "@/componen
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/table.json
-```
+<InstallTabs slug="table"  />
+
+## Props
+
+The examples above cover the most common ways to use `Table`. Start with the base layout, then layer in sorting, sticky headers, or custom cell rendering as your dataset grows more complex.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `columns` | `TableColumn<T>[]` | - | Column definitions used to render the header and cells |
+| `data` | `T[]` | - | Rows rendered in the table body |
+| `caption` | `string` | - | Optional table caption |
+| `stickyHeader` | `boolean` | `false` | Keeps the header fixed while scrolling |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## With custom cell rendering
 
 <PreviewContainer
   componentName="table"
-  code={`import { Table } from '@/registry/new-york/ui/table'
-import { Badge } from '@/registry/new-york/ui/badge'
+  code={`import { Table } from '@/registry/riso/ui/table'
+import { Badge } from '@/registry/riso/ui/badge'
 
 <Table
   columns={[
@@ -76,12 +92,12 @@ import { Badge } from '@/registry/new-york/ui/badge'
 
 ```tsx
 interface TableColumn<T> {
-  key: keyof T | string
-  header: string
-  width?: number | string
-  align?: "left" | "center" | "right"
-  sortable?: boolean
-  render?: (value: unknown, row: T, index: number) => ReactNode
+  key: keyof T | string;
+  header: string;
+  width?: number | string;
+  align?: "left" | "center" | "right";
+  sortable?: boolean;
+  render?: (value: unknown, row: T, index: number) => ReactNode;
 }
 ```
 
@@ -89,8 +105,10 @@ interface TableColumn<T> {
 
 Header row: solid `var(--riso-primary)` fill, white 9px Space Grotesk uppercase. Column dividers are `1px rgba(255,255,255,0.2)`.
 
-Odd data rows use an absolutely-positioned halftone dot overlay (`radial-gradient` at 4px spacing, 7% opacity) — not a background color tint.
+Odd data rows use an absolutely-positioned halftone dot overlay (`radial-gradient` at 4px spacing, 7% opacity) - not a background color tint.
 
-Row hover: `color-mix(in srgb, var(--riso-secondary) 12%, transparent)` — a very light secondary tint, not grey.
+Row hover: `color-mix(in srgb, var(--riso-secondary) 12%, transparent)` - a very light secondary tint, not grey.
 
-Sort: active column shows bright white chevrons; inactive sortable columns show `rgba(255,255,255,0.5)` chevrons. Both up/down arrows always visible — active direction highlighted.
+Sort: active column shows bright white chevrons; inactive sortable columns show `rgba(255,255,255,0.5)` chevrons. Both up/down arrows always visible - active direction highlighted.
+
+That restraint is what keeps `Table` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

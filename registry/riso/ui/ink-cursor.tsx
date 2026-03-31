@@ -1,7 +1,6 @@
-
 "use client";
 
-// registry/new-york/ui/ink-cursor.tsx — Risograph Ink Spread Cursor Trail ★
+// registry/riso/ui/ink-cursor.tsx — Risograph Ink Spread Cursor Trail ★
 //
 // Fix: uses createPortal so the canvas is appended to document.body and never
 // trapped by a parent element's filter/transform stacking context.
@@ -43,7 +42,13 @@ function InkCursorCanvas({
   paper,
   style,
 }: InkCursorProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const dotsRef = React.useRef<InkDot[]>([]);
   const lastPos = React.useRef<{ x: number; y: number } | null>(null);
@@ -145,5 +150,3 @@ export function InkCursor(props: InkCursorProps) {
   if (!mounted) return null;
   return createPortal(<InkCursorCanvas {...props} />, document.body);
 }
-
-

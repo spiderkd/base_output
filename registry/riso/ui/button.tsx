@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/button.tsx — Risograph Button
+// registry/riso/ui/button.tsx — Risograph Button
 //
 // Visual system:
 //   - Primary: solid ink fill with hard offset shadow in secondary color
@@ -16,7 +16,8 @@ import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 export type RisoButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type RisoButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, RisoThemeProps {
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, RisoThemeProps {
   variant?: RisoButtonVariant;
   size?: RisoButtonSize;
   loading?: boolean;
@@ -28,13 +29,28 @@ const sizeClasses: Record<RisoButtonSize, string> = {
   lg: "px-8 py-4 text-base",
 };
 
-export function Button({ variant = "primary",
+export function Button({
+  variant = "primary",
   size = "md",
   loading = false,
   className,
   children,
-  disabled, theme, primary, secondary, overlap, paper, style, ...props }: ButtonProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  disabled,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+  ...props
+}: ButtonProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const isDisabled = disabled || loading;
 
   // Base: sharp corners (border-radius: 0), monospaced uppercase label feel
@@ -93,7 +109,8 @@ export function Button({ variant = "primary",
     <button
       disabled={isDisabled}
       className={cn(base, sizeClasses[size], variants[variant], className)}
-      {...props} style={{ ...risoStyle, ...style }}
+      {...props}
+      style={{ ...risoStyle, ...style }}
     >
       {/* Secondary ink misregistration ghost — sits behind the label */}
       <span
@@ -113,5 +130,3 @@ export function Button({ variant = "primary",
     </button>
   );
 }
-
-

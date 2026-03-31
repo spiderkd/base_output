@@ -1,0 +1,57 @@
+---
+title: Settings Panel
+description: A Drawer-based settings surface with tabbed controls for appearance, notifications, and ink configuration.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { SettingsPanel } from "@/registry/riso/blocks/settings-panel";
+import { SettingsPanelDemo } from "@/components/demos/settingPanelDemo";
+
+<PreviewContainer
+  componentName="settings-panel"
+  code={`import * as React from 'react'
+import { SettingsPanel } from '@/registry/riso/blocks/settings-panel'
+
+export function Demo() {
+  const [open, setOpen] = React.useState(true)
+
+return <SettingsPanel open={open} onClose={() => setOpen(false)} />
+}`}
+
+>
+
+  <SettingsPanelDemo />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/settings-panel.json
+```
+
+## Components used
+
+| Component    | Count | Purpose                        |
+| ------------ | ----- | ------------------------------ |
+| `Drawer`     | 1     | Sliding settings container     |
+| `Tabs`       | 1     | Section switcher               |
+| `Toggle`     | 3     | Binary preferences             |
+| `Slider`     | 4     | Numeric tuning controls        |
+| `RadioGroup` | 2     | Density and blend mode options |
+| `Checkbox`   | 3     | Notification checklists        |
+| `Button`     | 2     | Footer actions                 |
+| `Separator`  | 2     | Section and footer dividers    |
+
+## Customising
+
+```tsx
+<SettingsPanel
+  open={open}
+  onClose={() => setOpen(false)}
+  onSave={(settings) => console.log(settings)}
+/>
+```
+
+## Composition notes
+
+The block keeps all controls in a single settings object so save and cancel flows stay predictable. The tab reset on close makes repeated demos easier by always reopening on the Appearance section.

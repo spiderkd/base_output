@@ -3,12 +3,13 @@ title: GhostGrid
 description: Full-bleed background of large faint section numerals (01, 02…) in alternating primary and secondary ink with misregistration offset. Zero JavaScript. Server-renderable. ★ Innovative
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { GhostGrid } from "@/registry/new-york/ui/ghost-grid"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { GhostGrid } from "@/registry/riso/ui/ghost-grid";
 
 <PreviewContainer
   componentName="ghost-grid"
-  code={`import { GhostGrid } from '@/registry/new-york/ui/ghost-grid'
+  code={`import { GhostGrid } from '@/registry/riso/ui/ghost-grid'
 
 <GhostGrid count={4}>
   <div style={{ padding: "24px 32px" }}>
@@ -27,9 +28,20 @@ import { GhostGrid } from "@/registry/new-york/ui/ghost-grid"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/ghost-grid.json
-```
+<InstallTabs slug="ghost-grid"  />
+
+## Props
+
+The examples above cover the most common ways to use `GhostGrid`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `count` | `number` | `6` | Number of ghost markers rendered in the layout. |
+| `opacity` | `number` | `0.05` | Base opacity of the grid overlay. |
+| `stagger` | `boolean` | `true` | Alternates the ink placement between rows. |
+| `children` | `React.ReactNode` | - | Content layered on top of the grid. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Opacity control
 
@@ -41,6 +53,7 @@ npx shadcn add https://riso.dev/r/ghost-grid.json
 </GhostGrid>
 
 // Higher opacity = more prominent
+
 <GhostGrid count={3} opacity={0.1}>
   <div style={{ padding: 24 }}>Prominent texture</div>
 </GhostGrid>`}
@@ -67,21 +80,27 @@ npx shadcn add https://riso.dev/r/ghost-grid.json
   <div style={{ padding: 24 }}>All numerals use primary ink</div>
 </GhostGrid>`}
 >
-  <GhostGrid count={4} stagger={false} opacity={0.06} style={{ minHeight: 120 }}>
+  <GhostGrid
+    count={4}
+    stagger={false}
+    opacity={0.06}
+    style={{ minHeight: 120 }}
+  >
     <div style={{ padding: 24, position: "relative", zIndex: 1 }}>
-      <span style={{ fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)", fontWeight: 700, fontSize: 10, textTransform: "uppercase", color: "var(--riso-secondary)" }}>stagger=false — all primary ink</span>
+      <span
+        style={{
+          fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)",
+          fontWeight: 700,
+          fontSize: 10,
+          textTransform: "uppercase",
+          color: "var(--riso-secondary)",
+        }}
+      >
+        stagger=false — all primary ink
+      </span>
     </div>
   </GhostGrid>
 </PreviewContainer>
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `count` | `number` | `6` | How many section numbers to show |
-| `opacity` | `number` | `0.05` | Base opacity of numerals |
-| `stagger` | `boolean` | `true` | Alternate primary/secondary per numeral |
-| `children` | `ReactNode` | — | Content rendered above the ghost layer |
 
 ## Design notes
 
@@ -90,3 +109,5 @@ Each numeral is rendered twice — a secondary ghost copy at `top: 3px, left: 3p
 `stagger` alternates which ink color gets the primary treatment per numeral — even indices use primary + secondary ghost, odd indices reverse — creating a two-ink texture.
 
 Everything is `userSelect: none` and `pointer-events: none`. The content layer sits at `z-index: 1`. Zero JavaScript. Server-renderable.
+
+That restraint is what keeps `GhostGrid` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

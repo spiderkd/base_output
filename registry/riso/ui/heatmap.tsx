@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/heatmap.tsx — Risograph Heatmap
+// registry/riso/ui/heatmap.tsx — Risograph Heatmap
 //
 // Visual system:
 //   - Intensity shown by HALFTONE DOT DENSITY, not color alpha
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
 interface HeatmapProps extends RisoThemeProps {
-  data: number[][];        // 2D array of 0–1 values
+  data: number[][]; // 2D array of 0–1 values
   rowLabels?: string[];
   colLabels?: string[];
   cellSize?: number;
@@ -22,12 +22,26 @@ interface HeatmapProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-export function Heatmap({ data,
+export function Heatmap({
+  data,
   rowLabels,
   colLabels,
   cellSize = 36,
-  className, theme, primary, secondary, overlap, paper, style }: HeatmapProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: HeatmapProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [hovered, setHovered] = React.useState<[number, number] | null>(null);
 
   // Map 0–1 value to dot radius and spacing
@@ -41,12 +55,19 @@ export function Heatmap({ data,
   };
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={{ ...risoStyle, ...style }}
+    >
       {/* Column labels */}
       {colLabels && (
         <div className={`flex mb-1 ${rowLabels ? "ml-16" : "ml-0"}`}>
           {colLabels.map((lbl, i) => (
-            <div key={i} className="text-center font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] font-bold text-[8px] uppercase tracking-[0.1em] text-[var(--riso-secondary)]" style={{ width: cellSize }}>
+            <div
+              key={i}
+              className="text-center font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] font-bold text-[8px] uppercase tracking-[0.1em] text-[var(--riso-secondary)]"
+              style={{ width: cellSize }}
+            >
               {lbl}
             </div>
           ))}
@@ -70,26 +91,49 @@ export function Heatmap({ data,
             return (
               <div
                 key={ci}
-                className="relative shrink-0" style={{ width: cellSize, height: cellSize }} onMouseEnter={() => setHovered([ri, ci])}
+                className="relative shrink-0"
+                style={{ width: cellSize, height: cellSize }}
+                onMouseEnter={() => setHovered([ri, ci])}
                 onMouseLeave={() => setHovered(null)}
               >
                 {/* Hover shadow */}
                 {isHovered && (
-                  <div aria-hidden className="absolute inset-0 bg-[var(--riso-secondary)] translate-x-0.5 translate-y-0.5 opacity-35 z-0" />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-[var(--riso-secondary)] translate-x-0.5 translate-y-0.5 opacity-35 z-0"
+                  />
                 )}
 
                 <svg
-                  width={cellSize} height={cellSize}
+                  width={cellSize}
+                  height={cellSize}
                   viewBox={`0 0 ${cellSize} ${cellSize}`}
-                  className="relative z-[1]"                >
+                  className="relative z-[1]"
+                >
                   <defs>
-                    <pattern id={patId} x="0" y="0" width={spacing} height={spacing} patternUnits="userSpaceOnUse">
-                      <circle cx={spacing / 2} cy={spacing / 2} r={r} fill="var(--riso-primary)" />
+                    <pattern
+                      id={patId}
+                      x="0"
+                      y="0"
+                      width={spacing}
+                      height={spacing}
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <circle
+                        cx={spacing / 2}
+                        cy={spacing / 2}
+                        r={r}
+                        fill="var(--riso-primary)"
+                      />
                     </pattern>
                   </defs>
 
                   {/* Background paper */}
-                  <rect x="0.5" y="0.5" width={cellSize - 1} height={cellSize - 1}
+                  <rect
+                    x="0.5"
+                    y="0.5"
+                    width={cellSize - 1}
+                    height={cellSize - 1}
                     fill="var(--riso-paper,#f7f0e2)"
                     stroke="var(--riso-primary)"
                     strokeWidth={isHovered ? "2" : "1"}
@@ -97,15 +141,21 @@ export function Heatmap({ data,
                   />
 
                   {/* Halftone fill */}
-                  <rect x="0" y="0" width={cellSize} height={cellSize}
+                  <rect
+                    x="0"
+                    y="0"
+                    width={cellSize}
+                    height={cellSize}
                     fill={`url(#${patId})`}
                   />
 
                   {/* Hover value label */}
                   {isHovered && (
                     <text
-                      x={cellSize / 2} y={cellSize / 2}
-                      textAnchor="middle" dominantBaseline="central"
+                      x={cellSize / 2}
+                      y={cellSize / 2}
+                      textAnchor="middle"
+                      dominantBaseline="central"
                       fill="var(--riso-overlap,#7b4f7a)"
                       fontSize="9"
                       fontFamily="var(--font-riso-label,'Space Grotesk',sans-serif)"
@@ -123,5 +173,3 @@ export function Heatmap({ data,
     </div>
   );
 }
-
-

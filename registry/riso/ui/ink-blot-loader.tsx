@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/ink-blot-loader.tsx — Risograph Ink Blot Loader ★
+// registry/riso/ui/ink-blot-loader.tsx — Risograph Ink Blot Loader ★
 //
 // Visual system:
 //   - Two organic SVG blobs (primary + secondary) that expand/contract
@@ -38,8 +38,24 @@ const BLOB_B = {
   k2: "M54,18 C76,16 90,35 84,54 C78,73 58,86 44,80 C30,74 18,54 24,40 C30,26 32,20 54,18 Z",
 };
 
-export function InkBlotLoader({ size = "md", label, className, theme, primary, secondary, overlap, paper, style }: InkBlotLoaderProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+export function InkBlotLoader({
+  size = "md",
+  label,
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: InkBlotLoaderProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const px = SIZE[size];
   const styleId = `ibl-${size}`;
 
@@ -47,7 +63,8 @@ export function InkBlotLoader({ size = "md", label, className, theme, primary, s
     <div
       className={cn("flex flex-col items-center gap-3", className)}
       role="status"
-      aria-label={label ?? "Loading…"} style={{ ...risoStyle, ...style }}
+      aria-label={label ?? "Loading…"}
+      style={{ ...risoStyle, ...style }}
     >
       <style>{`
         @keyframes ${styleId}-a {
@@ -72,7 +89,8 @@ export function InkBlotLoader({ size = "md", label, className, theme, primary, s
       `}</style>
 
       <svg
-        width={px} height={px}
+        width={px}
+        height={px}
         viewBox="0 0 100 100"
         aria-hidden
         style={{ overflow: "visible" }}
@@ -96,15 +114,30 @@ export function InkBlotLoader({ size = "md", label, className, theme, primary, s
 
         {/* Grain overlay */}
         <defs>
-          <filter id={`${styleId}-grain`} x="0%" y="0%" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="n" />
+          <filter
+            id={`${styleId}-grain`}
+            x="0%"
+            y="0%"
+            width="100%"
+            height="100%"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.65"
+              numOctaves="3"
+              stitchTiles="stitch"
+              result="n"
+            />
             <feColorMatrix type="saturate" values="0" in="n" result="g" />
             <feBlend in="SourceGraphic" in2="g" mode="multiply" result="b" />
             <feComposite in="b" in2="SourceGraphic" operator="in" />
           </filter>
         </defs>
         <rect
-          x="-5" y="-5" width="115" height="115"
+          x="-5"
+          y="-5"
+          width="115"
+          height="115"
           fill="transparent"
           filter={`url(#${styleId}-grain)`}
           style={{ pointerEvents: "none" }}
@@ -122,5 +155,3 @@ export function InkBlotLoader({ size = "md", label, className, theme, primary, s
     </div>
   );
 }
-
-

@@ -1,45 +1,79 @@
 ---
 title: Progress
-description: A progress bar with a hard offset shadow, halftone dot fill option, and ink-bleed leading edge.
+description: Risograph progress bar with three variants — default solid fill, halftone dot texture, and ink-bleed leading edge. Secondary misreg shadow sits 3 px behind the track.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Progress } from "@/registry/new-york/ui/progress"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Progress } from "@/registry/riso/ui/progress";
+import {
+  ProgressAnimatedDemo,
+  ProgressInteractiveDemo,
+  ProgressVariantsDemo,
+} from "@/components/demos/countdown-progress-timeline-demos";
 
 <PreviewContainer
   componentName="progress"
-  code={`import { Progress } from '@/registry/new-york/ui/progress'
+  code={`import { Progress } from '@/registry/riso/ui/progress'
 
-<Progress value={72} label="Print Progress" />`}
+<Progress value={72} label="Ink Coverage" />`}
 >
-  <div style={{ width: 360 }}>
-    <Progress value={72} label="Print Progress" />
-  </div>
+  <ProgressAnimatedDemo />
 </PreviewContainer>
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/progress.json
-```
+<InstallTabs slug="progress"  />
 
-## Halftone variant
+## Props
+
+The examples above cover the most common ways to use `Progress`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `value` | `number` | - | Progress value from `0` to `100`. |
+| `label` | `string` | - | Optional label shown above the bar. |
+| `showValue` | `boolean` | `true` | Shows the numeric percentage label. |
+| `variant` | `"default" \| "ink-bleed" \| "halftone"` | `"default"` | Visual treatment for the fill. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
+
+## All three variants — interactive scrubber
+
+Drag the slider to compare `default`, `halftone`, and `ink-bleed` side by side.
 
 <PreviewContainer
   componentName="progress"
-  code={`<Progress value={38} label="Ink Remaining" variant="halftone" />`}
+  code={`<Progress value={60} label="Default"    variant="default"   />
+<Progress value={60} label="Halftone"  variant="halftone"  />
+<Progress value={60} label="Ink Bleed" variant="ink-bleed" />`}
 >
-  <div style={{ width: 360 }}>
-    <Progress value={38} label="Ink Remaining" variant="halftone" />
-  </div>
+  <ProgressInteractiveDemo />
 </PreviewContainer>
+
+## Static variant reference
+
+<PreviewContainer
+  componentName="progress"
+  code={`<Progress value={72} label="Default"    variant="default"   />
+<Progress value={55} label="Halftone"  variant="halftone"  />
+<Progress value={88} label="Ink Bleed" variant="ink-bleed" />`}
+>
+  <ProgressVariantsDemo />
+</PreviewContainer>
+
+## Variant reference
+
+| Variant     | What it adds                                                                                |
+| ----------- | ------------------------------------------------------------------------------------------- |
+| `default`   | Solid primary fill, white halftone dot texture on fill, ink-bleed tip at leading edge       |
+| `halftone`  | Radial dot grid (`4 × 4 px`) at 20% opacity over the unfilled track region                  |
+| `ink-bleed` | Gradient from `--riso-primary` → `--riso-overlap` at the leading edge, `mix-blend-multiply` |
 
 ## Design notes
 
-Three key details make this feel like a riso component:
+The track is an 18 px tall rectangle with `paper` background and a 2 px primary outline. A 3 px secondary block sits behind it at 35% opacity — the hard shadow motif used throughout the system.
 
-**The hard shadow.** A secondary-color rectangle sits `translate(3px, 3px)` behind the track with zero blur. The track appears to float above the paper on a thin ink pad.
+Fill width animates via CSS `transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1)` — value changes play smoothly whether driven by state or a live data feed. The bleed tip only renders when `0 < value < 100` to avoid overflowing the track edges.
 
-**The halftone unfilled area.** When `variant="halftone"`, the empty portion of the track shows a radial-gradient dot pattern at 18% opacity — like the paper is visible through a coarse screen.
-
-**The ink bleed at the leading edge.** Where the filled area meets unfilled, a 16px gradient bleeds from primary into the overlap color. This simulates ink spreading beyond the sharp edge of a riso plate — the fill literally "bleeds" at its boundary.
+That restraint is what keeps `Progress` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

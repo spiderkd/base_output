@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/alert.tsx — Risograph Alert / Banner
+// registry/riso/ui/alert.tsx — Risograph Alert / Banner
 //
 // Visual system:
 //   - Full-width print block with white text for error/warning
@@ -73,13 +73,27 @@ const VARIANTS: Record<
   },
 };
 
-export function Alert({ variant = "info",
+export function Alert({
+  variant = "info",
   title,
   children,
   dismissible = false,
   onDismiss,
-  className, theme, primary, secondary, overlap, paper, style }: AlertProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: AlertProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [dismissed, setDismissed] = React.useState(false);
   const cfg = VARIANTS[variant];
 
@@ -93,7 +107,8 @@ export function Alert({ variant = "info",
   return (
     <div
       role="alert"
-      className={cn("relative w-full", cfg.wrapperFilter, className)} style={{ ...risoStyle, ...style }}
+      className={cn("relative w-full", cfg.wrapperFilter, className)}
+      style={{ ...risoStyle, ...style }}
     >
       {/* Cross-hatch pattern for danger */}
       {variant === "danger" && (
@@ -199,5 +214,3 @@ export function Alert({ variant = "info",
     </div>
   );
 }
-
-

@@ -3,12 +3,12 @@ title: Press Release Card
 description: A complete editorial content card with a PrintBlock header, an overlapping rotated Stamp, tag Badges, and an Avatar author footer.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { PressReleaseCard } from "@/registry/new-york/blocks/press-release-card"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { PressReleaseCard } from "@/registry/riso/blocks/press-release-card";
 
 <PreviewContainer
   componentName="press-release-card"
-  code={`import { PressReleaseCard } from '@/registry/new-york/blocks/press-release-card'
+  code={`import { PressReleaseCard } from '@/registry/riso/blocks/press-release-card'
 
 <PressReleaseCard
   title="Riso UI Version 2.0"
@@ -50,35 +50,50 @@ npx shadcn add https://riso.dev/r/press-release-card.json
 </div>`}
 >
   <div className="flex flex-col gap-6">
-    <PressReleaseCard title="Draft Release" status="draft"    tags={["Draft"]}   body="Content pending final review before publication." />
-    <PressReleaseCard title="Under Review"  status="pending"  tags={["Pending"]} body="Awaiting sign-off from the editorial team." />
-    <PressReleaseCard title="Rejected Copy" status="rejected" tags={["Rework"]}  body="Requires revision — see feedback document." />
+    <PressReleaseCard
+      title="Draft Release"
+      status="draft"
+      tags={["Draft"]}
+      body="Content pending final review before publication."
+    />
+    <PressReleaseCard
+      title="Under Review"
+      status="pending"
+      tags={["Pending"]}
+      body="Awaiting sign-off from the editorial team."
+    />
+    <PressReleaseCard
+      title="Rejected Copy"
+      status="rejected"
+      tags={["Rework"]}
+      body="Requires revision — see feedback document."
+    />
   </div>
 </PreviewContainer>
 
 ## Props
 
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `title` | `string` | `"Riso UI Version 2.0"` | Headline in PrintBlock header |
-| `subtitle` | `string` | — | Subtitle below title |
-| `date` | `string` | — | Date label in header |
-| `author` | `string` | — | Author name in footer |
-| `authorInitials` | `string` | — | Two-letter initials for Avatar |
-| `tags` | `string[]` | — | Badge array below header |
-| `status` | `"approved" \| "draft" \| "pending" \| "rejected"` | `"approved"` | Controls Stamp variant |
-| `body` | `string` | — | Body paragraph text |
+| Prop             | Type                                               | Default                 | Description                    |
+| ---------------- | -------------------------------------------------- | ----------------------- | ------------------------------ |
+| `title`          | `string`                                           | `"Riso UI Version 2.0"` | Headline in PrintBlock header  |
+| `subtitle`       | `string`                                           | —                       | Subtitle below title           |
+| `date`           | `string`                                           | —                       | Date label in header           |
+| `author`         | `string`                                           | —                       | Author name in footer          |
+| `authorInitials` | `string`                                           | —                       | Two-letter initials for Avatar |
+| `tags`           | `string[]`                                         | —                       | Badge array below header       |
+| `status`         | `"approved" \| "draft" \| "pending" \| "rejected"` | `"approved"`            | Controls Stamp variant         |
+| `body`           | `string`                                           | —                       | Body paragraph text            |
 
 ## Components used
 
-| Component | Count | Purpose |
-|---|---|---|
-| `PrintBlock` | 1 | Solid primary header with grain texture |
-| `Stamp` | 1 | Status overlapping the header corner |
-| `Badge` | 3 | Tag row below header |
-| `Separator` | 2 | Double-rule + dotted dividers |
-| `Avatar` | 1 | Author initials circle |
-| `Button` | 2 | Share and Read More CTAs |
+| Component    | Count | Purpose                                 |
+| ------------ | ----- | --------------------------------------- |
+| `PrintBlock` | 1     | Solid primary header with grain texture |
+| `Stamp`      | 1     | Status overlapping the header corner    |
+| `Badge`      | 3     | Tag row below header                    |
+| `Separator`  | 2     | Double-rule + dotted dividers           |
+| `Avatar`     | 1     | Author initials circle                  |
+| `Button`     | 2     | Share and Read More CTAs                |
 
 ## Composition notes
 

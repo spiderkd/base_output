@@ -3,12 +3,12 @@ title: Analytics Panel
 description: A live data panel using Tabs to switch between Overview (RisoChart + StatCards), Activity (Timeline), and Status (Badge table) views.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { AnalyticsPanel } from "@/registry/new-york/blocks/analytics-panel"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { AnalyticsPanel } from "@/registry/riso/blocks/analytics-panel";
 
 <PreviewContainer
   componentName="analytics-panel"
-  code={`import { AnalyticsPanel } from '@/registry/new-york/blocks/analytics-panel'
+  code={`import { AnalyticsPanel } from '@/registry/riso/blocks/analytics-panel'
 
 <AnalyticsPanel />`}
 >
@@ -23,14 +23,14 @@ npx shadcn add https://riso.dev/r/analytics-panel.json
 
 ## Components used
 
-| Component | Count | Purpose |
-|---|---|---|
-| `Tabs` | 1 | Three-view switcher: Overview / Activity / Status |
-| `RisoChart` | 1 | Donut chart in the Overview tab |
-| `StatCard` | 2 | Total jobs and accuracy in the Overview tab |
-| `Timeline` | 1 | Recent events in the Activity tab |
-| `Badge` | 4+ | System status indicators in the Status tab |
-| `Separator` | 1 | Header divider |
+| Component   | Count | Purpose                                           |
+| ----------- | ----- | ------------------------------------------------- |
+| `Tabs`      | 1     | Three-view switcher: Overview / Activity / Status |
+| `RisoChart` | 1     | Donut chart in the Overview tab                   |
+| `StatCard`  | 2     | Total jobs and accuracy in the Overview tab       |
+| `Timeline`  | 1     | Recent events in the Activity tab                 |
+| `Badge`     | 4+    | System status indicators in the Status tab        |
+| `Separator` | 1     | Header divider                                    |
 
 ## Tab content breakdown
 

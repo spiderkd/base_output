@@ -4,11 +4,12 @@ description: Flat solid ink bars with no gradient, no hachure. Alternates primar
 ---
 
 import { PreviewContainer } from "@/components/preview/PreviewContainer";
-import { BarChart } from "@/registry/new-york/ui/bar-chart";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { BarChart } from "@/registry/riso/ui/bar-chart";
 
 <PreviewContainer
   componentName="bar-chart"
-  code={`import { BarChart } from '@/registry/new-york/ui/bar-chart'
+  code={`import { BarChart } from '@/registry/riso/ui/bar-chart'
 
 <BarChart data={[
   { label: "Jan", value: 68 },
@@ -29,9 +30,22 @@ import { BarChart } from "@/registry/new-york/ui/bar-chart";
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/bar-chart.json
-```
+<InstallTabs slug="bar-chart"  />
+
+## Props
+
+The examples above cover the most common ways to use `BarChart`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `data` | `BarDatum[]` | - | Bar data rendered in order across the chart. |
+| `width` | `number` | `400` | Overall chart width. |
+| `height` | `number` | `180` | Overall chart height. |
+| `margin` | `Partial<Margin>` | - | Configures `margin` for the component. |
+| `showValues` | `boolean` | `true` | Configures `showValues` for the component. |
+| `showGrid` | `boolean` | `true` | Configures `showGrid` for the component. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Explicit ink colors
 
@@ -65,3 +79,5 @@ npx shadcn add https://riso.dev/r/bar-chart.json
 **Hover shadow.** On hover, a same-size rectangle in the opposite ink color appears at `+3px, +3px` offset behind the bar at 38% opacity. The cursor becomes `pointer`. No animation — it appears instantly (120ms would feel slow for a chart).
 
 **Halftone overlay on fill.** Every bar has a `radial-gradient` dot pattern at 22% white opacity overlaid — very subtle on screen, simulates the paper showing through the ink.
+
+That restraint is what keeps `BarChart` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

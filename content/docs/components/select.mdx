@@ -3,12 +3,13 @@ title: Select
 description: Misregistration-shadow dropdown with a two-ink chevron trigger. Hard primary outline on the open list. No border-radius.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Select } from "@/registry/new-york/ui/select"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Select } from "@/registry/riso/ui/select";
 
 <PreviewContainer
   componentName="select"
-  code={`import { Select } from '@/registry/new-york/ui/select'
+  code={`import { Select } from '@/registry/riso/ui/select'
 
 <Select
   label="Ink Combination"
@@ -38,9 +39,23 @@ import { Select } from "@/registry/new-york/ui/select"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/select.json
-```
+<InstallTabs slug="select"  />
+
+## Props
+
+The examples above cover the most common ways to use `Select`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `options` | `SelectOption[]` | - | Available options rendered in the dropdown. |
+| `value` | `string` | - | Controlled selected value. |
+| `defaultValue` | `string` | - | Initial selected value for uncontrolled usage. |
+| `onChange` | `(value: string) => void` | - | Called when the selected option changes. |
+| `placeholder` | `string` | `"Select…"` | Text shown when nothing is selected. |
+| `label` | `string` | - | Optional field label. |
+| `disabled` | `boolean` | `false` | Disables the trigger and option selection. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## With default value
 
@@ -61,8 +76,8 @@ npx shadcn add https://riso.dev/r/select.json
       label="Paper Stock"
       defaultValue="bond"
       options={[
-        { value: "bond",      label: "Bond 80gsm" },
-        { value: "coated",    label: "Coated 100gsm" },
+        { value: "bond", label: "Bond 80gsm" },
+        { value: "coated", label: "Coated 100gsm" },
         { value: "newsprint", label: "Newsprint 60gsm" },
       ]}
     />
@@ -86,25 +101,13 @@ npx shadcn add https://riso.dev/r/select.json
     <Select
       label="Drum Position"
       options={[
-        { value: "primary",   label: "Primary Drum" },
+        { value: "primary", label: "Primary Drum" },
         { value: "secondary", label: "Secondary Drum" },
-        { value: "third",     label: "Third Drum", disabled: true },
+        { value: "third", label: "Third Drum", disabled: true },
       ]}
     />
   </div>
 </PreviewContainer>
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `options` | `SelectOption[]` | — | `{ value, label, disabled? }[]` |
-| `value` | `string` | — | Controlled value |
-| `defaultValue` | `string` | — | Uncontrolled default |
-| `onChange` | `(value: string) => void` | — | Change handler |
-| `placeholder` | `string` | `"Select…"` | Placeholder text |
-| `label` | `string` | — | Field label |
-| `disabled` | `boolean` | `false` | Disables the entire select |
 
 ## Design notes
 
@@ -113,3 +116,5 @@ The trigger uses the same misregistration shadow as `Input` — a secondary-colo
 The chevron is four SVG `<line>` elements: two primary arms (2px, square cap) + two secondary arms (1px, offset 1.5px, opacity 0.6) — the same chevron used in Accordion and Tabs.
 
 The dropdown list gets `drop-shadow(4px 4px 0 var(--riso-secondary))`. Selected option: solid primary fill. Hover: 15% secondary tint. No border-radius anywhere.
+
+That restraint is what keeps `Select` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

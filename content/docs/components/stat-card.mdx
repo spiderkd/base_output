@@ -3,12 +3,13 @@ title: StatCard
 description: Large display numbers with ghost-text misregistration. Includes optional sparkline and trend indicator.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { StatCard } from "@/registry/new-york/ui/stat-card"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { StatCard } from "@/registry/riso/ui/stat-card";
 
 <PreviewContainer
   componentName="stat-card"
-  code={`import { StatCard } from '@/registry/new-york/ui/stat-card'
+  code={`import { StatCard } from '@/registry/riso/ui/stat-card'
 
 <StatCard value="9,247" label="Sheets Printed" trend={12} trendLabel="vs last week" />`}
 >
@@ -17,9 +18,22 @@ import { StatCard } from "@/registry/new-york/ui/stat-card"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/stat-card.json
-```
+<InstallTabs slug="stat-card"  />
+
+## Props
+
+The examples above cover the most common ways to use `StatCard`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `value` | `string \| number` | - | Main metric value shown in the card. |
+| `label` | `string` | - | Metric label shown under the value. |
+| `trend` | `number` | - | Numeric trend value, positive or negative. |
+| `trendLabel` | `string` | - | Short label paired with the trend value. |
+| `sparkline` | `number[]` | - | Mini trend series rendered in the corner. |
+| `filled` | `boolean` | `false` | Uses a filled ink background. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Filled variant
 
@@ -54,3 +68,7 @@ npx shadcn add https://riso.dev/r/stat-card.json
 The display number is rendered twice: the primary value at full opacity in `var(--riso-primary)`, and a ghost copy at 35% opacity in `var(--riso-secondary)` positioned `2px right, 2px down` using `position: absolute`. This creates the misregistration effect on the number itself.
 
 The sparkline follows the same two-layer rule: a secondary ink polyline at 1.5px sits offset behind the primary 2px polyline. Both use `strokeLinecap="square"` — no rounded ends.
+
+## Design notes
+
+That restraint is what keeps `StatCard` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

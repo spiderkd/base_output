@@ -4,15 +4,17 @@ description: Canvas cursor trail of alternating primary and secondary ink dots. 
 ---
 
 import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
 import { InkCursorDemo } from "@/components/demos/ink-cursor-demos";
 
 <PreviewContainer
   componentName="ink-cursor"
-  code={`import { InkCursor } from '@/registry/new-york/ui/ink-cursor'
+  code={`import { InkCursor } from '@/registry/riso/ui/ink-cursor'
 
 // Place once in your root layout — attaches to the entire window
 export default function Layout({ children }: { children: React.ReactNode }) {
 return (
+
 <>
 <InkCursor />
 {children}
@@ -27,15 +29,26 @@ return (
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/ink-cursor.json
-```
+<InstallTabs slug="ink-cursor"  />
+
+## Props
+
+The examples above cover the most common ways to use `InkCursor`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `maxDots` | `number` | - | Maximum dots kept in the cursor trail. |
+| `dotLife` | `number` | - | How long each dot stays visible, in milliseconds. |
+| `dotRadius` | `number` | - | Base radius of each cursor dot. |
+| `density` | `number` | - | How frequently trail dots are spawned. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Layout placement
 
 ```tsx
 // app/layout.tsx
-import { InkCursor } from "@/registry/new-york/ui/ink-cursor";
+import { InkCursor } from "@/registry/riso/ui/ink-cursor";
 
 export default function RootLayout({
   children,
@@ -53,15 +66,6 @@ export default function RootLayout({
 }
 ```
 
-## Props
-
-| Prop        | Type     | Default | Description                   |
-| ----------- | -------- | ------- | ----------------------------- |
-| `maxDots`   | `number` | `80`    | Max dots alive at once        |
-| `dotLife`   | `number` | `800`   | Milliseconds each dot lives   |
-| `dotRadius` | `number` | `5`     | Base dot radius in px         |
-| `density`   | `number` | `12`    | Min px between deposited dots |
-
 ## How it works
 
 A `<canvas>` fixed to `position: fixed; inset: 0` with `pointer-events: none; mix-blend-mode: multiply`. It never blocks interaction.
@@ -71,3 +75,5 @@ Dots deposit on `mousemove` if the cursor has moved at least `density` px from t
 Each dot's radius grows slightly as it ages (`r = baseR × (1 + age × 0.3)`) — simulating ink bleeding outward. Alpha fades from 0.8 to 0.
 
 `ctx.globalCompositeOperation = "multiply"` means overlapping primary + secondary dots produce the overlap color automatically — no explicit color set for it.
+
+That restraint is what keeps `InkCursor` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

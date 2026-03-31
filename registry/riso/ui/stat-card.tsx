@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/stat-card.tsx — Risograph StatCard
+// registry/riso/ui/stat-card.tsx — Risograph StatCard
 //
 // Visual system:
 //   - Large display number (Epilogue Black 900) with ghost text misreg in secondary
@@ -154,16 +154,33 @@ function Sparkline({ data, filled }: { data: number[]; filled?: boolean }) {
   );
 }
 
-export function StatCard({ value,
+export function StatCard({
+  value,
   label,
   trend,
   trendLabel,
   sparkline,
   filled = false,
-  className, theme, primary, secondary, overlap, paper, style }: StatCardProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: StatCardProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   return (
-    <div className={cn("relative inline-block", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      className={cn("relative inline-block", className)}
+      style={{ ...risoStyle, ...style }}
+    >
       {/* Hard shadow layer */}
       <div
         aria-hidden
@@ -278,5 +295,3 @@ export function StatCard({ value,
     </div>
   );
 }
-
-

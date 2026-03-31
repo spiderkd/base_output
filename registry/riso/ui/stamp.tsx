@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/stamp.tsx — Risograph Stamp
+// registry/riso/ui/stamp.tsx — Risograph Stamp
 //
 // Unique to Riso — no Crumble equivalent.
 //
@@ -32,40 +32,60 @@ const variantConfig: Record<StampVariant, { color: string; shadow: string }> = {
   default: { color: "var(--riso-primary)", shadow: "var(--riso-secondary)" },
   approved: { color: "var(--riso-secondary)", shadow: "var(--riso-primary)" },
   rejected: { color: "#e8362a", shadow: "var(--riso-overlap, #7b4f7a)" },
-  pending: { color: "var(--riso-overlap, #7b4f7a)", shadow: "var(--riso-secondary)" },
+  pending: {
+    color: "var(--riso-overlap, #7b4f7a)",
+    shadow: "var(--riso-secondary)",
+  },
   draft: { color: "var(--riso-primary)", shadow: "var(--riso-secondary)" },
 };
 
-export function Stamp({ label,
+export function Stamp({
+  label,
   sublabel,
   variant = "default",
   size = 100,
   rotate = -2,
-  className, theme, primary, secondary, overlap, paper, style }: StampProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: StampProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const { color, shadow } = variantConfig[variant];
-  const r1 = size / 2 - 3;    // outer circle radius
-  const r2 = size / 2 - 10;   // inner circle radius
+  const r1 = size / 2 - 3; // outer circle radius
+  const r2 = size / 2 - 10; // inner circle radius
   const cx = size / 2;
 
-  const displayLabel = label ?? {
-    default: "RISO",
-    approved: "APPROVED",
-    rejected: "REJECTED",
-    pending: "PENDING",
-    draft: "DRAFT",
-  }[variant];
+  const displayLabel =
+    label ??
+    {
+      default: "RISO",
+      approved: "APPROVED",
+      rejected: "REJECTED",
+      pending: "PENDING",
+      draft: "DRAFT",
+    }[variant];
 
   return (
     <div
       className={cn("relative inline-block", className)}
       style={{
-        ...risoStyle, ...({
+        ...risoStyle,
+        ...{
           width: size + 4,
           height: size + 4,
           transform: `rotate(${rotate}deg)`,
           filter: `drop-shadow(3px 3px 0px ${shadow})`,
-        })
+        },
       }}
     >
       <svg
@@ -77,7 +97,9 @@ export function Stamp({ label,
       >
         {/* Outer dashed circle — primary ink */}
         <circle
-          cx={cx} cy={cx} r={r1}
+          cx={cx}
+          cy={cx}
+          r={r1}
           fill="none"
           stroke={color}
           strokeWidth="2.5"
@@ -87,7 +109,9 @@ export function Stamp({ label,
 
         {/* Inner dashed circle — secondary ink (misreg) */}
         <circle
-          cx={cx} cy={cx} r={r2}
+          cx={cx}
+          cy={cx}
+          r={r2}
           fill="none"
           stroke={shadow}
           strokeWidth="1"
@@ -100,21 +124,29 @@ export function Stamp({ label,
         {sublabel && (
           <>
             <line
-              x1={cx - r2 * 0.75} y1={cx + 6}
-              x2={cx + r2 * 0.75} y2={cx + 6}
-              stroke={color} strokeWidth="1.5"
+              x1={cx - r2 * 0.75}
+              y1={cx + 6}
+              x2={cx + r2 * 0.75}
+              y2={cx + 6}
+              stroke={color}
+              strokeWidth="1.5"
             />
             <line
-              x1={cx - r2 * 0.7} y1={cx + 9}
-              x2={cx + r2 * 0.7} y2={cx + 9}
-              stroke={shadow} strokeWidth="0.8" opacity="0.6"
+              x1={cx - r2 * 0.7}
+              y1={cx + 9}
+              x2={cx + r2 * 0.7}
+              y2={cx + 9}
+              stroke={shadow}
+              strokeWidth="0.8"
+              opacity="0.6"
             />
           </>
         )}
 
         {/* Main label */}
         <text
-          x={cx} y={sublabel ? cx + 2 : cx + 5}
+          x={cx}
+          y={sublabel ? cx + 2 : cx + 5}
           textAnchor="middle"
           dominantBaseline="middle"
           fill={color}
@@ -129,7 +161,8 @@ export function Stamp({ label,
         {/* Sub-label */}
         {sublabel && (
           <text
-            x={cx} y={cx + 14}
+            x={cx}
+            y={cx + 14}
             textAnchor="middle"
             dominantBaseline="middle"
             fill={shadow}
@@ -145,5 +178,3 @@ export function Stamp({ label,
     </div>
   );
 }
-
-

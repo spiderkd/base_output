@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/paper-texture-card.tsx — Risograph Paper Texture Card
+// registry/riso/ui/paper-texture-card.tsx — Risograph Paper Texture Card
 //
 // Unique to Riso — no Crumble equivalent.
 //
@@ -16,9 +16,10 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
-interface PaperTextureCardProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
+interface PaperTextureCardProps
+  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
   grain?: "fine" | "medium" | "heavy" | "newsprint";
-  tint?: boolean;     // tint paper with secondary ink
+  tint?: boolean; // tint paper with secondary ink
   halftone?: boolean; // visible halftone dots
   children?: React.ReactNode;
   className?: string;
@@ -31,20 +32,37 @@ const GRAIN_PARAMS = {
   newsprint: { freq: "0.08", octaves: 1, opacity: 0.22 },
 };
 
-export function PaperTextureCard({ grain = "medium",
+export function PaperTextureCard({
+  grain = "medium",
   tint = false,
   halftone = false,
   children,
   className,
-  style, theme, primary, secondary, overlap, paper,
-  ...props }: PaperTextureCardProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  style,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  ...props
+}: PaperTextureCardProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const { freq, octaves, opacity } = GRAIN_PARAMS[grain];
   const filterId = `paper-grain-${grain}`;
 
   return (
     <>
-      <svg className="absolute w-0 h-0" aria-hidden style={{ ...risoStyle, ...style }}>
+      <svg
+        className="absolute w-0 h-0"
+        aria-hidden
+        style={{ ...risoStyle, ...style }}
+      >
         <defs>
           <filter id={filterId} x="0%" y="0%" width="100%" height="100%">
             <feTurbulence
@@ -54,8 +72,18 @@ export function PaperTextureCard({ grain = "medium",
               stitchTiles="stitch"
               result="noise"
             />
-            <feColorMatrix type="saturate" values="0" in="noise" result="gray" />
-            <feBlend in="SourceGraphic" in2="gray" mode="multiply" result="blended" />
+            <feColorMatrix
+              type="saturate"
+              values="0"
+              in="noise"
+              result="gray"
+            />
+            <feBlend
+              in="SourceGraphic"
+              in2="gray"
+              mode="multiply"
+              result="blended"
+            />
             <feComposite in="blended" in2="SourceGraphic" operator="in" />
           </filter>
         </defs>
@@ -77,7 +105,8 @@ export function PaperTextureCard({ grain = "medium",
           <div
             aria-hidden
             style={{
-              position: "absolute", inset: 0,
+              position: "absolute",
+              inset: 0,
               background: "var(--riso-secondary)",
               opacity: 0.07,
               mixBlendMode: "multiply",
@@ -91,8 +120,10 @@ export function PaperTextureCard({ grain = "medium",
           <div
             aria-hidden
             style={{
-              position: "absolute", inset: 0,
-              backgroundImage: "radial-gradient(circle, var(--riso-primary) 2px, transparent 0)",
+              position: "absolute",
+              inset: 0,
+              backgroundImage:
+                "radial-gradient(circle, var(--riso-primary) 2px, transparent 0)",
               backgroundSize: "8px 8px",
               opacity: 0.12,
               pointerEvents: "none",
@@ -104,7 +135,8 @@ export function PaperTextureCard({ grain = "medium",
         <div
           aria-hidden
           style={{
-            position: "absolute", inset: 0,
+            position: "absolute",
+            inset: 0,
             background: "var(--riso-paper, #f7f0e2)",
             opacity,
             filter: `url(#${filterId})`,
@@ -113,12 +145,8 @@ export function PaperTextureCard({ grain = "medium",
           }}
         />
 
-        <div className="relative z-[1]">
-          {children}
-        </div>
+        <div className="relative z-[1]">{children}</div>
       </div>
     </>
   );
 }
-
-

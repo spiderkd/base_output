@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/misreg-text-reveal.tsx — Risograph Misregistration Text Reveal ★
+// registry/riso/ui/misreg-text-reveal.tsx — Risograph Misregistration Text Reveal ★
 //
 // Visual system:
 //   - Two-layer animated headline
@@ -18,21 +18,34 @@ interface MisregTextRevealProps extends RisoThemeProps {
   text: string;
   as?: "h1" | "h2" | "h3" | "p" | "span";
   size?: number;
-  animateOnMount?: boolean;   // if false, only plays on intersection
+  animateOnMount?: boolean; // if false, only plays on intersection
   className?: string;
   style?: React.CSSProperties;
 }
 
-export function MisregTextReveal({ text,
+export function MisregTextReveal({
+  text,
   as: Tag = "h2",
   size = 36,
   animateOnMount = true,
   className,
-  style, theme, primary, secondary, overlap, paper }: MisregTextRevealProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
-  const [phase, setPhase] = React.useState<"idle" | "primary-in" | "settled" | "hover">(
-    animateOnMount ? "idle" : "settled"
-  );
+  style,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+}: MisregTextRevealProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
+  const [phase, setPhase] = React.useState<
+    "idle" | "primary-in" | "settled" | "hover"
+  >(animateOnMount ? "idle" : "settled");
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   // Trigger animation on mount / intersection
@@ -53,7 +66,7 @@ export function MisregTextReveal({ text,
           return () => clearTimeout(t);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     if (containerRef.current) obs.observe(containerRef.current);
@@ -71,9 +84,9 @@ export function MisregTextReveal({ text,
 
   const ghostTransform = {
     idle: "translateX(-24px)",
-    "primary-in": "translateX(6px) translateY(6px)",  // overshoots
-    settled: "translateX(2px) translateY(2px)",    // normal misreg
-    hover: "translateX(6px) translateY(4px)",    // exaggerated on hover
+    "primary-in": "translateX(6px) translateY(6px)", // overshoots
+    settled: "translateX(2px) translateY(2px)", // normal misreg
+    hover: "translateX(6px) translateY(4px)", // exaggerated on hover
   }[phase];
 
   const ghostOpacity = {
@@ -87,7 +100,7 @@ export function MisregTextReveal({ text,
     <div
       ref={containerRef}
       className={cn("relative inline-block", className)}
-      style={{ ...risoStyle, ...(style) }}
+      style={{ ...risoStyle, ...style }}
       onMouseEnter={() => phase === "settled" && setPhase("hover")}
       onMouseLeave={() => phase === "hover" && setPhase("settled")}
     >
@@ -99,9 +112,10 @@ export function MisregTextReveal({ text,
           fontSize: size,
           opacity: ghostOpacity,
           transform: ghostTransform,
-          transition: phase === "primary-in"
-            ? "transform 400ms cubic-bezier(0.22,1,0.36,1) 80ms, opacity 300ms 80ms"
-            : "transform 300ms cubic-bezier(0.22,1,0.36,1), opacity 200ms",
+          transition:
+            phase === "primary-in"
+              ? "transform 400ms cubic-bezier(0.22,1,0.36,1) 80ms, opacity 300ms 80ms"
+              : "transform 300ms cubic-bezier(0.22,1,0.36,1), opacity 200ms",
         }}
       >
         {text}
@@ -114,7 +128,8 @@ export function MisregTextReveal({ text,
           fontSize: size,
           opacity: primaryOpacity,
           transform: primaryTransform,
-          transition: "transform 400ms cubic-bezier(0.22,1,0.36,1), opacity 300ms",
+          transition:
+            "transform 400ms cubic-bezier(0.22,1,0.36,1), opacity 300ms",
         }}
       >
         {text}
@@ -122,5 +137,3 @@ export function MisregTextReveal({ text,
     </div>
   );
 }
-
-

@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/halftone-image.tsx — Risograph Halftone Image Mask ★
+// registry/riso/ui/halftone-image.tsx — Risograph Halftone Image Mask ★
 //
 // Visual system:
 //   - Converts any <img> to a two-color halftone using only primary/secondary ink
@@ -19,21 +19,34 @@ interface HalftoneImageProps extends RisoThemeProps {
   alt: string;
   width?: number | string;
   height?: number | string;
-  dotSize?: number;      // 1–8, default 3
-  angle?: number;        // rotation angle for dot grid, default 15°
+  dotSize?: number; // 1–8, default 3
+  angle?: number; // rotation angle for dot grid, default 15°
   className?: string;
   style?: React.CSSProperties;
 }
 
-export function HalftoneImage({ src,
+export function HalftoneImage({
+  src,
   alt,
   width = "100%",
   height = "auto",
   dotSize = 3,
   angle = 15,
   className,
-  style, theme, primary, secondary, overlap, paper }: HalftoneImageProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  style,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+}: HalftoneImageProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const filterId = React.useId().replace(/:/g, "");
   const patternId = `ht-pat-${filterId}`;
   const patternId2 = `ht-pat2-${filterId}`;
@@ -44,10 +57,12 @@ export function HalftoneImage({ src,
 
   return (
     <div
-      className={cn("relative overflow-hidden", className)} style={{ ...risoStyle, ...style }}
+      className={cn("relative overflow-hidden", className)}
+      style={{ ...risoStyle, ...style }}
     >
       <svg
-        width="100%" height={height}
+        width="100%"
+        height={height}
         style={{ display: "block", mixBlendMode: "multiply" }}
         aria-label={alt}
       >
@@ -55,26 +70,47 @@ export function HalftoneImage({ src,
           {/* Halftone dot patterns — rotated grids */}
           <pattern
             id={patternId}
-            x="0" y="0"
-            width={spacing} height={spacing}
+            x="0"
+            y="0"
+            width={spacing}
+            height={spacing}
             patternUnits="userSpaceOnUse"
             patternTransform={`rotate(${angle})`}
           >
-            <circle cx={spacing / 2} cy={spacing / 2} r={dotSize} fill="black" />
+            <circle
+              cx={spacing / 2}
+              cy={spacing / 2}
+              r={dotSize}
+              fill="black"
+            />
           </pattern>
 
           <pattern
             id={patternId2}
-            x="0" y="0"
-            width={spacing} height={spacing}
+            x="0"
+            y="0"
+            width={spacing}
+            height={spacing}
             patternUnits="userSpaceOnUse"
             patternTransform={`rotate(${angle + 30})`}
           >
-            <circle cx={spacing / 2} cy={spacing / 2} r={dotSize * 0.7} fill="black" />
+            <circle
+              cx={spacing / 2}
+              cy={spacing / 2}
+              r={dotSize * 0.7}
+              fill="black"
+            />
           </pattern>
 
           {/* Filter: convert image luminance to halftone mask */}
-          <filter id={filterId} x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
+          <filter
+            id={filterId}
+            x="0%"
+            y="0%"
+            width="100%"
+            height="100%"
+            colorInterpolationFilters="sRGB"
+          >
             {/* Extract luminance */}
             <feColorMatrix type="saturate" values="0" result="gray" />
             {/* Threshold to create dot mask */}
@@ -89,21 +125,24 @@ export function HalftoneImage({ src,
         {/* Primary ink layer — dark areas */}
         <image
           href={src}
-          width="100%" height="100%"
+          width="100%"
+          height="100%"
           style={{ filter: `url(#${filterId})` }}
           preserveAspectRatio="xMidYMid slice"
         />
 
         {/* Halftone dot overlay — primary color */}
         <rect
-          width="100%" height="100%"
+          width="100%"
+          height="100%"
           fill={`url(#${patternId})`}
           style={{ mixBlendMode: "multiply", opacity: 0.8 }}
         />
 
         {/* Secondary color offset dot layer */}
         <rect
-          width="100%" height="100%"
+          width="100%"
+          height="100%"
           fill={`url(#${patternId2})`}
           style={{ mixBlendMode: "multiply", opacity: 0.45 }}
           transform={`translate(${dotSize}, ${dotSize})`}
@@ -111,14 +150,16 @@ export function HalftoneImage({ src,
 
         {/* Primary ink color wash */}
         <rect
-          width="100%" height="100%"
+          width="100%"
+          height="100%"
           fill="var(--riso-primary)"
           style={{ mixBlendMode: "multiply", opacity: 0.6 }}
         />
 
         {/* Secondary ink color wash at offset */}
         <rect
-          width="100%" height="100%"
+          width="100%"
+          height="100%"
           fill="var(--riso-secondary)"
           style={{ mixBlendMode: "multiply", opacity: 0.35 }}
           transform={`translate(2,2)`}
@@ -129,8 +170,11 @@ export function HalftoneImage({ src,
       <div
         aria-hidden
         style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
           backgroundSize: "200px",
           opacity: 0.07,
           mixBlendMode: "multiply",
@@ -139,5 +183,3 @@ export function HalftoneImage({ src,
     </div>
   );
 }
-
-

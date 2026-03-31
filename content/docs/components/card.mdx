@@ -4,7 +4,8 @@ description: A risograph card container with optional stacked paper and interact
 ---
 
 import { PreviewContainer } from "@/components/preview/PreviewContainer";
-import { Button } from "@/registry/new-york/ui/button";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Button } from "@/registry/riso/ui/button";
 import {
   Card,
   CardHeader,
@@ -12,11 +13,11 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/registry/new-york/ui/card";
+} from "@/registry/riso/ui/card";
 
 <PreviewContainer
   componentName="card"
-  code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/registry/new-york/ui/card'
+  code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/registry/riso/ui/card'
 
 <Card padding={24}>
   <CardHeader>
@@ -47,9 +48,19 @@ import {
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/card.json
-```
+<InstallTabs slug="card"  />
+
+## Props
+
+The examples above cover the most common ways to use `Card`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `padding` | `number` | `20` | Configures `padding` for the component. |
+| `stacked` | `boolean` | `false` | Adds the printed-sheet offset stack effect. |
+| `filled` | `boolean` | `false` | Uses a solid ink fill with inverse text. |
+| `halftone` | `boolean` | `false` | Adds a halftone texture inside the card. |
+| `interactive` | `boolean` | `false` | Enables hover and press styling. |
 
 ## Filled variant
 
@@ -76,3 +87,7 @@ npx shadcn add https://riso.dev/r/card.json
     <p className="text-sm">Hover to compress the shadow</p>
   </Card>
 </PreviewContainer>
+
+## Design notes
+
+That restraint is what keeps `Card` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

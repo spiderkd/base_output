@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "riso",
   "rsc": true,
   "tsx": true,
   "tailwind": {
@@ -13,10 +13,10 @@
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",
-    "ui": "@/registry/new-york/ui",
-    "lib": "@/registry/new-york/lib",
+    "ui": "@/registry/riso/ui",
+    "lib": "@/registry/riso/lib",
     "hooks": "@/hooks",
-    "primitives": "@/registry/new-york/primitives"
+    "primitives": "@/registry/riso/primitives"
   },
   "iconLibrary": "lucide"
 }

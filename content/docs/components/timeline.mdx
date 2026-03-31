@@ -1,47 +1,91 @@
 ---
 title: Timeline
-description: Vertical double-rule spine with stamp-style nodes. Complete = filled primary circle with checkmark. Current = outlined with shadow. Upcoming = dashed outline.
+description: Vertical double-rule spine with stamp-style nodes. Complete = filled primary circle with checkmark. Current = outlined with drop-shadow. Upcoming = dashed outline. Animated reveal demo included.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Timeline } from "@/registry/new-york/ui/timeline"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Timeline } from "@/registry/riso/ui/timeline";
+import {
+  TimelineDefaultDemo,
+  TimelineAnimatedDemo,
+  TimelineInteractiveDemo,
+} from "@/components/demos/countdown-progress-timeline-demos";
 
 <PreviewContainer
   componentName="timeline"
-  code={`import { Timeline } from '@/registry/new-york/ui/timeline'
+  code={`import { Timeline } from '@/registry/riso/ui/timeline'
 
 <Timeline
   items={[
-    { id: "1", label: "Plate Created",  date: "09:00", status: "complete", content: "Thermal master burned" },
-    { id: "2", label: "Print Started",  date: "10:15", status: "current",  content: "Pass 1 of 2 running" },
-    { id: "3", label: "QA Inspection",  date: "14:00", status: "upcoming" },
-    { id: "4", label: "Delivery",       date: "16:30", status: "upcoming" },
+    { id: "1", label: "Artwork Approved", date: "Mon 09:00", status: "complete", content: "Final PDF confirmed by client" },
+    { id: "2", label: "Plates Burned",    date: "Mon 11:30", status: "complete", content: "Thermal masters — primary & secondary" },
+    { id: "3", label: "Print Running",    date: "Tue 08:00", status: "current",  content: "Pass 1 of 2 — primary ink" },
+    { id: "4", label: "QA Inspection",    date: "Tue 14:00", status: "upcoming" },
+    { id: "5", label: "Delivery",         date: "Wed 16:00", status: "upcoming" },
   ]}
 />`}
 >
-  <Timeline
-    items={[
-      { id: "1", label: "Plate Created",  date: "09:00", status: "complete", content: "Thermal master burned and seated" },
-      { id: "2", label: "Print Started",  date: "10:15", status: "current",  content: "Pass 1 of 2 — primary ink running" },
-      { id: "3", label: "QA Inspection",  date: "14:00", status: "upcoming" },
-      { id: "4", label: "Delivery",       date: "16:30", status: "upcoming" },
-    ]}
-  />
+  <TimelineDefaultDemo />
 </PreviewContainer>
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/timeline.json
-```
+<InstallTabs slug="timeline"  />
 
-## Auto status (inferred from position)
+## Props
+
+The examples above cover the most common ways to use `Timeline`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `items` | `TimelineItem[]` | - | Timeline items rendered along the vertical spine. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
+
+## Animated reveal
+
+Items enter one by one on mount — useful for onboarding flows or dashboards.
 
 <PreviewContainer
   componentName="timeline"
-  code={`// If status is omitted, it's inferred:
-// first item = current, middle items = complete, last = upcoming
-<Timeline
+  code={`// Drive visible count with a useEffect interval, render sliced items
+const [visible, setVisible] = React.useState(0)
+
+useEffect(() => {
+if (visible >= items.length) return
+const t = setTimeout(() => setVisible(v => v + 1), 350)
+return () => clearTimeout(t)
+}, [visible])
+
+<Timeline items={items.slice(0, visible)} />`}
+>
+  <TimelineAnimatedDemo />
+</PreviewContainer>
+
+## Interactive — advance active step
+
+<PreviewContainer
+  componentName="timeline"
+  code={`const [current, setCurrent] = React.useState(2)
+
+const items = BASE_ITEMS.map((item, idx) => ({
+...item,
+status: idx < current ? 'complete' : idx === current ? 'current' : 'upcoming',
+}))
+
+<Timeline items={items} />`}
+>
+  <TimelineInteractiveDemo />
+</PreviewContainer>
+
+## Auto status (inferred from position)
+
+If `status` is omitted it is inferred: first item = `current`, middle items = `complete`, last = `upcoming`.
+
+<PreviewContainer
+  componentName="timeline"
+  code={`<Timeline
   items={[
     { id: "a", label: "Design",   content: "Artwork finalised" },
     { id: "b", label: "Plates",   content: "Masters burned" },
@@ -52,8 +96,8 @@ npx shadcn add https://riso.dev/r/timeline.json
 >
   <Timeline
     items={[
-      { id: "a", label: "Design",   content: "Artwork finalised" },
-      { id: "b", label: "Plates",   content: "Masters burned" },
+      { id: "a", label: "Design", content: "Artwork finalised" },
+      { id: "b", label: "Plates", content: "Masters burned" },
       { id: "c", label: "Print Run" },
       { id: "d", label: "Delivery" },
     ]}
@@ -62,14 +106,16 @@ npx shadcn add https://riso.dev/r/timeline.json
 
 ## Item status reference
 
-| Status | Node | Content card |
-|---|---|---|
-| `complete` | Solid primary + white checkmark | Light tint outline |
-| `current` | Primary outline + inner dot | Full `drop-shadow(3px 3px 0 var(--riso-secondary))` |
-| `upcoming` | Dashed primary outline | Reduced opacity outline |
+| Status     | Node                            | Content card                                        |
+| ---------- | ------------------------------- | --------------------------------------------------- |
+| `complete` | Solid primary + white checkmark | Light tint outline                                  |
+| `current`  | Primary outline + inner dot     | Full `drop-shadow(3px 3px 0 var(--riso-secondary))` |
+| `upcoming` | Dashed primary outline          | Reduced opacity label                               |
 
 ## Design notes
 
-The spine is two vertical lines: 2px primary + 1px secondary offset 4px right at 70% opacity — the double-rule applied vertically.
+The spine is two vertical lines: 2 px primary + 1 px secondary offset 4 px right at 70% opacity — the double-rule motif applied vertically. Spine nodes are SVG circles with a secondary shadow circle offset 2.5 px down-right.
 
-Date labels sit left of the spine in secondary uppercase. Content cards sit right. `current` cards get the full hard shadow treatment. Dates use `white-space: nowrap` and `text-align: right`.
+Date labels sit left of the spine (`text-align: right`, `white-space: nowrap`) in secondary uppercase 8 px tracking. Content cards sit right. `current` cards get the full 3 px hard shadow. Label opacity drops to 50% for `upcoming` items to signal they haven't happened yet without hiding the information.
+
+That restraint is what keeps `Timeline` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

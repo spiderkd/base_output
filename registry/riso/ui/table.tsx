@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/table.tsx — Risograph Table
+// registry/riso/ui/table.tsx — Risograph Table
 //
 // Visual system:
 //   - Header row: solid primary fill, white text
@@ -90,12 +90,26 @@ function SortChevron({ dir }: { dir: SortDir }) {
   );
 }
 
-export function Table<T extends Record<string, unknown>>({ columns,
+export function Table<T extends Record<string, unknown>>({
+  columns,
   data,
   caption,
   stickyHeader = false,
-  className, theme, primary, secondary, overlap, paper, style }: TableProps<T>) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: TableProps<T>) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [sortKey, setSortKey] = React.useState<string | null>(null);
   const [sortDir, setSortDir] = React.useState<SortDir>(null);
 
@@ -126,7 +140,8 @@ export function Table<T extends Record<string, unknown>>({ columns,
       className={cn(
         "w-full overflow-x-auto [filter:drop-shadow(4px_4px_0_var(--riso-secondary))]",
         className,
-      )} style={{ ...risoStyle, ...style }}
+      )}
+      style={{ ...risoStyle, ...style }}
     >
       <table className="w-full outline  outline-[var(--riso-primary)] [border-collapse:collapse]">
         {caption && (
@@ -170,8 +185,8 @@ export function Table<T extends Record<string, unknown>>({ columns,
               key={rowIdx}
               className="relative"
               onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLTableRowElement).style.background =
-                "color-mix(in srgb,var(--riso-secondary) 12%,transparent)")
+                ((e.currentTarget as HTMLTableRowElement).style.background =
+                  "color-mix(in srgb,var(--riso-secondary) 12%,transparent)")
               }
               onMouseLeave={(e) =>
                 ((e.currentTarget as HTMLTableRowElement).style.background = "")
@@ -214,5 +229,3 @@ export function Table<T extends Record<string, unknown>>({ columns,
     </div>
   );
 }
-
-

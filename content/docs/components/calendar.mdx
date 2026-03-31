@@ -3,12 +3,13 @@ title: Calendar
 description: Date picker with PrintBlock selected days, bleed event squares, and two-ink navigation chevrons. Weekends in secondary color.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Calendar } from "@/registry/new-york/ui/calendar"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Calendar } from "@/registry/riso/ui/calendar";
 
 <PreviewContainer
   componentName="calendar"
-  code={`import { Calendar } from '@/registry/new-york/ui/calendar'
+  code={`import { Calendar } from '@/registry/riso/ui/calendar'
 
 <Calendar defaultValue={new Date()} />`}
 >
@@ -17,9 +18,20 @@ import { Calendar } from "@/registry/new-york/ui/calendar"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/calendar.json
-```
+<InstallTabs slug="calendar"  />
+
+## Props
+
+The examples above cover the most common ways to use `Calendar`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `value` | `Date` | - | Controlled selected date. |
+| `defaultValue` | `Date` | - | Initial selected date for uncontrolled usage. |
+| `onChange` | `(date: Date) => void` | - | Called when the value changes. |
+| `events` | `CalendarEvent[]` | `[]` | Dates or events highlighted in the calendar grid. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## With events
 
@@ -38,21 +50,12 @@ npx shadcn add https://riso.dev/r/calendar.json
   <Calendar
     defaultValue={new Date()}
     events={[
-      { date: "2025-03-15", label: "Print run",   ink: "primary" },
+      { date: "2025-03-15", label: "Print run", ink: "primary" },
       { date: "2025-03-18", label: "Maintenance", ink: "secondary" },
-      { date: "2025-03-22", label: "QA review",   ink: "overlap" },
+      { date: "2025-03-22", label: "QA review", ink: "overlap" },
     ]}
   />
 </PreviewContainer>
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `value` | `Date` | — | Controlled selected date |
-| `defaultValue` | `Date` | — | Uncontrolled default |
-| `onChange` | `(date: Date) => void` | — | Change handler |
-| `events` | `CalendarEvent[]` | — | `{ date: "YYYY-MM-DD", label, ink? }[]` |
 
 ## Design notes
 
@@ -63,3 +66,5 @@ Today (if not selected): 2px primary outline with `drop-shadow(2px 2px 0 var(--r
 Event indicators are 5×5 squares (not dots) below the date number, with a negative `2px` bottom margin making them bleed past the cell boundary.
 
 Month header lives in a PrintBlock (solid primary fill). Day-of-week headers are secondary uppercase labels. Weekends are secondary color numbers.
+
+That restraint is what keeps `Calendar` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

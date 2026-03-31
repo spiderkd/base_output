@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/timeline.tsx — Risograph Timeline
+// registry/riso/ui/timeline.tsx — Risograph Timeline
 //
 // Visual system:
 //   - Vertical double-rule spine (primary 2px + secondary 1px, offset 3px right)
@@ -95,12 +95,27 @@ function SpineNode({
   );
 }
 
-export function Timeline({ items, className, theme, primary, secondary, overlap, paper, style }: TimelineProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+export function Timeline({
+  items,
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: TimelineProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   return (
     <div
       className={cn("relative", className)}
-      style={{ ...risoStyle, ...({ paddingLeft: SPINE_X + 24 }) }}
+      style={{ ...risoStyle, ...{ paddingLeft: SPINE_X + 24 } }}
     >
       {/* Vertical double-rule spine */}
       <div
@@ -183,5 +198,3 @@ export function Timeline({ items, className, theme, primary, secondary, overlap,
     </div>
   );
 }
-
-

@@ -3,12 +3,13 @@ title: Textarea
 description: Multi-line input with misregistration shadow. Grain filter intensifies on focus. Custom SVG resize handle — two diagonal lines in primary + secondary ink.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Textarea } from "@/registry/new-york/ui/textarea"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Textarea } from "@/registry/riso/ui/textarea";
 
 <PreviewContainer
   componentName="textarea"
-  code={`import { Textarea } from '@/registry/new-york/ui/textarea'
+  code={`import { Textarea } from '@/registry/riso/ui/textarea'
 
 <Textarea
   label="Job Notes"
@@ -22,9 +23,21 @@ import { Textarea } from "@/registry/new-york/ui/textarea"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/textarea.json
-```
+<InstallTabs slug="textarea"  />
+
+## Props
+
+The examples above cover the most common ways to use `Textarea`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `label` | `string` | - | Optional field label. |
+| `hint` | `string` | - | Helper copy shown below the field. |
+| `error` | `string` | - | Error message shown below the field. |
+| `showCount` | `boolean` | `false` | Shows a live character counter. |
+| `maxLength` | `number` | - | Maximum allowed character count. |
+
+`Textarea` also accepts the usual textarea props such as `value`, `defaultValue`, `onChange`, `placeholder`, `rows`, and `disabled`.
 
 ## With character count
 
@@ -38,7 +51,12 @@ npx shadcn add https://riso.dev/r/textarea.json
 />`}
 >
   <div style={{ width: 360 }}>
-    <Textarea label="Press Release" placeholder="Enter copy…" showCount maxLength={280} />
+    <Textarea
+      label="Press Release"
+      placeholder="Enter copy…"
+      showCount
+      maxLength={280}
+    />
   </div>
 </PreviewContainer>
 
@@ -53,7 +71,11 @@ npx shadcn add https://riso.dev/r/textarea.json
 />`}
 >
   <div style={{ width: 360 }}>
-    <Textarea label="Registration ID" defaultValue="INVALID_FORMAT" error="Must be PLATE-XXXX format" />
+    <Textarea
+      label="Registration ID"
+      defaultValue="INVALID_FORMAT"
+      error="Must be PLATE-XXXX format"
+    />
   </div>
 </PreviewContainer>
 
@@ -68,22 +90,18 @@ npx shadcn add https://riso.dev/r/textarea.json
 />`}
 >
   <div style={{ width: 360 }}>
-    <Textarea label="Special Instructions" hint="Include paper stock, bleed, and registration requirements" placeholder="e.g. 3mm bleed on all sides, coated 100gsm" />
+    <Textarea
+      label="Special Instructions"
+      hint="Include paper stock, bleed, and registration requirements"
+      placeholder="e.g. 3mm bleed on all sides, coated 100gsm"
+    />
   </div>
 </PreviewContainer>
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `label` | `string` | — | Field label |
-| `hint` | `string` | — | Helper text below |
-| `error` | `string` | — | Error text (turns label red) |
-| `showCount` | `boolean` | `false` | Show character count |
-| `maxLength` | `number` | — | Character limit |
 
 ## Design notes
 
 Extends the `Input` misregistration pattern. On focus, the secondary shadow opacity transitions from `0.22` to `0.35` and the outline switches from secondary to primary color.
 
 The browser's native resize handle is replaced by two SVG `<line>` elements: one primary (1.5px) and one secondary (1px, offset 1.5px). The custom handle preserves resize functionality while staying on-aesthetic.
+
+That restraint is what keeps `Textarea` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

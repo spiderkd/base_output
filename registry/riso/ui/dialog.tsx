@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/dialog.tsx — Risograph Dialog
+// registry/riso/ui/dialog.tsx — Risograph Dialog
 //
 // Visual system:
 //   - Uses native <dialog> element for accessibility
@@ -25,13 +25,27 @@ interface DialogProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-export function Dialog({ open,
+export function Dialog({
+  open,
   onClose,
   title,
   description,
   children,
-  className, theme, primary, secondary, overlap, paper, style }: DialogProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: DialogProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const dialogRef = React.useRef<HTMLDialogElement>(null);
   const [settled, setSettled] = React.useState(false);
 
@@ -197,5 +211,3 @@ export function DialogTrigger({
 }) {
   return React.cloneElement(children, { onClick });
 }
-
-
