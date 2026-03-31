@@ -1,6 +1,6 @@
 // "use client";
 
-// // registry/new-york/ui/riso-chart.tsx — Risograph Pie / Donut Chart
+// // registry/riso/ui/riso-chart.tsx — Risograph Pie / Donut Chart
 // //
 // // Unique to Riso — no Crumble equivalent.
 // //
@@ -198,7 +198,7 @@
 
 "use client";
 
-// registry/new-york/ui/riso-chart.tsx — Risograph Pie / Donut Chart
+// registry/riso/ui/riso-chart.tsx — Risograph Pie / Donut Chart
 //
 // Unique to Riso — no Crumble equivalent.
 //
@@ -271,12 +271,26 @@ const INK_HEX: Record<string, string> = {
   overlap: "#7b4f7a",
 };
 
-export function RisoChart({ data,
+export function RisoChart({
+  data,
   size = 200,
   donut = true,
   showLegend = true,
-  className, theme, primary, secondary, overlap, paper, style }: RisoChartProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: RisoChartProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [hovered, setHovered] = React.useState<number | null>(null);
   const cx = size / 2;
   const cy = size / 2;
@@ -299,7 +313,10 @@ export function RisoChart({ data,
   });
 
   return (
-    <div className={cn("flex flex-col items-center gap-4", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      className={cn("flex flex-col items-center gap-4", className)}
+      style={{ ...risoStyle, ...style }}
+    >
       <div style={{ position: "relative", width: size, height: size }}>
         <svg
           width={size}
@@ -448,5 +465,3 @@ export function RisoChart({ data,
     </div>
   );
 }
-
-

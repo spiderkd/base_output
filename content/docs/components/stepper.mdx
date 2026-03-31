@@ -3,12 +3,16 @@ title: Stepper
 description: Multi-step progress indicator. Completed steps get a stamp-approved node with white checkmark. Current step has an inner dot. Upcoming steps use a dashed outline. Double-rule connectors.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { InteractiveStepperDemo, VerticalStepperDemo } from "@/components/demos/stepper-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import {
+  InteractiveStepperDemo,
+  VerticalStepperDemo,
+} from "@/components/demos/stepper-demos";
 
 <PreviewContainer
   componentName="stepper"
-  code={`import { Stepper } from '@/registry/new-york/ui/stepper'
+  code={`import { Stepper } from '@/registry/riso/ui/stepper'
 
 const [current, setCurrent] = React.useState(1)
 
@@ -27,9 +31,19 @@ const [current, setCurrent] = React.useState(1)
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/stepper.json
-```
+<InstallTabs slug="stepper"  />
+
+## Props
+
+The examples above cover the most common ways to use `Stepper`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `steps` | `Step[]` | - | Ordered step definitions. |
+| `currentStep` | `number` | - | Zero-based active step index. |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Layout direction for the stepper. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Vertical orientation
 
@@ -51,20 +65,14 @@ npx shadcn add https://riso.dev/r/stepper.json
 
 ## Node states
 
-| Status | Visual |
-|---|---|
-| `complete` (`idx < currentStep`) | Solid primary fill, white checkmark, secondary shadow circle |
-| `current` (`idx === currentStep`) | Primary outline, secondary shadow, inner filled dot |
-| `upcoming` (`idx > currentStep`) | Dashed `strokeDasharray="3 2.5"` primary circle at 50% opacity |
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `steps` | `Step[]` | — | `{ id, label, description? }[]` |
-| `currentStep` | `number` | — | 0-based index of the current step |
-| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Layout direction |
+| Status                            | Visual                                                         |
+| --------------------------------- | -------------------------------------------------------------- |
+| `complete` (`idx < currentStep`)  | Solid primary fill, white checkmark, secondary shadow circle   |
+| `current` (`idx === currentStep`) | Primary outline, secondary shadow, inner filled dot            |
+| `upcoming` (`idx > currentStep`)  | Dashed `strokeDasharray="3 2.5"` primary circle at 50% opacity |
 
 ## Design notes
 
 Connector lines between steps use the double-rule pattern: 2px primary + 1px secondary offset 3px. Completed connectors are solid at full opacity. Upcoming connectors drop to 35% opacity. No transition on the connector — it changes immediately when `currentStep` updates, consistent with the stamp's instantaneous quality.
+
+That restraint is what keeps `Stepper` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

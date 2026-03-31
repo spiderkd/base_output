@@ -4,6 +4,49 @@
   "homepage": "http://localhost:3000",
   "items": [
     {
+      "name": "riso-theme",
+      "type": "registry:theme",
+      "title": "Riso Theme",
+      "description": "Risograph ink palette CSS variables. Installs --riso-primary/secondary/overlap/paper into :root plus four named theme overrides.",
+      "docs": "Add data-riso-theme=\"pink-teal\" | \"red-yellow\" | \"blue-pink\" | \"black-yellow\" to your <html> or any wrapper element to switch themes. Override individual vars in your own CSS: :root { --riso-primary: #yourcolor; }",
+      "cssVars": {
+        "light": {
+          "riso-primary": "#ff5e7e",
+          "riso-secondary": "#00a99d",
+          "riso-overlap": "#7b4f7a",
+          "riso-paper": "#f7f0e2"
+        }
+      },
+      "css": {
+        "@layer base": {
+          "[data-riso-theme='pink-teal']": {
+            "--riso-primary": "#ff5e7e",
+            "--riso-secondary": "#00a99d",
+            "--riso-overlap": "#7b4f7a",
+            "--riso-paper": "#f7f0e2"
+          },
+          "[data-riso-theme='red-yellow']": {
+            "--riso-primary": "#e8362a",
+            "--riso-secondary": "#f5d800",
+            "--riso-overlap": "#c07a00",
+            "--riso-paper": "#f6f0e0"
+          },
+          "[data-riso-theme='blue-pink']": {
+            "--riso-primary": "#3d6bce",
+            "--riso-secondary": "#ff5e7e",
+            "--riso-overlap": "#7b3fa0",
+            "--riso-paper": "#f8f6ff"
+          },
+          "[data-riso-theme='black-yellow']": {
+            "--riso-primary": "#1a1a1a",
+            "--riso-secondary": "#f5d800",
+            "--riso-overlap": "#3a3200",
+            "--riso-paper": "#f5efdc"
+          }
+        }
+      }
+    },
+    {
       "name": "riso-utils",
       "type": "registry:lib",
       "title": "Riso Utils",
@@ -16,12 +59,11 @@
         }
       ]
     },
-
     {
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "Risograph-style accordion with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "description": "Risograph-style Accordion component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
       "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
       "registryDependencies": [
         "http://localhost:3000/r/riso-theme.json",
@@ -31,7 +73,817 @@
         {
           "path": "registry/riso/ui/accordion.tsx",
           "type": "registry:ui",
-          "target": "components/riso/accordion.tsx"
+          "target": "components/riso/ui/accordion.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Risograph-style Alert component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/alert.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/alert.tsx"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Risograph-style Avatar component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/avatar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Risograph-style Badge component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/badge.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/badge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Bar Chart",
+      "description": "Risograph-style Bar Chart component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/bar-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Risograph-style Breadcrumb component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/breadcrumb.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Risograph-style Button component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/button.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Risograph-style Calendar component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/calendar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Risograph-style Card component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/card.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Risograph-style Checkbox component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/checkbox.tsx"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:ui",
+      "title": "Command Palette",
+      "description": "Risograph-style Command Palette component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/command-palette.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/command-palette.tsx"
+        }
+      ]
+    },
+    {
+      "name": "countdown",
+      "type": "registry:ui",
+      "title": "Countdown",
+      "description": "Risograph-style Countdown component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/countdown.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/countdown.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Risograph-style Dialog component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Risograph-style Drawer component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/drawer.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/drawer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ghost-grid",
+      "type": "registry:ui",
+      "title": "Ghost Grid",
+      "description": "Risograph-style Ghost Grid component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/ghost-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/ghost-grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "halftone-image",
+      "type": "registry:ui",
+      "title": "Halftone Image",
+      "description": "Risograph-style Halftone Image component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/halftone-image.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/halftone-image.tsx"
+        }
+      ]
+    },
+    {
+      "name": "heatmap",
+      "type": "registry:ui",
+      "title": "Heatmap",
+      "description": "Risograph-style Heatmap component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/heatmap.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/heatmap.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ink-blot-loader",
+      "type": "registry:ui",
+      "title": "Ink Blot Loader",
+      "description": "Risograph-style Ink Blot Loader component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/ink-blot-loader.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/ink-blot-loader.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ink-cursor",
+      "type": "registry:ui",
+      "title": "Ink Cursor",
+      "description": "Risograph-style Ink Cursor component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/ink-cursor.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/ink-cursor.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ink-density-meter",
+      "type": "registry:ui",
+      "title": "Ink Density Meter",
+      "description": "Risograph-style Ink Density Meter component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/ink-density-meter.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/ink-density-meter.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Risograph-style Input component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/input.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "line-chart",
+      "type": "registry:ui",
+      "title": "Line Chart",
+      "description": "Risograph-style Line Chart component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/line-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/line-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "misreg-text-reveal",
+      "type": "registry:ui",
+      "title": "Misreg Text Reveal",
+      "description": "Risograph-style Misreg Text Reveal component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/misreg-text-reveal.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/misreg-text-reveal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Risograph-style Pagination component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/pagination.tsx"
+        }
+      ]
+    },
+    {
+      "name": "paper-texture-card",
+      "type": "registry:ui",
+      "title": "Paper Texture Card",
+      "description": "Risograph-style Paper Texture Card component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/paper-texture-card.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/paper-texture-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "plate-registration",
+      "type": "registry:ui",
+      "title": "Plate Registration",
+      "description": "Risograph-style Plate Registration component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/plate-registration.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/plate-registration.tsx"
+        }
+      ]
+    },
+    {
+      "name": "print-block",
+      "type": "registry:ui",
+      "title": "Print Block",
+      "description": "Risograph-style Print Block component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/print-block.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/print-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Risograph-style Progress component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/progress.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/progress.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Risograph-style Radio Group component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/radio-group.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/radio-group.tsx"
+        }
+      ]
+    },
+    {
+      "name": "riso-chart",
+      "type": "registry:ui",
+      "title": "Riso Chart",
+      "description": "Risograph-style Riso Chart component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/riso-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/riso-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Risograph-style Select component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/select.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Risograph-style Separator component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-nav",
+      "type": "registry:ui",
+      "title": "Sidebar Nav",
+      "description": "Risograph-style Sidebar Nav component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/sidebar-nav.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/sidebar-nav.tsx"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Risograph-style Slider component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/slider.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/slider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sparkline-row",
+      "type": "registry:ui",
+      "title": "Sparkline Row",
+      "description": "Risograph-style Sparkline Row component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/sparkline-row.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/sparkline-row.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stamp",
+      "type": "registry:ui",
+      "title": "Stamp",
+      "description": "Risograph-style Stamp component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/stamp.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/stamp.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "type": "registry:ui",
+      "title": "Stat Card",
+      "description": "Risograph-style Stat Card component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/stat-card.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/stat-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "Risograph-style Stepper component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/stepper.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/stepper.tsx"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Risograph-style Table component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/table.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Risograph-style Tabs component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/tabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Risograph-style Textarea component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/textarea.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/textarea.tsx"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Risograph-style Timeline component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/timeline.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/timeline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Risograph-style Toast component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/toast.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/toast.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Risograph-style Toggle component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/toggle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Risograph-style Tooltip component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/tooltip.tsx"
+        }
+      ]
+    },
+    {
+      "name": "torn-paper",
+      "type": "registry:ui",
+      "title": "Torn Paper",
+      "description": "Risograph-style Torn Paper component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+      "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming.",
+      "registryDependencies": [
+        "http://localhost:3000/r/riso-theme.json",
+        "http://localhost:3000/r/riso-utils.json"
+      ],
+      "files": [
+        {
+          "path": "registry/riso/ui/torn-paper.tsx",
+          "type": "registry:ui",
+          "target": "components/riso/ui/torn-paper.tsx"
         }
       ]
     }

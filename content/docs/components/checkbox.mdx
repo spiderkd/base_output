@@ -3,12 +3,13 @@ title: Checkbox
 description: A two-layer SVG checkbox — primary border with secondary shadow offset. Check state floods the box with primary ink.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Checkbox } from "@/registry/new-york/ui/checkbox"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Checkbox } from "@/registry/riso/ui/checkbox";
 
 <PreviewContainer
   componentName="checkbox"
-  code={`import { Checkbox } from '@/registry/new-york/ui/checkbox'
+  code={`import { Checkbox } from '@/registry/riso/ui/checkbox'
 
 <Checkbox label="Plate preparation complete" />`}
 >
@@ -17,9 +18,18 @@ import { Checkbox } from "@/registry/new-york/ui/checkbox"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/checkbox.json
-```
+<InstallTabs slug="checkbox"  />
+
+## Props
+
+The examples above cover the most common ways to use `Checkbox`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `label` | `string` | - | Optional label text. |
+| `description` | `string` | - | Optional supporting text. |
+
+`Checkbox` also accepts the usual checkbox input props such as `checked`, `defaultChecked`, `onChange`, `name`, and `disabled`.
 
 ## Pre-checked
 
@@ -46,3 +56,7 @@ npx shadcn add https://riso.dev/r/checkbox.json
     defaultChecked
   />
 </PreviewContainer>
+
+## Design notes
+
+That restraint is what keeps `Checkbox` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

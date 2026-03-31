@@ -3,96 +3,121 @@ title: Toast
 description: Stamp-entry notification with a countdown progress bar. Exits on dismiss or auto-timeout. Stacks from bottom-right.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { ToastDemo, SingleToastDemo } from "@/components/demos/toast-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { ToastDemo, SingleToastDemo } from "@/components/demos/toast-demos";
 
 <PreviewContainer
   componentName="toast"
-  code={`import { useToast } from '@/registry/new-york/ui/toast'
-import { Button } from '@/registry/new-york/ui/button'
+  code={`import { useToast } from '@/registry/riso/ui/toast'
+import { Button } from '@/registry/riso/ui/button'
 
 // useToast requires <ToastProvider> in your layout
 function Demo() {
-  const { toast } = useToast()
-  return (
-    <div className="flex gap-3">
-      <Button onClick={() => toast({ title: "Job Registered", description: "JOB-0992 queued" })}>
-        Default
-      </Button>
-      <Button onClick={() => toast({ title: "Print Complete", variant: "success" })}>
-        Success
-      </Button>
-      <Button onClick={() => toast({ title: "Ink Low", variant: "warning" })}>
-        Warning
-      </Button>
-      <Button onClick={() => toast({ title: "Paper Jam", variant: "danger" })}>
-        Danger
-      </Button>
-    </div>
-  )
+const { toast } = useToast()
+return (
+<div className="flex gap-3">
+<Button onClick={() => toast({ title: "Job Registered", description: "JOB-0992 queued" })}>
+Default
+</Button>
+<Button onClick={() => toast({ title: "Print Complete", variant: "success" })}>
+Success
+</Button>
+<Button onClick={() => toast({ title: "Ink Low", variant: "warning" })}>
+Warning
+</Button>
+<Button onClick={() => toast({ title: "Paper Jam", variant: "danger" })}>
+Danger
+</Button>
+</div>
+)
 }`}
+
 >
+
   <ToastDemo />
 </PreviewContainer>
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/toast.json
-```
+<InstallTabs slug="toast"  />
+
+## Props
+
+Toast uses a provider-plus-hook API instead of a single visible component prop surface. Wrap your app once, then call `toast()` wherever you need a stamped notification.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `children` | `React.ReactNode` | - | App content rendered inside `ToastProvider` |
+| `style` | `React.CSSProperties` | - | Inline styles applied to the toast portal wrapper |
 
 ## Setup
 
 Wrap your app in `<ToastProvider>` once in your root layout:
 
 ```tsx
-import { ToastProvider } from '@/registry/new-york/ui/toast'
+import { ToastProvider } from "@/registry/riso/ui/toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
 ## Usage hook
 
 ```tsx
-import { useToast } from '@/registry/new-york/ui/toast'
+import { useToast } from "@/registry/riso/ui/toast";
 
 function MyComponent() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   return (
-    <Button onClick={() => toast({
-      title: "Job Complete",
-      description: "847 sheets printed",
-      variant: "success",
-      duration: 5000,
-    })}>
+    <Button
+      onClick={() =>
+        toast({
+          title: "Job Complete",
+          description: "847 sheets printed",
+          variant: "success",
+          duration: 5000,
+        })
+      }
+    >
       Trigger
     </Button>
-  )
+  );
 }
 ```
 
 ## Variants
 
-| Variant | Ink | Use case |
-|---|---|---|
-| `default` | Primary | General notifications |
-| `success` | Secondary | Completed actions |
-| `warning` | Overlap purple | Caution / low resource |
-| `danger` | Red `#e8362a` | Errors, destructive results |
+| Variant   | Ink            | Use case                    |
+| --------- | -------------- | --------------------------- |
+| `default` | Primary        | General notifications       |
+| `success` | Secondary      | Completed actions           |
+| `warning` | Overlap purple | Caution / low resource      |
+| `danger`  | Red `#e8362a`  | Errors, destructive results |
+
+## Toast payload
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `title` | `string` | - | Main label shown at the top of the toast |
+| `description` | `string` | - | Optional supporting message below the title |
+| `variant` | `"default" \| "success" \| "warning" \| "danger"` | `"default"` | Chooses the ink treatment for the toast |
+| `duration` | `number` | `4000` | Auto-dismiss time in milliseconds |
+
+`ToastProvider` also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides. The `useToast()` hook returns a `toast` function that accepts the payload above.
 
 ## Design notes
 
 Entry animation: scales from `0.88` to `1.0` with a spring cubic-bezier — simulating a rubber stamp pressed onto paper. The countdown bar at the bottom drains from 100% to 0% over `duration` milliseconds (default 4000ms).
 
 Toasts stack using `flex-direction: column-reverse` so newer ones push older ones upward. The hard drop shadow (`4px 4px 0`) uses no blur — consistent with the stacking principle throughout Riso UI.
+
+That restraint is what keeps `Toast` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

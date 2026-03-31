@@ -1,0 +1,46 @@
+---
+title: Search Results
+description: A search-and-browse block built from CommandPalette, Breadcrumb, Table, Pagination, Badge, and Button.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { SearchResults } from "@/registry/riso/blocks/search-results";
+
+<PreviewContainer
+  componentName="search-results"
+  code={`import { SearchResults } from '@/registry/riso/blocks/search-results'
+
+<SearchResults />`}
+>
+  <SearchResults />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/search-results.json
+```
+
+## Components used
+
+| Component          | Count | Purpose                                 |
+| ------------------ | ----- | --------------------------------------- |
+| `Breadcrumb`       | 1     | Query context and navigation trail      |
+| `CommandPalette`   | 1     | Search selection surface                |
+| `Table`            | 1     | Result list with sortable columns       |
+| `Pagination`       | 1     | Paged navigation across filtered rows   |
+| `Badge`            | 1+    | Status treatment inside the table       |
+| `Button`           | 1     | Query reset action                      |
+
+## Customising
+
+```tsx
+<SearchResults
+  items={componentIndex}
+  pageSize={8}
+/>
+```
+
+## Composition notes
+
+This block treats search as a command-first interaction but still keeps the results visible and pageable. The breadcrumb's final crumb mirrors the active query, which makes the table feel grounded even after multiple selections.

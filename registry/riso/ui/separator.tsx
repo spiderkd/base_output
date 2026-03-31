@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/separator.tsx — Risograph Separator
+// registry/riso/ui/separator.tsx — Risograph Separator
 //
 // Visual system:
 //   - Double-rule: two parallel lines in primary and secondary colors
@@ -15,15 +15,31 @@ import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 type SeparatorVariant = "default" | "heavy" | "dotted" | "single";
 type SeparatorOrientation = "horizontal" | "vertical";
 
-interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
+interface SeparatorProps
+  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
   variant?: SeparatorVariant;
   orientation?: SeparatorOrientation;
 }
 
-export function Separator({ variant = "default",
+export function Separator({
+  variant = "default",
   orientation = "horizontal",
-  className, theme, primary, secondary, overlap, paper, style, ...props }: SeparatorProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+  ...props
+}: SeparatorProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const isHorizontal = orientation === "horizontal";
 
   if (orientation === "vertical") {
@@ -33,7 +49,8 @@ export function Separator({ variant = "default",
           "relative inline-flex flex-row items-stretch w-3 self-stretch",
           className,
         )}
-        {...props} style={{ ...risoStyle, ...style }}
+        {...props}
+        style={{ ...risoStyle, ...style }}
       >
         {/* Primary vertical line */}
         <div
@@ -65,7 +82,8 @@ export function Separator({ variant = "default",
         variant === "heavy" ? "h-[10px]" : "h-[7px]",
         className,
       )}
-      {...props} style={{ ...risoStyle, ...style }}
+      {...props}
+      style={{ ...risoStyle, ...style }}
     >
       {/* Primary line (top) */}
       <div
@@ -89,5 +107,3 @@ export function Separator({ variant = "default",
     </div>
   );
 }
-
-

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "print-block",
+  "type": "registry:ui",
+  "title": "Print Block",
+  "description": "Risograph-style Print Block component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+  "registryDependencies": [
+    "http://localhost:3000/r/riso-theme.json",
+    "http://localhost:3000/r/riso-utils.json"
+  ],
+  "files": [
+    {
+      "path": "registry/riso/ui/print-block.tsx",
+      "content": "\"use client\";\n\n// registry/riso/ui/print-block.tsx — Risograph Print Block\n//\n// Unique to Riso — no Crumble equivalent.\n//\n// Visual system:\n//   - Solid flat primary ink fill, NO border or outline\n//   - Heavy grain filter applied to the fill surface\n//   - Typography in white (substrate) on the ink\n//   - Looks like a single-color block print — woodblock / letterpress aesthetic\n//   - Optional: rotated 1-2° to feel hand-placed on paper\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { resolveRisoVars, type RisoThemeProps } from \"@/lib/riso-utils\";\n\ninterface PrintBlockProps\n  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {\n  ink?: \"primary\" | \"secondary\" | \"overlap\";\n  rotate?: number; // slight rotation in degrees\n  children?: React.ReactNode;\n  className?: string;\n}\n\nexport function PrintBlock({\n  ink = \"primary\",\n  rotate = 0,\n  children,\n  className,\n  style,\n  theme,\n  primary,\n  secondary,\n  overlap,\n  paper,\n  ...props\n}: PrintBlockProps) {\n  const risoStyle = resolveRisoVars({\n    theme,\n    primary,\n    secondary,\n    overlap,\n    paper,\n  });\n  const bg = {\n    primary: \"var(--riso-primary)\",\n    secondary: \"var(--riso-secondary)\",\n    overlap: \"var(--riso-overlap, #7b4f7a)\",\n  }[ink];\n\n  return (\n    <div\n      className={cn(\"relative overflow-hidden px-6 py-5\", className)}\n      style={{\n        ...risoStyle,\n        ...{\n          background: bg,\n          transform: rotate ? `rotate(${rotate}deg)` : undefined,\n          ...style,\n        },\n      }}\n      {...props}\n    >\n      {/* Heavy grain filter overlay — the defining texture of block print */}\n      <div\n        aria-hidden\n        style={{ filter: \"url(#riso-grain-fill)\", background: bg }}\n        className=\"absolute inset-0 mix-blend-multiply opacity-60 pointer-events-none\"\n      />\n\n      {/* Halftone dot texture at mid-opacity */}\n      <div\n        aria-hidden\n        className=\"absolute inset-0 [background-image:radial-gradient(circle,rgba(255,255,255,0.18)_1.5px,transparent_0)] [background-size:4px_4px] pointer-events-none\"\n      />\n\n      {/* Content — white on ink */}\n      <div className=\"relative z-[1] text-white font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)]\">\n        {children}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/riso/ui/print-block.tsx"
+    }
+  ],
+  "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming."
+}

@@ -1,17 +1,17 @@
 "use client";
 
-// registry/new-york/blocks/registration-form.tsx — Registration Form Block ★
+// registry/riso/blocks/registration-form.tsx — Registration Form Block ★
 //
 // Combines: Input (×4) + Checkbox (×2) + Select + Button + Toast
 // On submit: triggers a stamp animation and success toast.
 
 import * as React from "react";
-import { Input } from "@/registry/riso/ui/input";
-import { Checkbox } from "@/registry/riso/ui/checkbox";
-import { Select } from "@/registry/riso/ui/select";
-import { Button } from "@/registry/riso/ui/button";
-import { Separator } from "@/registry/riso/ui/separator";
-import { useToast } from "@/registry/riso/ui/toast";
+import { Input } from "@/components/riso/ui/input";
+import { Checkbox } from "@/components/riso/ui/checkbox";
+import { Select } from "@/components/riso/ui/select";
+import { Button } from "@/components/riso/ui/button";
+import { Separator } from "@/components/riso/ui/separator";
+import { useToast } from "@/components/riso/ui/toast";
 
 const INK_OPTIONS = [
   { value: "pink-teal", label: "Fluorescent Pink + Teal" },

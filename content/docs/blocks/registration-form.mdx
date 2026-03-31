@@ -3,15 +3,16 @@ title: Registration Form
 description: A complete print job submission form with PrintBlock header, validation states, and success Toast feedback on submit.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { RegistrationForm } from "@/registry/new-york/blocks/registration-form"
-import { ToastProvider } from "@/registry/new-york/ui/toast"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { RegistrationForm } from "@/registry/riso/blocks/registration-form";
+import { ToastProvider } from "@/registry/riso/ui/toast";
 
 <PreviewContainer
   componentName="registration-form"
-  code={`import { RegistrationForm } from '@/registry/new-york/blocks/registration-form'
+  code={`import { RegistrationForm } from '@/registry/riso/blocks/registration-form'
 
 // Requires ToastProvider in your layout
+
 <RegistrationForm />`}
 >
   <ToastProvider>
@@ -30,7 +31,7 @@ npx shadcn add https://riso.dev/r/registration-form.json
 Wrap your layout in `<ToastProvider>`:
 
 ```tsx
-import { ToastProvider } from '@/registry/new-york/ui/toast'
+import { ToastProvider } from "@/registry/riso/ui/toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,20 +40,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
 ## Components used
 
-| Component | Count | Purpose |
-|---|---|---|
-| `Input` | 2 | Job name and client ID fields |
-| `Select` | 1 | Ink combination dropdown |
-| `Checkbox` | 2 | Rush order and proof-first flags |
-| `Button` | 2 | Submit (with loading state) and clear |
-| `Toast` | 1 | Success notification on submit |
-| `Separator` | 1 | Dotted divider between fields and checkboxes |
+| Component   | Count | Purpose                                      |
+| ----------- | ----- | -------------------------------------------- |
+| `Input`     | 2     | Job name and client ID fields                |
+| `Select`    | 1     | Ink combination dropdown                     |
+| `Checkbox`  | 2     | Rush order and proof-first flags             |
+| `Button`    | 2     | Submit (with loading state) and clear        |
+| `Toast`     | 1     | Success notification on submit               |
+| `Separator` | 1     | Dotted divider between fields and checkboxes |
 
 ## Composition notes
 

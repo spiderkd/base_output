@@ -1,16 +1,16 @@
 "use client";
 
-// registry/new-york/blocks/analytics-panel.tsx — Analytics Panel Block ★
+// registry/riso/blocks/analytics-panel.tsx — Analytics Panel Block ★
 //
 // Combines: Tabs (×3 views) + RisoChart + Timeline + StatCard (×2) + Badge
 
 import * as React from "react";
-import { Tabs } from "@/registry/riso/ui/tabs";
-import { RisoChart } from "@/registry/riso/ui/riso-chart";
-import { Timeline } from "@/registry/riso/ui/timeline";
-import { StatCard } from "@/registry/riso/ui/stat-card";
-import { Badge } from "@/registry/riso/ui/badge";
-import { Separator } from "@/registry/riso/ui/separator";
+import { Tabs } from "@/components/riso/ui/tabs";
+import { RisoChart } from "@/components/riso/ui/riso-chart";
+import { Timeline } from "@/components/riso/ui/timeline";
+import { StatCard } from "@/components/riso/ui/stat-card";
+import { Badge } from "@/components/riso/ui/badge";
+import { Separator } from "@/components/riso/ui/separator";
 
 const overviewContent = (
   <div className="flex flex-col gap-5">

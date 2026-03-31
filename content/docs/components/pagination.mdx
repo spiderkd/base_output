@@ -3,12 +3,16 @@ title: Pagination
 description: Current page gets the stamp-fill treatment (solid primary, hard shadow). Prev/Next use two-ink chevrons. Ellipsis collapses distant pages.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { BasicPaginationDemo, SiblingsPaginationDemo } from "@/components/demos/pagination-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import {
+  BasicPaginationDemo,
+  SiblingsPaginationDemo,
+} from "@/components/demos/pagination-demos";
 
 <PreviewContainer
   componentName="pagination"
-  code={`import { Pagination } from '@/registry/new-york/ui/pagination'
+  code={`import { Pagination } from '@/registry/riso/ui/pagination'
 
 const [page, setPage] = React.useState(3)
 
@@ -24,9 +28,21 @@ const [page, setPage] = React.useState(3)
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/pagination.json
-```
+<InstallTabs slug="pagination"  />
+
+## Props
+
+The examples above cover the most common ways to use `Pagination`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `total` | `number` | - | Total number of items in the collection. |
+| `page` | `number` | - | Current page number. |
+| `perPage` | `number` | `10` | Items shown per page. |
+| `onChange` | `(page: number) => void` | - | Called with the next page number. |
+| `siblings` | `number` | `1` | Pages shown on each side of the active page. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## More siblings
 
@@ -44,16 +60,6 @@ npx shadcn add https://riso.dev/r/pagination.json
   <SiblingsPaginationDemo />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `total` | `number` | — | Total item count |
-| `page` | `number` | — | Current page (1-indexed) |
-| `perPage` | `number` | `10` | Items per page |
-| `onChange` | `(page: number) => void` | — | Page change handler |
-| `siblings` | `number` | `1` | Pages shown around current |
-
 ## Design notes
 
 Current page: solid `var(--riso-primary)` fill with `drop-shadow(2px 2px 0 var(--riso-secondary))` — the small stamp effect. Other pages: transparent background, primary text, light primary outline.
@@ -61,3 +67,5 @@ Current page: solid `var(--riso-primary)` fill with `drop-shadow(2px 2px 0 var(-
 Prev/Next chevrons: the same four-line SVG pattern as Accordion and Select — primary 2px arms + secondary 1px offset arms at 60% opacity.
 
 Ellipsis: `···` in secondary color. The `siblings` prop controls how many pages appear around the current page before collapsing.
+
+That restraint is what keeps `Pagination` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

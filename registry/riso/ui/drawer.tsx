@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/drawer.tsx — Risograph Drawer
+// registry/riso/ui/drawer.tsx — Risograph Drawer
 //
 // Visual system:
 //   - Slides in from an edge (right/left/top/bottom)
@@ -36,18 +36,18 @@ const TRANSLATE: Record<DrawerSide, { enter: string; exit: string }> = {
 };
 
 const SHADOW_OFFSET: Record<DrawerSide, { settled: string; initial: string }> =
-{
-  right: {
-    settled: "translate(-4px, 4px)",
-    initial: "translate(-12px, 12px)",
-  },
-  left: { settled: "translate(4px, 4px)", initial: "translate(12px, 12px)" },
-  top: { settled: "translate(4px, 4px)", initial: "translate(12px, 12px)" },
-  bottom: {
-    settled: "translate(4px, -4px)",
-    initial: "translate(12px, -12px)",
-  },
-};
+  {
+    right: {
+      settled: "translate(-4px, 4px)",
+      initial: "translate(-12px, 12px)",
+    },
+    left: { settled: "translate(4px, 4px)", initial: "translate(12px, 12px)" },
+    top: { settled: "translate(4px, 4px)", initial: "translate(12px, 12px)" },
+    bottom: {
+      settled: "translate(4px, -4px)",
+      initial: "translate(12px, -12px)",
+    },
+  };
 
 const POSITION: Record<DrawerSide, React.CSSProperties> = {
   right: { right: 0, top: 0, bottom: 0 },
@@ -63,15 +63,29 @@ const BORDER: Record<DrawerSide, string> = {
   bottom: "border-top: 2px solid var(--riso-primary)",
 };
 
-export function Drawer({ open,
+export function Drawer({
+  open,
   onClose,
   side = "right",
   title,
   description,
   children,
   width = 360,
-  className, theme, primary, secondary, overlap, paper, style }: DrawerProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: DrawerProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [settled, setSettled] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
 
@@ -98,7 +112,7 @@ export function Drawer({ open,
         aria-hidden
         onClick={onClose}
         className="fixed inset-0 z-[200] [background-image:radial-gradient(circle,var(--riso-overlap,#7b4f7a)_1px,transparent_0)] [background-size:5px_5px] transition-opacity duration-300"
-        style={{ ...risoStyle, ...({ opacity: open ? 0.2 : 0 }) }}
+        style={{ ...risoStyle, ...{ opacity: open ? 0.2 : 0 } }}
       />
 
       {/* Drawer container */}
@@ -126,17 +140,14 @@ export function Drawer({ open,
         {/* Panel body */}
         <div
           //
-          className={
-            (cn(
-              "absolute inset-0 bg-[var(--riso-paper,#f7f0e2)] flex flex-col overflow-hidden",
-              className,
-              side === "right" && "border-l-2 border-[var(--riso-primary)]",
-              side === "left" && "border-r-2 border-[var(--riso-primary)]",
-              side === "top" && "border-b-2 border-[var(--riso-primary)]",
-              side === "bottom" && "border-t-2 border-[var(--riso-primary)]",
-            ),
-              className)
-          }
+          className={cn(
+            "absolute inset-0 bg-[var(--riso-paper,#f7f0e2)] flex flex-col overflow-hidden",
+            className,
+            side === "right" && "border-l-2 border-[var(--riso-primary)]",
+            side === "left" && "border-r-2 border-[var(--riso-primary)]",
+            side === "top" && "border-b-2 border-[var(--riso-primary)]",
+            side === "bottom" && "border-t-2 border-[var(--riso-primary)]",
+          )}
         >
           {/* Header */}
           {(title || description) && (
@@ -195,5 +206,3 @@ export function Drawer({ open,
     document.body,
   );
 }
-
-

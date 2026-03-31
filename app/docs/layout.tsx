@@ -2,7 +2,7 @@ import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import type { ReactNode } from "react";
 import { source } from "@/lib/source";
 
-import { RisoDocsNavbar } from "@/components/riso-docs-navbar";
+import { RisoDocsNavbar } from "@/components/nav/riso-docs-navbar";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

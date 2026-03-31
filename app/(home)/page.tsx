@@ -295,40 +295,6 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Install pill */}
-        {/* <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 14,
-            outline: "2px solid var(--riso-primary)",
-            padding: "10px 20px",
-            filter: "drop-shadow(1px 1px 0 var(--riso-secondary))",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)",
-              fontWeight: 700,
-              fontSize: 8,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "var(--riso-secondary)",
-            }}
-          >
-            Install
-          </span>
-          <code
-            style={{
-              fontFamily: "var(--font-mono,'Geist Mono',monospace)",
-              fontSize: 12,
-              color: "var(--riso-primary)",
-            }}
-          >
-            npx shadcn add https://riso.dev/r/button.json
-          </code>
-        </div> */}
-
         {/* Stats row */}
         <div
           style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 24 }}

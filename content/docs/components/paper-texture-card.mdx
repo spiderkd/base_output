@@ -3,12 +3,13 @@ title: Paper Texture Card
 description: Heavy feTurbulence grain at low frequency produces visible paper tooth — newsprint, kraft, or coarse screen-print texture. Unique to Riso UI.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { PaperTextureCard } from "@/registry/new-york/ui/paper-texture-card"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { PaperTextureCard } from "@/registry/riso/ui/paper-texture-card";
 
 <PreviewContainer
   componentName="paper-texture-card"
-  code={`import { PaperTextureCard } from '@/registry/new-york/ui/paper-texture-card'
+  code={`import { PaperTextureCard } from '@/registry/riso/ui/paper-texture-card'
 
 <PaperTextureCard grain="medium">
   <p>Content on textured paper</p>
@@ -21,9 +22,18 @@ import { PaperTextureCard } from "@/registry/new-york/ui/paper-texture-card"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/paper-texture-card.json
-```
+<InstallTabs slug="paper-texture-card"  />
+
+## Props
+
+The examples above cover the most common ways to use `Paper Texture Card`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `grain` | `"fine" \| "medium" \| "heavy" \| "newsprint"` | `"medium"` | Paper grain preset used in the background texture. |
+| `tint` | `boolean` | `false` | Adds a light secondary-ink tint to the paper. |
+| `halftone` | `boolean` | `false` | Adds visible halftone dots over the texture. |
+| `children` | `React.ReactNode` | - | Content rendered inside the paper card. |
 
 ## Grain levels
 
@@ -35,9 +45,18 @@ npx shadcn add https://riso.dev/r/paper-texture-card.json
 <PaperTextureCard grain="newsprint">Newsprint</PaperTextureCard>`}
 >
   <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-    {["fine", "medium", "heavy", "newsprint"].map(g => (
+    {["fine", "medium", "heavy", "newsprint"].map((g) => (
       <PaperTextureCard key={g} grain={g} style={{ width: 160 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".1em" }}>{g}</p>
+        <p
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: ".1em",
+          }}
+        >
+          {g}
+        </p>
       </PaperTextureCard>
     ))}
   </div>
@@ -52,7 +71,10 @@ npx shadcn add https://riso.dev/r/paper-texture-card.json
 </PaperTextureCard>`}
 >
   <PaperTextureCard grain="heavy" tint halftone style={{ width: 260 }}>
-    <p style={{ fontSize: 13, lineHeight: 1.5 }}>Heavy grain + secondary ink tint at 6% + large 8px halftone dots. Resembles coarse kraft paper.</p>
+    <p style={{ fontSize: 13, lineHeight: 1.5 }}>
+      Heavy grain + secondary ink tint at 6% + large 8px halftone dots.
+      Resembles coarse kraft paper.
+    </p>
   </PaperTextureCard>
 </PreviewContainer>
 
@@ -60,12 +82,16 @@ npx shadcn add https://riso.dev/r/paper-texture-card.json
 
 The key difference from the grain used in other components:
 
-| Usage | `baseFrequency` | Visual |
-|---|---|---|
-| Button, Card borders | `0.65` | Fine grain — barely visible |
-| Paper Texture Card (fine) | `0.65` | Same, explicit |
-| Paper Texture Card (medium) | `0.40` | Visible texture |
-| Paper Texture Card (heavy) | `0.25` | Coarse texture |
-| Paper Texture Card (newsprint) | `0.08` | Visible fiber/grain |
+| Usage                          | `baseFrequency` | Visual                      |
+| ------------------------------ | --------------- | --------------------------- |
+| Button, Card borders           | `0.65`          | Fine grain — barely visible |
+| Paper Texture Card (fine)      | `0.65`          | Same, explicit              |
+| Paper Texture Card (medium)    | `0.40`          | Visible texture             |
+| Paper Texture Card (heavy)     | `0.25`          | Coarse texture              |
+| Paper Texture Card (newsprint) | `0.08`          | Visible fiber/grain         |
 
 The `newsprint` level produces visible directional texture that resembles paper fiber — appropriate for editorial or zine-style layouts.
+
+## Design notes
+
+That restraint is what keeps `Paper Texture Card` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

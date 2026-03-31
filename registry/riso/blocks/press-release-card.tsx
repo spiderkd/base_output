@@ -1,16 +1,16 @@
 "use client";
 
-// registry/new-york/blocks/press-release-card.tsx — Press Release Card Block ★
+// registry/riso/blocks/press-release-card.tsx — Press Release Card Block ★
 //
 // Combines: PrintBlock + Stamp + Badge (×3) + Separator + Avatar + Button
 
 import * as React from "react";
-import { PrintBlock } from "@/registry/riso/ui/print-block";
-import { Stamp } from "@/registry/riso/ui/stamp";
-import { Badge } from "@/registry/riso/ui/badge";
-import { Separator } from "@/registry/riso/ui/separator";
-import { Avatar } from "@/registry/riso/ui/avatar";
-import { Button } from "@/registry/riso/ui/button";
+import { PrintBlock } from "@/components/riso/ui/print-block";
+import { Stamp } from "@/components/riso/ui/stamp";
+import { Badge } from "@/components/riso/ui/badge";
+import { Separator } from "@/components/riso/ui/separator";
+import { Avatar } from "@/components/riso/ui/avatar";
+import { Button } from "@/components/riso/ui/button";
 
 interface PressReleaseCardProps {
   title?: string;

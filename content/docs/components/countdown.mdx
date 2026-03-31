@@ -1,65 +1,78 @@
 ---
 title: Countdown
-description: Timer with digits in two SVG layers. Digit transitions use a plate-swap animation — old digit exits downward, new digit enters from above. Secondary ghost lags 60ms behind. ★ Innovative
+description: Two-color plate-swap digit timer. Primary digits enter from above on each tick; secondary ghost layer lags 60 ms behind — producing the riso misregistration illusion in motion.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Countdown } from "@/registry/new-york/ui/countdown"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Countdown } from "@/registry/riso/ui/countdown";
+import {
+  CountdownDefaultDemo,
+  CountdownInteractiveDemo,
+  CountdownNoLabelsDemo,
+} from "@/components/demos/countdown-progress-timeline-demos";
 
 <PreviewContainer
   componentName="countdown"
-  code={`import { Countdown } from '@/registry/new-york/ui/countdown'
+  code={`import { Countdown } from '@/registry/riso/ui/countdown'
 
-// Count down from 1 hour
-<Countdown seconds={3600} />`}
+// Count down 90 seconds from now
+
+<Countdown seconds={90} />`}
 >
-  <Countdown seconds={3723} />
+  <CountdownDefaultDemo />
 </PreviewContainer>
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/countdown.json
-```
-
-## Countdown to a target date
-
-<PreviewContainer
-  componentName="countdown"
-  code={`<Countdown
-  targetDate={new Date("2026-01-01T00:00:00")}
-  onComplete={() => console.log("Done!")}
-/>`}
->
-  <Countdown targetDate={new Date("2026-01-01T00:00:00")} />
-</PreviewContainer>
-
-## Without labels
-
-<PreviewContainer
-  componentName="countdown"
-  code={`<Countdown seconds={90} showLabels={false} />`}
->
-  <Countdown seconds={5490} showLabels={false} />
-</PreviewContainer>
+<InstallTabs slug="countdown"  />
 
 ## Props
 
+The examples above cover the most common ways to use `Countdown`. Start with the default example, then layer in the props below when you need more control.
+
 | Prop | Type | Default | Description |
-|---|---|---|---|
-| `targetDate` | `Date` | — | Target date to count down to |
-| `seconds` | `number` | — | Alternative: count down from N seconds |
-| `onComplete` | `() => void` | — | Called when timer reaches zero |
-| `showLabels` | `boolean` | `true` | Show HRS / MIN / SEC labels |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `targetDate` | `Date` | - | Target date the countdown runs toward. |
+| `seconds` | `number` | - | Alternative countdown length in seconds. |
+| `onComplete` | `() => void` | - | Called when the countdown reaches zero. |
+| `showLabels` | `boolean` | `true` | Configures `showLabels` for the component. |
 
-## How the plate-swap animation works
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
-Each digit pair is a 72×88px container with two absolutely-positioned elements:
+## Interactive presets
 
-**Secondary ghost** — `color: var(--riso-secondary)`, `opacity: 0.45`, offset `3px right/down`. Transitions with a 60ms delay behind the primary.
+Pick 30 s, 1 m, 5 m, or 1 h — restarts the timer.
 
-**Primary digit** — `color: var(--riso-primary)`, `font-size: 52px Epilogue 900`. When the digit changes: enters via `translateY(-100% → 0%)` over 220ms.
+<PreviewContainer
+  componentName="countdown"
+  code={`import { Countdown } from '@/registry/riso/ui/countdown'
 
-The secondary layer lags with a separate 280ms spring transition — it overshoots slightly then settles. The result looks like two ink plates swapping independently.
+<Countdown seconds={300} onComplete={() => console.log('done')} />`}
+>
+  <CountdownInteractiveDemo />
+</PreviewContainer>
 
-The colon separators are two 6×6 squares in primary ink each with a secondary shadow square offset 2.5px — the double-square version of the double-rule.
+## Without unit labels
+
+<PreviewContainer
+  componentName="countdown"
+  code={`<Countdown seconds={45} showLabels={false} />`}
+>
+  <CountdownNoLabelsDemo />
+</PreviewContainer>
+
+## Design notes
+
+Each digit slot is a 72 × 88 px card with `paper` background and a 4 px hard shadow in secondary.
+
+On every tick two layers animate:
+
+- **Primary** — slides in from `translateY(-100%)` to `0` over 220 ms
+- **Secondary ghost** — follows 60 ms later, settles at `translate(3px, 3px)`, giving the misreg offset
+
+The colon separator uses the double-rule motif: two 6 × 6 px squares, primary on top, secondary offset 2 px down-right at 55% opacity.
+
+Days segment only renders when `remaining >= 86400` — below that it auto-hides to keep the layout compact.
+
+That restraint is what keeps `Countdown` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/radio-group.tsx — Risograph Radio Group
+// registry/riso/ui/radio-group.tsx — Risograph Radio Group
 //
 // Visual system:
 //   - Two concentric circles (like Avatar but small, 20×20)
@@ -32,15 +32,27 @@ interface RadioGroupProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-function RadioCircle({ checked, disabled }: { checked: boolean; disabled?: boolean }) {
+function RadioCircle({
+  checked,
+  disabled,
+}: {
+  checked: boolean;
+  disabled?: boolean;
+}) {
   return (
     <div className="relative w-[22px] h-[22px] shrink-0">
       {/* Secondary shadow ring */}
       <svg
-        width="22" height="22" viewBox="0 0 22 22" aria-hidden
-        className="absolute top-0 left-0"      >
+        width="22"
+        height="22"
+        viewBox="0 0 22 22"
+        aria-hidden
+        className="absolute top-0 left-0"
+      >
         <circle
-          cx="12.5" cy="12.5" r="9"
+          cx="12.5"
+          cy="12.5"
+          r="9"
           fill="none"
           stroke="var(--riso-secondary)"
           strokeWidth="1.5"
@@ -51,7 +63,9 @@ function RadioCircle({ checked, disabled }: { checked: boolean; disabled?: boole
       {/* Primary ring */}
       <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden>
         <circle
-          cx="10" cy="10" r="9"
+          cx="10"
+          cy="10"
+          r="9"
           fill={checked ? "var(--riso-primary)" : "var(--riso-paper,#f7f0e2)"}
           stroke="var(--riso-primary)"
           strokeWidth="2"
@@ -59,23 +73,37 @@ function RadioCircle({ checked, disabled }: { checked: boolean; disabled?: boole
         />
 
         {/* Inner dot when selected — white on primary */}
-        {checked && (
-          <circle cx="10" cy="10" r="3.5" fill="white" />
-        )}
+        {checked && <circle cx="10" cy="10" r="3.5" fill="white" />}
       </svg>
     </div>
   );
 }
 
-export function RadioGroup({ options,
+export function RadioGroup({
+  options,
   value,
   defaultValue,
   onChange,
   label,
   orientation = "vertical",
-  className, theme, primary, secondary, overlap, paper, style }: RadioGroupProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
-  const [selected, setSelected] = React.useState<string | undefined>(value ?? defaultValue);
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: RadioGroupProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
+  const [selected, setSelected] = React.useState<string | undefined>(
+    value ?? defaultValue,
+  );
   const currentValue = value !== undefined ? value : selected;
 
   const handleChange = (val: string) => {
@@ -84,25 +112,37 @@ export function RadioGroup({ options,
   };
 
   return (
-    <div role="radiogroup" aria-label={label} className={cn("flex flex-col gap-2", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className={cn("flex flex-col gap-2", className)}
+      style={{ ...risoStyle, ...style }}
+    >
       {label && (
-        <span style={{
-          fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)",
-          fontWeight: 700, fontSize: 9, textTransform: "uppercase",
-          letterSpacing: "0.15em", color: "var(--riso-primary)",
-          marginBottom: 4,
-        }}>
+        <span
+          style={{
+            fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)",
+            fontWeight: 700,
+            fontSize: 9,
+            textTransform: "uppercase",
+            letterSpacing: "0.15em",
+            color: "var(--riso-primary)",
+            marginBottom: 4,
+          }}
+        >
           {label}
         </span>
       )}
 
-      <div style={{
-        display: "flex",
-        flexDirection: orientation === "horizontal" ? "row" : "column",
-        gap: orientation === "horizontal" ? 20 : 10,
-        flexWrap: "wrap",
-      }}>
-        {options.map(opt => {
+      <div
+        style={{
+          display: "flex",
+          flexDirection: orientation === "horizontal" ? "row" : "column",
+          gap: orientation === "horizontal" ? 20 : 10,
+          flexWrap: "wrap",
+        }}
+      >
+        {options.map((opt) => {
           const isChecked = opt.value === currentValue;
           return (
             <label
@@ -123,26 +163,38 @@ export function RadioGroup({ options,
                 checked={isChecked}
                 disabled={opt.disabled}
                 onChange={() => handleChange(opt.value)}
-                className="absolute opacity-0 w-0 h-0" aria-checked={isChecked}
+                className="absolute opacity-0 w-0 h-0"
+                aria-checked={isChecked}
               />
 
               <RadioCircle checked={isChecked} disabled={opt.disabled} />
 
               <div className="pt-0.5">
-                <span style={{
-                  fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)",
-                  fontWeight: 700, fontSize: 12, textTransform: "uppercase",
-                  letterSpacing: "0.1em", color: "var(--riso-overlap,#7b4f7a)",
-                  display: "block",
-                }}>
+                <span
+                  style={{
+                    fontFamily:
+                      "var(--font-riso-label,'Space Grotesk',sans-serif)",
+                    fontWeight: 700,
+                    fontSize: 12,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    color: "var(--riso-overlap,#7b4f7a)",
+                    display: "block",
+                  }}
+                >
                   {opt.label}
                 </span>
                 {opt.description && (
-                  <span style={{
-                    fontFamily: "var(--font-riso-body,'Work Sans',sans-serif)",
-                    fontSize: 11, color: "var(--riso-secondary)",
-                    display: "block", marginTop: 1,
-                  }}>
+                  <span
+                    style={{
+                      fontFamily:
+                        "var(--font-riso-body,'Work Sans',sans-serif)",
+                      fontSize: 11,
+                      color: "var(--riso-secondary)",
+                      display: "block",
+                      marginTop: 1,
+                    }}
+                  >
                     {opt.description}
                   </span>
                 )}
@@ -154,5 +206,3 @@ export function RadioGroup({ options,
     </div>
   );
 }
-
-

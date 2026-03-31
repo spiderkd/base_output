@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/pagination.tsx — Risograph Pagination
+// registry/riso/ui/pagination.tsx — Risograph Pagination
 //
 // Visual system:
 //   - Current page: Stamp-style circle with primary fill
@@ -21,36 +21,78 @@ interface PaginationProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-function PaginationChevron({ dir, disabled }: { dir: "left" | "right"; disabled?: boolean }) {
+function PaginationChevron({
+  dir,
+  disabled,
+}: {
+  dir: "left" | "right";
+  disabled?: boolean;
+}) {
   const ltr = dir === "right";
   return (
     <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden>
       <line
-        x1={ltr ? 2 : 14} y1="1" x2={ltr ? 14 : 2} y2="6"
-        stroke={disabled ? "color-mix(in srgb,var(--riso-primary) 35%,transparent)" : "var(--riso-primary)"}
-        strokeWidth="2" strokeLinecap="square"
+        x1={ltr ? 2 : 14}
+        y1="1"
+        x2={ltr ? 14 : 2}
+        y2="6"
+        stroke={
+          disabled
+            ? "color-mix(in srgb,var(--riso-primary) 35%,transparent)"
+            : "var(--riso-primary)"
+        }
+        strokeWidth="2"
+        strokeLinecap="square"
       />
       <line
-        x1={ltr ? 2 : 14} y1="11" x2={ltr ? 14 : 2} y2="6"
-        stroke={disabled ? "color-mix(in srgb,var(--riso-primary) 35%,transparent)" : "var(--riso-primary)"}
-        strokeWidth="2" strokeLinecap="square"
+        x1={ltr ? 2 : 14}
+        y1="11"
+        x2={ltr ? 14 : 2}
+        y2="6"
+        stroke={
+          disabled
+            ? "color-mix(in srgb,var(--riso-primary) 35%,transparent)"
+            : "var(--riso-primary)"
+        }
+        strokeWidth="2"
+        strokeLinecap="square"
       />
       {/* Secondary offset */}
       <line
-        x1={(ltr ? 2 : 14) + 1.5} y1="2.5" x2={(ltr ? 14 : 2) + 1.5} y2="7.5"
-        stroke="var(--riso-secondary)" strokeWidth="1" strokeLinecap="square" opacity="0.6"
+        x1={(ltr ? 2 : 14) + 1.5}
+        y1="2.5"
+        x2={(ltr ? 14 : 2) + 1.5}
+        y2="7.5"
+        stroke="var(--riso-secondary)"
+        strokeWidth="1"
+        strokeLinecap="square"
+        opacity="0.6"
       />
     </svg>
   );
 }
 
-export function Pagination({ total,
+export function Pagination({
+  total,
   page,
   perPage = 10,
   onChange,
   siblings = 1,
-  className, theme, primary, secondary, overlap, paper, style }: PaginationProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: PaginationProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const totalPages = Math.ceil(total / perPage);
 
   const range = (start: number, end: number) =>
@@ -63,14 +105,21 @@ export function Pagination({ total,
     const showLeft = leftSibs > 2;
     const showRight = rightSibs < totalPages - 1;
 
-    if (!showLeft && showRight) return [...range(1, 3 + siblings * 2), "...", totalPages];
-    if (showLeft && !showRight) return [1, "...", ...range(totalPages - 3 - siblings * 2, totalPages)];
-    if (showLeft && showRight) return [1, "...", ...range(leftSibs, rightSibs), "...", totalPages];
+    if (!showLeft && showRight)
+      return [...range(1, 3 + siblings * 2), "...", totalPages];
+    if (showLeft && !showRight)
+      return [1, "...", ...range(totalPages - 3 - siblings * 2, totalPages)];
+    if (showLeft && showRight)
+      return [1, "...", ...range(leftSibs, rightSibs), "...", totalPages];
     return range(1, totalPages);
   }, [page, siblings, totalPages]);
 
   return (
-    <nav aria-label="Pagination" className={cn(className)} style={{ ...risoStyle, ...style }}>
+    <nav
+      aria-label="Pagination"
+      className={cn(className)}
+      style={{ ...risoStyle, ...style }}
+    >
       <div className="flex items-center gap-1">
         {/* Prev */}
         <button
@@ -86,7 +135,10 @@ export function Pagination({ total,
         {pages.map((p, idx) => {
           if (p === "...") {
             return (
-              <span key={`e-${idx}`} className="w-9 h-9 flex items-center justify-center font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] font-bold text-[10px] text-[var(--riso-secondary)]">
+              <span
+                key={`e-${idx}`}
+                className="w-9 h-9 flex items-center justify-center font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] font-bold text-[10px] text-[var(--riso-secondary)]"
+              >
                 ···
               </span>
             );
@@ -117,5 +169,3 @@ export function Pagination({ total,
     </nav>
   );
 }
-
-

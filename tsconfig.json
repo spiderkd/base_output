@@ -17,7 +17,8 @@
     "incremental": true,
     "paths": {
       "@/.source": ["./.source/index.ts"],
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/components/riso/*": ["./registry/riso/*"]
     },
     "plugins": [
       {
@@ -25,6 +26,13 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ui/indiaMap/IndiaMap.jsx", "components/ui/indiaMap/parent.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/ui/indiaMap/IndiaMap.jsx",
+    "components/ui/indiaMap/parent.jsx"
+  ],
   "exclude": ["node_modules"]
 }

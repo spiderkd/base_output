@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ghost-grid",
+  "type": "registry:ui",
+  "title": "Ghost Grid",
+  "description": "Risograph-style Ghost Grid component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+  "registryDependencies": [
+    "http://localhost:3000/r/riso-theme.json",
+    "http://localhost:3000/r/riso-utils.json"
+  ],
+  "files": [
+    {
+      "path": "registry/riso/ui/ghost-grid.tsx",
+      "content": "\"use client\";\n\n// registry/riso/ui/ghost-grid.tsx — Ghost Grid Background ★\n//\n// Visual system:\n//   - Full-bleed background that renders large ghost-text section numbers\n//     (01, 02, 03…) as faint overlapping numerals in alternating primary/secondary\n//   - Numbers are huge (20–40vw), semi-transparent, uppercase\n//   - Secondary numbers offset 3px from primary — misreg on the texture itself\n//   - Pure CSS ::before/::after approach via data attributes\n//   - Zero JS — the numbers are derived from a count prop\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { resolveRisoVars, type RisoThemeProps } from \"@/lib/riso-utils\";\n\ninterface GhostGridProps extends RisoThemeProps {\n  count?: number; // how many section numbers to show (default 6)\n  opacity?: number; // base opacity, default 0.05\n  stagger?: boolean; // alternate primary/secondary per row\n  children?: React.ReactNode;\n  className?: string;\n  style?: React.CSSProperties;\n}\n\nexport function GhostGrid({\n  count = 6,\n  opacity = 0.05,\n  stagger = true,\n  children,\n  className,\n  style,\n  theme,\n  primary,\n  secondary,\n  overlap,\n  paper,\n}: GhostGridProps) {\n  const risoStyle = resolveRisoVars({\n    theme,\n    primary,\n    secondary,\n    overlap,\n    paper,\n  });\n  const numbers = Array.from({ length: count }, (_, i) =>\n    String(i + 1).padStart(2, \"0\"),\n  );\n\n  return (\n    <div\n      className={cn(\"relative\", className)}\n      style={{ ...risoStyle, ...{ ...style } }}\n    >\n      {/* Ghost number layer */}\n      <div\n        aria-hidden\n        className=\"absolute inset-0 overflow-hidden pointer-events-none z-0 flex flex-wrap content-start\"\n      >\n        {numbers.map((n, i) => {\n          const usePrimary = !stagger || i % 2 === 0;\n          return (\n            <div key={i} className=\"relative\">\n              {/* Secondary ghost offset */}\n              <span\n                className={cn(\n                  \"absolute top-[3px] left-[3px] font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)] font-black leading-[0.9] select-none tracking-[-0.02em] whitespace-nowrap\",\n                  usePrimary\n                    ? \"text-[var(--riso-secondary)]\"\n                    : \"text-[var(--riso-primary)]\",\n                )}\n                style={{\n                  fontSize: \"clamp(80px, 12vw, 180px)\",\n                  opacity: opacity * 0.6,\n                }}\n              >\n                {n}\n              </span>\n              {/* Primary numeral */}\n              <span\n                className={cn(\n                  \"relative block font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)] font-black leading-[0.9] select-none tracking-[-0.02em] whitespace-nowrap\",\n                  usePrimary\n                    ? \"text-[var(--riso-primary)]\"\n                    : \"text-[var(--riso-secondary)]\",\n                )}\n                style={{ fontSize: \"clamp(80px, 12vw, 180px)\", opacity }}\n              >\n                {n}\n              </span>\n            </div>\n          );\n        })}\n      </div>\n\n      {/* Content layer */}\n      <div className=\"relative z-[1]\">{children}</div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/riso/ui/ghost-grid.tsx"
+    }
+  ],
+  "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming."
+}

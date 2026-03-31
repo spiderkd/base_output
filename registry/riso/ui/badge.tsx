@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/badge.tsx — Risograph Badge
+// registry/riso/ui/badge.tsx — Risograph Badge
 //
 // Visual system:
 //   - Rectangular (0px radius) — sharp press print feel
@@ -14,14 +14,30 @@ import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
 type BadgeVariant = "default" | "secondary" | "outline" | "stamp" | "overprint";
 
-interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, RisoThemeProps {
+interface BadgeProps
+  extends React.HTMLAttributes<HTMLSpanElement>, RisoThemeProps {
   variant?: BadgeVariant;
 }
 
-export function Badge({ variant = "default",
+export function Badge({
+  variant = "default",
   className,
-  children, theme, primary, secondary, overlap, paper, style, ...props }: BadgeProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  children,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+  ...props
+}: BadgeProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const base = [
     "relative inline-flex items-center",
     "px-2.5 py-0.5",
@@ -59,7 +75,11 @@ export function Badge({ variant = "default",
     // Two overlapping rectangles at different positions with multiply blend
     // The overlap area becomes the "third ink" color automatically
     return (
-      <span className={cn("relative inline-flex", className)} {...props} style={{ ...risoStyle, ...style }}>
+      <span
+        className={cn("relative inline-flex", className)}
+        {...props}
+        style={{ ...risoStyle, ...style }}
+      >
         <span className="absolute inset-0  bg-[var(--riso-primary)] -translate-x-0.5 -translate-y-px opacity-85 mix-blend-multiply" />
         <span className="relative px-2.5 py-0.5 z-10 bg-[var(--riso-secondary)] mix-blend-multiply font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] text-[10px] font-bold uppercase tracking-[0.15em] text-white">
           {children}
@@ -69,10 +89,12 @@ export function Badge({ variant = "default",
   }
 
   return (
-    <span className={cn(base, variants[variant], className)} {...props} style={{ ...risoStyle, ...style }}>
+    <span
+      className={cn(base, variants[variant], className)}
+      {...props}
+      style={{ ...risoStyle, ...style }}
+    >
       {children}
     </span>
   );
 }
-
-

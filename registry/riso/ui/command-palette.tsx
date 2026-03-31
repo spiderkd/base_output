@@ -1,6 +1,6 @@
 // "use client";
 
-// // registry/new-york/ui/command-palette.tsx — Risograph Command Palette
+// // registry/riso/ui/command-palette.tsx — Risograph Command Palette
 // //
 // // Visual system:
 // //   - Opens as a centered dialog (keyboard shortcut driven)
@@ -250,7 +250,7 @@
 
 "use client";
 
-// registry/new-york/ui/command-palette.tsx — Risograph Command Palette
+// registry/riso/ui/command-palette.tsx — Risograph Command Palette
 //
 // Visual system:
 //   - Opens as a centered dialog (keyboard shortcut driven)
@@ -283,12 +283,26 @@ interface CommandPaletteProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-export function CommandPalette({ open,
+export function CommandPalette({
+  open,
   onClose,
   items,
   placeholder = "Type a command or search…",
-  className, theme, primary, secondary, overlap, paper, style }: CommandPaletteProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: CommandPaletteProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [query, setQuery] = React.useState("");
   const [activeIdx, setActiveIdx] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -357,7 +371,8 @@ export function CommandPalette({ open,
       className="fixed inset-0 z-[500] flex items-start justify-center pt-[12vh]"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
-      }} style={{ ...risoStyle, ...style }}
+      }}
+      style={{ ...risoStyle, ...style }}
     >
       {/* Halftone backdrop */}
       <div
@@ -492,5 +507,3 @@ export function CommandPalette({ open,
     document.body,
   );
 }
-
-

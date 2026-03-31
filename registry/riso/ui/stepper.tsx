@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/stepper.tsx — Risograph Steps / Stepper
+// registry/riso/ui/stepper.tsx — Risograph Steps / Stepper
 //
 // Visual system:
 //   - Completed steps: Stamp-approved style (filled primary circle, white checkmark)
@@ -129,11 +129,11 @@ function ConnectorLine({
             ? "top-0 left-1 right-1 h-[2px]"
             : "left-0 top-1 bottom-1 w-[2px]",
           !complete &&
-          isH &&
-          "border-t-2 border-dashed border-[var(--riso-primary)] bg-transparent",
+            isH &&
+            "border-t-2 border-dashed border-[var(--riso-primary)] bg-transparent",
           !complete &&
-          !isH &&
-          "border-l-2 border-dashed border-[var(--riso-primary)] bg-transparent",
+            !isH &&
+            "border-l-2 border-dashed border-[var(--riso-primary)] bg-transparent",
         )}
       />
       {/* Secondary offset line */}
@@ -150,11 +150,25 @@ function ConnectorLine({
   );
 }
 
-export function Stepper({ steps,
+export function Stepper({
+  steps,
   currentStep,
   orientation = "horizontal",
-  className, theme, primary, secondary, overlap, paper, style }: StepperProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: StepperProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const isH = orientation === "horizontal";
 
   return (
@@ -163,7 +177,8 @@ export function Stepper({ steps,
         "flex gap-0",
         isH ? "flex-row items-start" : "flex-col items-stretch",
         className,
-      )} style={{ ...risoStyle, ...style }}
+      )}
+      style={{ ...risoStyle, ...style }}
     >
       {steps.map((step, idx) => {
         const status: StepStatus =
@@ -193,7 +208,7 @@ export function Stepper({ steps,
                     status === "current" && "text-[var(--riso-primary)]",
                     status === "complete" && "text-[var(--riso-secondary)]",
                     status === "upcoming" &&
-                    "text-[color-mix(in_srgb,var(--riso-primary)_45%,transparent)]",
+                      "text-[color-mix(in_srgb,var(--riso-primary)_45%,transparent)]",
                   )}
                 >
                   {step.label}
@@ -219,5 +234,3 @@ export function Stepper({ steps,
     </div>
   );
 }
-
-

@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/bar-chart.tsx — Risograph Bar Chart
+// registry/riso/ui/bar-chart.tsx — Risograph Bar Chart
 //
 // Visual system:
 //   - Bars are flat solid ink colors — no gradient, no hachure
@@ -40,14 +40,28 @@ interface BarChartProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-export function BarChart({ data,
+export function BarChart({
+  data,
   height = 180,
   width = 400,
   showValues = true,
   margin,
   showGrid = true,
-  className, theme, primary, secondary, overlap, paper, style }: BarChartProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: BarChartProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const defaultMargin: Margin = {
     top: showValues ? 24 : 8,
     right: 16,
@@ -73,7 +87,10 @@ export function BarChart({ data,
     idx % 2 === 0 ? "var(--riso-secondary)" : "var(--riso-primary)";
 
   return (
-    <div className={cn("w-full relative select-none", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      className={cn("w-full relative select-none", className)}
+      style={{ ...risoStyle, ...style }}
+    >
       <svg
         width="100%"
         height={chartH}
@@ -227,5 +244,3 @@ export function BarChart({ data,
     </div>
   );
 }
-
-

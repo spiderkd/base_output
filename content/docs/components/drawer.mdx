@@ -3,13 +3,17 @@ title: Drawer
 description: Slides in from any edge. Secondary shadow layer trails behind the primary panel and snaps to 4px offset when settled — the same plate-registration mechanic as Dialog.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { RightDrawerDemo, LeftDrawerDemo } from "@/components/demos/drawer-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import {
+  RightDrawerDemo,
+  LeftDrawerDemo,
+} from "@/components/demos/drawer-demos";
 
 <PreviewContainer
   componentName="drawer"
-  code={`import { Drawer } from '@/registry/new-york/ui/drawer'
-import { Button } from '@/registry/new-york/ui/button'
+  code={`import { Drawer } from '@/registry/riso/ui/drawer'
+import { Button } from '@/registry/riso/ui/button'
 
 const [open, setOpen] = React.useState(false)
 
@@ -35,9 +39,23 @@ const [open, setOpen] = React.useState(false)
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/drawer.json
-```
+<InstallTabs slug="drawer"  />
+
+## Props
+
+The examples above cover the most common ways to use `Drawer`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `open` | `boolean` | - | Controls whether the drawer is visible. |
+| `onClose` | `() => void` | - | Called when the drawer should close. |
+| `side` | `DrawerSide` | `"right"` | Screen edge the drawer slides in from. |
+| `title` | `string` | - | Heading shown at the top of the component. |
+| `description` | `string` | - | Optional supporting text. |
+| `children` | `React.ReactNode` | - | Custom drawer body content. |
+| `width` | `number \| string` | `360` | Drawer width in pixels or any CSS length. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Left drawer
 
@@ -60,17 +78,6 @@ npx shadcn add https://riso.dev/r/drawer.json
   <LeftDrawerDemo />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `open` | `boolean` | — | Controls visibility |
-| `onClose` | `() => void` | — | Called on backdrop click or close button |
-| `side` | `"right" \| "left" \| "top" \| "bottom"` | `"right"` | Entry edge |
-| `title` | `string` | — | Header title with ghost misreg |
-| `description` | `string` | — | Subtitle in secondary color |
-| `width` | `number \| string` | `360` | Panel width (height for top/bottom) |
-
 ## Design notes
 
 The secondary shadow layer enters with a 60ms delay after the primary panel, creating the "trailing misregistration" effect. At rest it settles to `translate(4px, 4px)` (or the directional equivalent for each side) via `cubic-bezier(0.22, 1, 0.36, 1)`.
@@ -78,3 +85,5 @@ The secondary shadow layer enters with a 60ms delay after the primary panel, cre
 The halftone backdrop (`radial-gradient` of overlap-color dots at 5px spacing, 20% opacity) replaces `backdrop-filter: blur()`. There is no blur anywhere in Riso UI.
 
 The header uses the PrintBlock treatment: solid primary fill, ghost text `textShadow: "1.5px 1.5px 0 var(--riso-secondary)"`.
+
+That restraint is what keeps `Drawer` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

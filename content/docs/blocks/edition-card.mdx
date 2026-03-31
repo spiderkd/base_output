@@ -1,0 +1,49 @@
+---
+title: Edition Card
+description: A limited-edition product block using Card, PrintBlock, Stamp, TornPaper, Badge, and Button primitives.
+---
+
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { EditionCard } from "@/registry/riso/blocks/edition-card";
+
+<PreviewContainer
+  componentName="edition-card"
+  code={`import { EditionCard } from '@/registry/riso/blocks/edition-card'
+
+<EditionCard />`}
+>
+  <EditionCard />
+</PreviewContainer>
+
+## Installation
+
+```bash
+npx shadcn add https://riso.dev/r/edition-card.json
+```
+
+## Components used
+
+| Component     | Count | Purpose                                |
+| ------------- | ----- | -------------------------------------- |
+| `Card`        | 1     | Outer product frame                    |
+| `PrintBlock`  | 1     | Ink-heavy edition header               |
+| `Stamp`       | 1     | Corner approval mark                   |
+| `Badge`       | 2+    | Ink color tags                         |
+| `TornPaper`   | 1     | Divider between details and CTA        |
+| `Button`      | 1     | Purchase action with local feedback    |
+| `Separator`   | 1     | Metadata divider under subtitle        |
+
+## Customising
+
+```tsx
+<EditionCard
+  editionNumber="Ed. 008 / 050"
+  title="Afterimage Study"
+  price="$120"
+  inkColors={["Sunflower", "Federal Blue"]}
+/>
+```
+
+## Composition notes
+
+The card balances a dense print-block header with a quieter paper body, so the stamp and CTA feel deliberate rather than ornamental. The local "Added" state keeps the interaction lightweight and demo-friendly.

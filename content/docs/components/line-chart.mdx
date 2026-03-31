@@ -3,12 +3,13 @@ title: LineChart
 description: Two-layer SVG polyline — primary 2.5px + secondary 1.5px offset 1.5px behind. Halftone dot area fill. Square data points. Hover shows vertical guide and value.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { LineChart } from "@/registry/new-york/ui/line-chart"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { LineChart } from "@/registry/riso/ui/line-chart";
 
 <PreviewContainer
   componentName="line-chart"
-  code={`import { LineChart } from '@/registry/new-york/ui/line-chart'
+  code={`import { LineChart } from '@/registry/riso/ui/line-chart'
 
 <LineChart
   data={[
@@ -35,9 +36,21 @@ import { LineChart } from "@/registry/new-york/ui/line-chart"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/line-chart.json
-```
+<InstallTabs slug="line-chart"  />
+
+## Props
+
+The examples above cover the most common ways to use `LineChart`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `data` | `DataPoint[]` | - | Point data rendered along the line. |
+| `height` | `number` | `180` | Configures `height` for the component. |
+| `showArea` | `boolean` | `true` | Fills the area under the line. |
+| `showGrid` | `boolean` | `true` | Shows chart grid lines. |
+| `showDots` | `boolean` | `true` | Shows point markers on each data value. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Without area fill
 
@@ -95,16 +108,6 @@ npx shadcn add https://riso.dev/r/line-chart.json
   />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `data` | `{ label: string, value: number }[]` | — | Chart data |
-| `height` | `number` | `180` | SVG height in px |
-| `showArea` | `boolean` | `true` | Halftone area fill |
-| `showGrid` | `boolean` | `true` | Dotted horizontal grid |
-| `showDots` | `boolean` | `true` | Square data point markers |
-
 ## Design notes
 
 The area fill is a `<polygon>` filled with a `<pattern>` of 1px circles at 4px spacing — a halftone wash rather than a transparent alpha fill.
@@ -112,3 +115,5 @@ The area fill is a `<polygon>` filled with a `<pattern>` of 1px circles at 4px s
 Data points are 6×6 `<rect>` squares, not circles. All riso chart data points are squares consistently.
 
 On hover, a dashed vertical guide appears at the hovered x-position and the value floats above the data point in primary color.
+
+That restraint is what keeps `LineChart` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

@@ -3,13 +3,17 @@ title: Dialog
 description: Native <dialog> with a secondary ink layer that snaps from large offset into registration on open. Halftone dot backdrop. Two-ink X close button.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { BasicDialogDemo, DangerDialogDemo } from "@/components/demos/dialog-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import {
+  BasicDialogDemo,
+  DangerDialogDemo,
+} from "@/components/demos/dialog-demos";
 
 <PreviewContainer
   componentName="dialog"
-  code={`import { Dialog } from '@/registry/new-york/ui/dialog'
-import { Button } from '@/registry/new-york/ui/button'
+  code={`import { Dialog } from '@/registry/riso/ui/dialog'
+import { Button } from '@/registry/riso/ui/button'
 
 const [open, setOpen] = React.useState(false)
 
@@ -36,9 +40,21 @@ const [open, setOpen] = React.useState(false)
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/dialog.json
-```
+<InstallTabs slug="dialog"  />
+
+## Props
+
+The examples above cover the most common ways to use `Dialog`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `open` | `boolean` | - | Controls whether the dialog is visible. |
+| `onClose` | `() => void` | - | Called when the dialog should close. |
+| `title` | `string` | - | Heading shown at the top of the component. |
+| `description` | `string` | - | Optional supporting text. |
+| `children` | `React.ReactNode` | - | Custom dialog body content. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Destructive variant
 
@@ -62,16 +78,6 @@ npx shadcn add https://riso.dev/r/dialog.json
   <DangerDialogDemo />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `open` | `boolean` | — | Controls visibility |
-| `onClose` | `() => void` | — | Called on backdrop click or close button |
-| `title` | `string` | — | Title with ghost-text misreg (`textShadow`) |
-| `description` | `string` | — | Uppercase label in secondary color |
-| `children` | `ReactNode` | — | Dialog body content |
-
 ## Design notes
 
 The secondary ink layer starts at `translate(12px, 12px)` and springs to `translate(4px, 4px)` with `cubic-bezier(0.22, 1, 0.36, 1)` over 280ms on open — simulating the second riso plate dropping into rough registration.
@@ -79,3 +85,5 @@ The secondary ink layer starts at `translate(12px, 12px)` and springs to `transl
 The backdrop is a halftone dot pattern in the overlap color at 18% opacity. No `backdrop-filter: blur()`. There is no blur anywhere in Riso UI.
 
 Uses the native `<dialog>` element. Focus is trapped automatically by the browser. `Escape` closes it.
+
+That restraint is what keeps `Dialog` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

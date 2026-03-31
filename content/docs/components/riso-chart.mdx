@@ -3,12 +3,17 @@ title: RisoChart
 description: Pie/donut chart where flat ink segments use mix-blend-mode multiply — boundary overlaps automatically produce the third riso ink color. Unique to Riso UI.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { BasicRisoChartDemo, PieRisoChartDemo, NoLegendRisoChartDemo } from "@/components/demos/riso-chart-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import {
+  BasicRisoChartDemo,
+  PieRisoChartDemo,
+  NoLegendRisoChartDemo,
+} from "@/components/demos/riso-chart-demos";
 
 <PreviewContainer
   componentName="riso-chart"
-  code={`import { RisoChart } from '@/registry/new-york/ui/riso-chart'
+  code={`import { RisoChart } from '@/registry/riso/ui/riso-chart'
 
 <RisoChart
   data={[
@@ -24,9 +29,20 @@ import { BasicRisoChartDemo, PieRisoChartDemo, NoLegendRisoChartDemo } from "@/c
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/riso-chart.json
-```
+<InstallTabs slug="riso-chart"  />
+
+## Props
+
+The examples above cover the most common ways to use `RisoChart`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `data` | `ChartSegment[]` | - | Segment data for the pie or donut chart. |
+| `size` | `number` | - | Overall SVG size in pixels. |
+| `donut` | `boolean` | - | Uses a donut center instead of a full pie. |
+| `showLegend` | `boolean` | - | Shows the legend below the chart. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Pie (no donut hole)
 
@@ -61,17 +77,10 @@ npx shadcn add https://riso.dev/r/riso-chart.json
   <NoLegendRisoChartDemo />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `data` | `ChartSegment[]` | — | Array of `{ label, value, ink? }` |
-| `size` | `number` | `200` | Diameter in px |
-| `donut` | `boolean` | `true` | Show center hole |
-| `showLegend` | `boolean` | `true` | Show legend below chart |
-
 ## Design notes
 
 Each segment is an SVG arc path with `style={{ mixBlendMode: "multiply" }}`. Where two segments share a boundary, their colors multiply — primary pink × secondary teal = overlap purple, automatically, from the blend mode. No explicit overlap color is set.
 
 The `feTurbulence` grain filter is applied per segment giving each a slightly different texture. Hover lifts a segment with `drop-shadow(4px 4px 0 var(--riso-overlap))`.
+
+That restraint is what keeps `RisoChart` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

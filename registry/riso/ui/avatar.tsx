@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/avatar.tsx — Risograph Avatar
+// registry/riso/ui/avatar.tsx — Risograph Avatar
 //
 // Visual system:
 //   - Two concentric circles — outer in primary, inner fill in secondary
@@ -15,7 +15,8 @@ import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarVariant = "default" | "stamp" | "filled";
 
-interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
+interface AvatarProps
+  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
   src?: string;
   alt?: string;
   initials?: string;
@@ -23,17 +24,21 @@ interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemePro
   variant?: AvatarVariant;
 }
 
-interface AvatarGroupProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {}
+interface AvatarGroupProps
+  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {}
 
 // Tailwind size maps — outer, inner, font, offset encoded as classes
-const sizeClasses: Record<AvatarSize, {
-  wrapper: string;   // w + h of outer+offset
-  secondary: string; // w+h of outer circle, offset top/left
-  primary: string;   // w+h of outer circle at 0,0
-  img: string;       // inner img w+h
-  font: string;      // font-size class
-  fallback: string;  // fallback dot size
-}> = {
+const sizeClasses: Record<
+  AvatarSize,
+  {
+    wrapper: string; // w + h of outer+offset
+    secondary: string; // w+h of outer circle, offset top/left
+    primary: string; // w+h of outer circle at 0,0
+    img: string; // inner img w+h
+    font: string; // font-size class
+    fallback: string; // fallback dot size
+  }
+> = {
   sm: {
     wrapper: "w-[33.5px] h-[33.5px]",
     secondary: "w-8 h-8 top-[1.5px] left-[1.5px]",
@@ -68,19 +73,39 @@ const sizeClasses: Record<AvatarSize, {
   },
 };
 
-export function Avatar({ src,
+export function Avatar({
+  src,
   alt = "",
   initials,
   size = "md",
   variant = "default",
-  className, theme, primary, secondary, overlap, paper, style, ...props }: AvatarProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+  ...props
+}: AvatarProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const sz = sizeClasses[size];
 
   return (
     <div
-      className={cn("relative inline-block flex-shrink-0", sz.wrapper, className)}
-      {...props} style={{ ...risoStyle, ...style }}
+      className={cn(
+        "relative inline-block flex-shrink-0",
+        sz.wrapper,
+        className,
+      )}
+      {...props}
+      style={{ ...risoStyle, ...style }}
     >
       {/* Secondary ink circle — the misregistration layer, offset and behind */}
       <div
@@ -88,8 +113,12 @@ export function Avatar({ src,
         className={cn(
           "absolute rounded-full opacity-75",
           sz.secondary,
-          variant === "stamp" ? "border-2 border-dashed border-[var(--riso-secondary)]" : "border-2 border-[var(--riso-secondary)]",
-          variant === "filled" ? "bg-[var(--riso-secondary)]" : "bg-transparent",
+          variant === "stamp"
+            ? "border-2 border-dashed border-[var(--riso-secondary)]"
+            : "border-2 border-[var(--riso-secondary)]",
+          variant === "filled"
+            ? "bg-[var(--riso-secondary)]"
+            : "bg-transparent",
         )}
       />
 
@@ -98,29 +127,43 @@ export function Avatar({ src,
         className={cn(
           "absolute flex items-center justify-center overflow-hidden rounded-full",
           sz.primary,
-          variant === "stamp" ? "border-2 border-dashed border-[var(--riso-primary)]" : "border-2 border-[var(--riso-primary)]",
-          variant === "filled" ? "bg-[var(--riso-primary)]" : "bg-[var(--riso-paper,#f7f0e2)]",
+          variant === "stamp"
+            ? "border-2 border-dashed border-[var(--riso-primary)]"
+            : "border-2 border-[var(--riso-primary)]",
+          variant === "filled"
+            ? "bg-[var(--riso-primary)]"
+            : "bg-[var(--riso-paper,#f7f0e2)]",
         )}
       >
         {src ? (
           <img
             src={src}
             alt={alt}
-            className={cn("rounded-full object-cover [filter:grayscale(30%)] mix-blend-multiply", sz.img)}
+            className={cn(
+              "rounded-full object-cover [filter:grayscale(30%)] mix-blend-multiply",
+              sz.img,
+            )}
           />
         ) : initials ? (
           <span
             className={cn(
               "font-[family-name:var(--font-riso-label,'Space_Grotesk',sans-serif)] font-bold uppercase tracking-[0.05em]",
               sz.font,
-              variant === "filled" ? "text-white" : "text-[var(--riso-primary)]",
+              variant === "filled"
+                ? "text-white"
+                : "text-[var(--riso-primary)]",
             )}
           >
             {initials.slice(0, 2)}
           </span>
         ) : (
           // Fallback icon — halftone circle
-          <div className={cn("rounded-full bg-[var(--riso-primary)] opacity-40", sz.fallback)} />
+          <div
+            className={cn(
+              "rounded-full bg-[var(--riso-primary)] opacity-40",
+              sz.fallback,
+            )}
+          />
         )}
       </div>
     </div>
@@ -128,13 +171,29 @@ export function Avatar({ src,
 }
 
 // AvatarGroup — stacks avatars with slight overlap and misreg offsets
-export function AvatarGroup({ children,
-  className, theme, primary, secondary, overlap, paper, style, ...props }: AvatarGroupProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+export function AvatarGroup({
+  children,
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+  ...props
+}: AvatarGroupProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   return (
     <div
       className={cn("flex items-center", className)}
-      {...props} style={{ ...risoStyle, ...style }}
+      {...props}
+      style={{ ...risoStyle, ...style }}
     >
       {React.Children.map(children, (child, i) => (
         <div
@@ -148,5 +207,3 @@ export function AvatarGroup({ children,
     </div>
   );
 }
-
-

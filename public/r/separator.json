@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "type": "registry:ui",
+  "title": "Separator",
+  "description": "Risograph-style Separator component with ink misregistration effects. Supports named theme presets and per-instance color overrides.",
+  "registryDependencies": [
+    "http://localhost:3000/r/riso-theme.json",
+    "http://localhost:3000/r/riso-utils.json"
+  ],
+  "files": [
+    {
+      "path": "registry/riso/ui/separator.tsx",
+      "content": "\"use client\";\n\n// registry/riso/ui/separator.tsx — Risograph Separator\n//\n// Visual system:\n//   - Double-rule: two parallel lines in primary and secondary colors\n//   - The gap and offset simulate misregistration of two printing passes\n//   - \"heavy\" variant: 3px primary + 1.5px secondary, wider gap\n//   - \"dotted\" variant: dashed secondary line\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { resolveRisoVars, type RisoThemeProps } from \"@/lib/riso-utils\";\n\ntype SeparatorVariant = \"default\" | \"heavy\" | \"dotted\" | \"single\";\ntype SeparatorOrientation = \"horizontal\" | \"vertical\";\n\ninterface SeparatorProps\n  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {\n  variant?: SeparatorVariant;\n  orientation?: SeparatorOrientation;\n}\n\nexport function Separator({\n  variant = \"default\",\n  orientation = \"horizontal\",\n  className,\n  theme,\n  primary,\n  secondary,\n  overlap,\n  paper,\n  style,\n  ...props\n}: SeparatorProps) {\n  const risoStyle = resolveRisoVars({\n    theme,\n    primary,\n    secondary,\n    overlap,\n    paper,\n  });\n  const isHorizontal = orientation === \"horizontal\";\n\n  if (orientation === \"vertical\") {\n    return (\n      <div\n        className={cn(\n          \"relative inline-flex flex-row items-stretch w-3 self-stretch\",\n          className,\n        )}\n        {...props}\n        style={{ ...risoStyle, ...style }}\n      >\n        {/* Primary vertical line */}\n        <div\n          className={cn(\n            \"absolute top-0 bottom-0 left-[3px] bg-[var(--riso-primary)]\",\n            variant === \"heavy\" ? \"w-[3px]\" : \"w-[2px]\",\n          )}\n        />\n        {/* Secondary offset vertical line */}\n        {variant !== \"single\" && (\n          <div\n            className={cn(\n              \"absolute top-0 bottom-0 left-[7px] opacity-85\",\n              variant === \"heavy\" ? \"w-[1.5px]\" : \"w-[1px]\",\n              variant === \"dotted\"\n                ? \"border-l border-dashed border-[var(--riso-secondary)]\"\n                : \"bg-[var(--riso-secondary)]\",\n            )}\n          />\n        )}\n      </div>\n    );\n  }\n\n  return (\n    <div\n      className={cn(\n        \"relative w-full\",\n        variant === \"heavy\" ? \"h-[10px]\" : \"h-[7px]\",\n        className,\n      )}\n      {...props}\n      style={{ ...risoStyle, ...style }}\n    >\n      {/* Primary line (top) */}\n      <div\n        className={cn(\n          \"absolute left-0 right-0 top-0 bg-[var(--riso-primary)]\",\n          variant === \"heavy\" ? \"h-[3px]\" : \"h-[2px]\",\n        )}\n      />\n      {/* Secondary offset line (below) — misregistration */}\n      {variant !== \"single\" && (\n        <div\n          className={cn(\n            \"absolute left-0 right-0 opacity-85\",\n            variant === \"heavy\" ? \"top-[6px] h-[1.5px]\" : \"top-1 h-[1px]\",\n            variant === \"dotted\"\n              ? \"border-b border-dashed border-[var(--riso-secondary)]\"\n              : \"bg-[var(--riso-secondary)]\",\n          )}\n        />\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/riso/ui/separator.tsx"
+    }
+  ],
+  "docs": "Use the theme prop for named presets: theme=\"blue-pink\". Use primary/secondary/overlap/paper props for raw color overrides. Set data-riso-theme on a parent element for section-level theming."
+}

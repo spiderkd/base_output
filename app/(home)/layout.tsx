@@ -7,7 +7,7 @@
 // }
 
 import type { ReactNode } from "react";
-import { RisoNavbar } from "@/components/riso-navbar";
+import { RisoNavbar } from "@/components/nav/riso-navbar";
 
 // Home route group layout.
 // Uses our custom RisoNavbar — NOT fumadocs HomeLayout,

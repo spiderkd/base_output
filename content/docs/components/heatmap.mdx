@@ -3,12 +3,13 @@ title: Heatmap
 description: Grid where intensity is shown by halftone dot density — not color alpha. Sparse 0.8px dots at low values, overlapping 5px dots at high values. Hover reveals numeric value.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Heatmap } from "@/registry/new-york/ui/heatmap"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Heatmap } from "@/registry/riso/ui/heatmap";
 
 <PreviewContainer
   componentName="heatmap"
-  code={`import { Heatmap } from '@/registry/new-york/ui/heatmap'
+  code={`import { Heatmap } from '@/registry/riso/ui/heatmap'
 
 <Heatmap
   data={[
@@ -35,9 +36,20 @@ import { Heatmap } from "@/registry/new-york/ui/heatmap"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/heatmap.json
-```
+<InstallTabs slug="heatmap"  />
+
+## Props
+
+The examples above cover the most common ways to use `Heatmap`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `data` | `number[][]` | - | 2D array of normalized values from `0` to `1`. |
+| `rowLabels` | `string[]` | - | Labels shown along the rows. |
+| `colLabels` | `string[]` | - | Labels shown across the columns. |
+| `cellSize` | `number` | `36` | Cell size in pixels. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Larger cells
 
@@ -66,17 +78,10 @@ npx shadcn add https://riso.dev/r/heatmap.json
   />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `data` | `number[][]` | — | 2D array of values 0–1 |
-| `rowLabels` | `string[]` | — | Left-side row labels |
-| `colLabels` | `string[]` | — | Top column labels |
-| `cellSize` | `number` | `36` | Cell width and height in px |
-
 ## Design notes
 
 This is the defining riso-unique data display. Each cell gets a unique SVG `<pattern>` with a dot radius mapped from the value (0.8px → 5px). At high values dots overlap, creating the overlap ink color naturally — the paper shows through less.
 
 Hover shows the numeric percentage (0–100) centered in the cell and jumps the outline to 2px. Hover shadow is a secondary-color div offset `2px right, 2px down` at 35% opacity.
+
+That restraint is what keeps `Heatmap` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

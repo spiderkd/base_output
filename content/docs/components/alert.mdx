@@ -3,13 +3,17 @@ title: Alert
 description: Full-width print block notification with a solid left accent bar. Danger variant overlays a cross-hatch SVG pattern. Dismissible.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Alert } from "@/registry/new-york/ui/alert"
-import { AllAlertsDemo, DismissibleAlertDemo } from "@/components/demos/alert-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Alert } from "@/registry/riso/ui/alert";
+import {
+  AllAlertsDemo,
+  DismissibleAlertDemo,
+} from "@/components/demos/alert-demos";
 
 <PreviewContainer
   componentName="alert"
-  code={`import { Alert } from '@/registry/new-york/ui/alert'
+  code={`import { Alert } from '@/registry/riso/ui/alert'
 
 <Alert variant="info" title="Registration tip">
   Use PLATE-XXXX format for all job IDs.
@@ -22,9 +26,21 @@ import { AllAlertsDemo, DismissibleAlertDemo } from "@/components/demos/alert-de
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/alert.json
-```
+<InstallTabs slug="alert"  />
+
+## Props
+
+The examples above cover the most common ways to use `Alert`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `variant` | `AlertVariant` | `"info"` | Visual variant for the component. |
+| `title` | `string` | - | Heading shown at the top of the component. |
+| `children` | `React.ReactNode` | - | Body content rendered inside the alert. |
+| `dismissible` | `boolean` | `false` | Configures `dismissible` for the component. |
+| `onDismiss` | `() => void` | - | Configures `onDismiss` for the component. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## All variants
 
@@ -62,15 +78,8 @@ npx shadcn add https://riso.dev/r/alert.json
   <DismissibleAlertDemo />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `variant` | `"info" \| "success" \| "warning" \| "danger"` | `"info"` | Visual style |
-| `title` | `string` | — | Bold headline |
-| `dismissible` | `boolean` | `false` | Show close button |
-| `onDismiss` | `() => void` | — | Called on dismiss |
-
 ## Design notes
 
 The 5px left accent bar is the core structural element — a solid strip in the accent color running the full height. The `danger` variant overlays a 45° diagonal cross-hatch `<pattern>` at 12% opacity over the red fill, simulating a warning print texture.
+
+That restraint is what keeps `Alert` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

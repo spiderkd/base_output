@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/calendar.tsx — Risograph Calendar
+// registry/riso/ui/calendar.tsx — Risograph Calendar
 //
 // Visual system:
 //   - Selected date: PrintBlock treatment (solid primary fill, white text)
@@ -51,12 +51,26 @@ function toKey(d: Date) {
   return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 }
 
-export function Calendar({ value,
+export function Calendar({
+  value,
   defaultValue,
   onChange,
   events = [],
-  className, theme, primary, secondary, overlap, paper, style }: CalendarProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: CalendarProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -109,7 +123,8 @@ export function Calendar({ value,
       className={cn(
         "inline-block bg-[var(--riso-paper,#f7f0e2)]  outline-2 outline-[var(--riso-primary)] [filter:drop-shadow(4px_4px_0_var(--riso-secondary))] min-w-[280px]",
         className,
-      )} style={{ ...risoStyle, ...style }}
+      )}
+      style={{ ...risoStyle, ...style }}
     >
       {/* Header — month/year + nav */}
       <div className="flex items-center justify-between px-[14px] py-[10px] border-b-2 border-[var(--riso-primary)] bg-[var(--riso-primary)]">
@@ -146,7 +161,7 @@ export function Calendar({ value,
           </svg>
         </button>
 
-        <h3 className="font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)] font-black text-[14px] uppercase tracking-[0.05em] text-white m-0 [text-shadow:1px_1px_0_var(--riso-secondary)]">
+        <h3 className="font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)] font-black text-[14px] uppercase tracking-[0.05em] text-[var(--riso-paper,#f7f0e2)] m-0 [text-shadow:1px_1px_0_var(--riso-overlap)]">
           {MONTHS[month]} {year}
         </h3>
 
@@ -221,8 +236,8 @@ export function Calendar({ value,
                 "relative py-1 px-0.5 cursor-pointer text-center",
                 isSel && "bg-[var(--riso-primary)]",
                 isToday &&
-                !isSel &&
-                " outline-2 outline-[var(--riso-primary)] [filter:drop-shadow(2px_2px_0_var(--riso-secondary))]",
+                  !isSel &&
+                  " outline-2 outline-[var(--riso-primary)] [filter:drop-shadow(2px_2px_0_var(--riso-secondary))]",
               )}
               onMouseEnter={(e) => {
                 if (!isSel)
@@ -276,5 +291,3 @@ export function Calendar({ value,
     </div>
   );
 }
-
-

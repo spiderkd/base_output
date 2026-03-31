@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/input.tsx — Risograph Input
+// registry/riso/ui/input.tsx — Risograph Input
 //
 // Visual system:
 //   - Sharp rectangular frame — NO border-radius
@@ -14,7 +14,8 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>, RisoThemeProps {
+interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>, RisoThemeProps {
   label?: string;
   error?: string;
   hint?: string;
@@ -22,13 +23,39 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>, RisoTh
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, hint, halftone = false, className, id, theme, primary, secondary, overlap, paper, style, ...props }, ref) => {
-    const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  (
+    {
+      label,
+      error,
+      hint,
+      halftone = false,
+      className,
+      id,
+      theme,
+      primary,
+      secondary,
+      overlap,
+      paper,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    const risoStyle = resolveRisoVars({
+      theme,
+      primary,
+      secondary,
+      overlap,
+      paper,
+    });
     const inputId =
       id ?? (label ? label.toLowerCase().replace(/\s+/g, "-") : undefined);
 
     return (
-      <div className="relative flex flex-col gap-1.5 w-full" style={{ ...risoStyle, ...style }}>
+      <div
+        className="relative flex flex-col gap-1.5 w-full"
+        style={{ ...risoStyle, ...style }}
+      >
         {label && (
           <label
             htmlFor={inputId}
@@ -99,5 +126,3 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = "Input";
-
-

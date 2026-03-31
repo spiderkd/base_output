@@ -5,6 +5,11 @@
     "registration-form",
     "press-release-card",
     "analytics-panel",
-    "team-directory"
+    "team-directory",
+    "event-schedule",
+    "edition-card",
+    "search-results",
+    "activity-feed",
+    "settings-panel"
   ]
 }

@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/tabs.tsx — Risograph Tabs
+// registry/riso/ui/tabs.tsx — Risograph Tabs
 //
 // Visual system:
 //   - Inactive tabs: outline in secondary, paper background
@@ -20,8 +20,24 @@ interface TabsProps extends RisoThemeProps {
   style?: React.CSSProperties;
 }
 
-export function Tabs({ tabs, defaultValue, className, theme, primary, secondary, overlap, paper, style }: TabsProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+export function Tabs({
+  tabs,
+  defaultValue,
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: TabsProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [active, setActive] = React.useState(defaultValue ?? tabs[0]?.value);
   const activeTab = tabs.find((t) => t.value === active);
 
@@ -63,5 +79,3 @@ export function Tabs({ tabs, defaultValue, className, theme, primary, secondary,
     </div>
   );
 }
-
-

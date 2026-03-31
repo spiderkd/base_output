@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/countdown.tsx — Two-Color Countdown Timer ★
+// registry/riso/ui/countdown.tsx — Two-Color Countdown Timer ★
 //
 // Visual system:
 //   - Digits drawn in two SVG layers (primary large, secondary smaller/offset)
@@ -108,12 +108,26 @@ function DoubleSeparator() {
   );
 }
 
-export function Countdown({ targetDate,
+export function Countdown({
+  targetDate,
   seconds: initialSeconds,
   onComplete,
   showLabels = true,
-  className, theme, primary, secondary, overlap, paper, style }: CountdownProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: CountdownProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const calcRemaining = React.useCallback((): number => {
     if (targetDate) {
       return Math.max(
@@ -163,7 +177,10 @@ export function Countdown({ targetDate,
   ];
 
   return (
-    <div className={cn("inline-flex flex-col gap-2", className)} style={{ ...risoStyle, ...style }}>
+    <div
+      className={cn("inline-flex flex-col gap-2", className)}
+      style={{ ...risoStyle, ...style }}
+    >
       <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
         {segments.map((seg, idx) => (
           <React.Fragment key={seg.label}>
@@ -186,5 +203,3 @@ export function Countdown({ targetDate,
     </div>
   );
 }
-
-

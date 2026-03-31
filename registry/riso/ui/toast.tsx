@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/toast.tsx — Risograph Toast
+// registry/riso/ui/toast.tsx — Risograph Toast
 //
 // Visual system:
 //   - Enters with a scale+bleed stamp animation (scale from 0.85, opacity 0→1)
@@ -11,7 +11,7 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { cn } from "@/lib/utils";
+
 import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
 type ToastVariant = "default" | "success" | "warning" | "danger";
@@ -87,7 +87,9 @@ function ToastItem({ toast, onRemove }: ToastProps) {
     <div
       className="relative mb-2 min-w-[280px] max-w-[360px] transition-[transform,opacity] duration-[280ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)]"
       style={{
-        transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.88)",
+        transform: visible
+          ? "translateY(0) scale(1)"
+          : "translateY(12px) scale(0.88)",
         opacity: visible ? 1 : 0,
       }}
     >
@@ -99,16 +101,19 @@ function ToastItem({ toast, onRemove }: ToastProps) {
       />
 
       {/* Toast body */}
-      <div
-        className="relative overflow-hidden" style={{ background: bg }}      >
+      <div className="relative overflow-hidden" style={{ background: bg }}>
         <div className="px-4 pt-3 pb-3 pr-10">
           <p
-            className="font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)] font-black text-[13px] uppercase tracking-[0.04em] m-0" style={{ color }}          >
+            className="font-[family-name:var(--font-riso-headline,'Epilogue',sans-serif)] font-black text-[13px] uppercase tracking-[0.04em] m-0"
+            style={{ color }}
+          >
             {toast.title}
           </p>
           {toast.description && (
             <p
-              className="font-[family-name:var(--font-riso-body,'Work_Sans',sans-serif)] text-[11px] opacity-80 mt-[3px] mb-0 mx-0" style={{ color }}            >
+              className="font-[family-name:var(--font-riso-body,'Work_Sans',sans-serif)] text-[11px] opacity-80 mt-[3px] mb-0 mx-0"
+              style={{ color }}
+            >
               {toast.description}
             </p>
           )}
@@ -117,7 +122,9 @@ function ToastItem({ toast, onRemove }: ToastProps) {
         {/* Progress countdown bar */}
         <div className="h-[3px] bg-black/20">
           <div
-            className="h-full bg-white/50 transition-[width] duration-[50ms] linear" style={{ width: `${progress}%` }} />
+            className="h-full bg-white/50 transition-[width] duration-[50ms] linear"
+            style={{ width: `${progress}%` }}
+          />
         </div>
       </div>
 
@@ -168,8 +175,22 @@ interface ToastProviderProps extends RisoThemeProps {
 
 export const ToastContext = React.createContext<ToastContextType | null>(null);
 
-export function ToastProvider({ children, theme, primary, secondary, overlap, paper, style }: ToastProviderProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+export function ToastProvider({
+  children,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: ToastProviderProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [toasts, setToasts] = React.useState<ToastItem[]>([]);
 
   const addToast = React.useCallback((item: Omit<ToastItem, "id">) => {
@@ -211,5 +232,3 @@ export function useToast() {
   if (!ctx) throw new Error("useToast must be used inside <ToastProvider>");
   return ctx;
 }
-
-

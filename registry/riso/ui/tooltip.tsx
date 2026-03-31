@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/tooltip.tsx — Risograph Tooltip
+// registry/riso/ui/tooltip.tsx — Risograph Tooltip
 //
 // Visual system:
 //   - Hard-offset speech bubble — zero blur, no rounded corners (except tip nub)
@@ -95,11 +95,25 @@ function TooltipArrow({ placement }: { placement: TooltipPlacement }) {
   );
 }
 
-export function Tooltip({ content,
+export function Tooltip({
+  content,
   placement = "top",
   children,
-  className, theme, primary, secondary, overlap, paper, style }: TooltipProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  className,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  style,
+}: TooltipProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const [open, setOpen] = React.useState(false);
 
   const positionStyles: Record<TooltipPlacement, React.CSSProperties> = {
@@ -131,7 +145,8 @@ export function Tooltip({ content,
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)} style={{ ...risoStyle, ...style }}
+      onBlur={() => setOpen(false)}
+      style={{ ...risoStyle, ...style }}
     >
       {children}
 
@@ -166,5 +181,3 @@ export function Tooltip({ content,
     </span>
   );
 }
-
-

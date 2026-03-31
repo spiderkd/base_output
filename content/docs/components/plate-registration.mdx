@@ -3,12 +3,13 @@ title: PlateRegistration
 description: Decorative crop marks and registration circles from real risograph printing. Every mark is drawn in two layers — primary and secondary offset — to show misregistration. Pure SVG. ★ Innovative
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { PlateRegistration } from "@/registry/new-york/ui/plate-registration"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { PlateRegistration } from "@/registry/riso/ui/plate-registration";
 
 <PreviewContainer
   componentName="plate-registration"
-  code={`import { PlateRegistration } from '@/registry/new-york/ui/plate-registration'
+  code={`import { PlateRegistration } from '@/registry/riso/ui/plate-registration'
 
 <PlateRegistration variant="target" size={64} />`}
 >
@@ -17,9 +18,21 @@ import { PlateRegistration } from "@/registry/new-york/ui/plate-registration"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/plate-registration.json
-```
+<InstallTabs slug="plate-registration"  />
+
+## Props
+
+The examples above cover the most common ways to use `PlateRegistration`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `variant` | `RegistrationVariant` | `"target"` | Registration mark style to render. |
+| `corner` | `RegistrationCorner` | `"tl"` | Corner used when the corner variant is selected. |
+| `size` | `number` | `48` | Overall marker size in pixels. |
+| `primaryOpacity` | `number` | `0.8` | Opacity of the primary plate. |
+| `secondaryOpacity` | `number` | `0.55` | Opacity of the secondary plate. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## All variants
 
@@ -44,11 +57,30 @@ npx shadcn add https://riso.dev/r/plate-registration.json
     {[
       { variant: "target", label: "target" },
       { variant: "corner", label: "corner" },
-      { variant: "cross",  label: "cross" },
+      { variant: "cross", label: "cross" },
     ].map(({ variant, label }) => (
-      <div key={variant} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+      <div
+        key={variant}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <PlateRegistration variant={variant} corner="tl" size={64} />
-        <span style={{ fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--riso-secondary)" }}>{label}</span>
+        <span
+          style={{
+            fontFamily: "var(--font-riso-label,'Space Grotesk',sans-serif)",
+            fontWeight: 700,
+            fontSize: 9,
+            textTransform: "uppercase",
+            letterSpacing: "0.12em",
+            color: "var(--riso-secondary)",
+          }}
+        >
+          {label}
+        </span>
       </div>
     ))}
   </div>
@@ -69,24 +101,39 @@ npx shadcn add https://riso.dev/r/plate-registration.json
   <p>Page content sits here</p>
 </div>`}
 >
-  <div style={{ position: "relative", padding: 40, background: "var(--riso-paper,#f7f0e2)", outline: "1px solid color-mix(in srgb,var(--riso-primary) 20%,transparent)" }}>
-    <PlateRegistration variant="full-bleed" size={40} primaryOpacity={0.25} secondaryOpacity={0.12} />
-    <p style={{ fontFamily: "var(--font-riso-body,'Work Sans',sans-serif)", fontSize: 13, color: "var(--riso-overlap,#7b4f7a)", position: "relative", zIndex: 1 }}>Page content sits here. Registration marks appear at all four corners.</p>
+  <div
+    style={{
+      position: "relative",
+      padding: 40,
+      background: "var(--riso-paper,#f7f0e2)",
+      outline:
+        "1px solid color-mix(in srgb,var(--riso-primary) 20%,transparent)",
+    }}
+  >
+    <PlateRegistration
+      variant="full-bleed"
+      size={40}
+      primaryOpacity={0.25}
+      secondaryOpacity={0.12}
+    />
+    <p
+      style={{
+        fontFamily: "var(--font-riso-body,'Work Sans',sans-serif)",
+        fontSize: 13,
+        color: "var(--riso-overlap,#7b4f7a)",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      Page content sits here. Registration marks appear at all four corners.
+    </p>
   </div>
 </PreviewContainer>
-
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `variant` | `"target" \| "corner" \| "cross" \| "full-bleed"` | `"target"` | Mark type |
-| `corner` | `"tl" \| "tr" \| "bl" \| "br"` | `"tl"` | Used with `variant="corner"` |
-| `size` | `number` | `48` | Width/height in px |
-| `primaryOpacity` | `number` | `0.8` | Primary ink opacity |
-| `secondaryOpacity` | `number` | `0.55` | Secondary ink opacity |
 
 ## Design notes
 
 In real riso printing, registration marks are printed in both ink passes so the operator can check alignment. The offset between the two renderings shows the misregistration. This component decorates your UI with those same marks — a nod to the physical print process.
 
 All marks use two-layer SVG: primary ink (full weight) + secondary ink (lighter, offset 2px right/down). The `full-bleed` variant uses `position: absolute; inset: 0` and places a `CornerMark` at each corner.
+
+That restraint is what keeps `PlateRegistration` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

@@ -3,12 +3,13 @@ title: Accordion
 description: Collapsible sections with a two-ink chevron and double-rule separator between items.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Accordion } from "@/registry/new-york/ui/accordion"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { Accordion } from "@/registry/riso/ui/accordion";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
 
 <PreviewContainer
   componentName="accordion"
-  code={`import { Accordion } from '@/registry/new-york/ui/accordion'
+  code={`import { Accordion } from '@/registry/riso/ui/accordion'
 
 <Accordion
   defaultOpen="item-1"
@@ -30,9 +31,19 @@ import { Accordion } from "@/registry/new-york/ui/accordion"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/accordion.json
-```
+<InstallTabs slug="accordion"  />
+
+## Props
+
+The examples above cover the most common ways to use `Accordion`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `items` | `AccordionItem[]` | - | Array of `{ value, label, content }` sections. |
+| `defaultOpen` | `string` | - | Item value that should start open. |
+| `multiple` | `boolean` | `false` | Configures `multiple` for the component. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Multiple open
 
@@ -47,3 +58,5 @@ The chevron is drawn as two sets of SVG `<line>` elements — primary ink arms a
 The separator between items is the double-rule: a 2px primary line and a 1px secondary line 4px below it. This is the same separator component used throughout Riso UI.
 
 Open item header: floods with `var(--riso-primary)`, text turns white. Content area gets a left border in secondary color and a faint halftone dot background — the content feels like it's printed on a separate, slightly textured sheet inside the accordion.
+
+That restraint is what keeps `Accordion` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

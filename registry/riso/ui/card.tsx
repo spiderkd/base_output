@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/card.tsx — Risograph Card
+// registry/riso/ui/card.tsx — Risograph Card
 //
 // Visual system:
 //   - Base: paper background, primary color border (2px outline)
@@ -13,7 +13,8 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { resolveRisoVars, type RisoThemeProps } from "@/lib/riso-utils";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
+interface CardProps
+  extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps {
   padding?: number;
   stacked?: boolean;
   filled?: boolean; // solid primary fill (inverse card)
@@ -21,16 +22,29 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, RisoThemeProps
   interactive?: boolean; // adds hover shadow compression
 }
 
-export function Card({ padding = 20,
+export function Card({
+  padding = 20,
   stacked = false,
   filled = false,
   halftone = false,
   interactive = false,
   className,
   children,
-  style, theme, primary, secondary, overlap, paper,
-  ...props }: CardProps) {
-  const risoStyle = resolveRisoVars({ theme, primary, secondary, overlap, paper });
+  style,
+  theme,
+  primary,
+  secondary,
+  overlap,
+  paper,
+  ...props
+}: CardProps) {
+  const risoStyle = resolveRisoVars({
+    theme,
+    primary,
+    secondary,
+    overlap,
+    paper,
+  });
   const stackLayers = stacked ? (
     <>
       {/* Third layer — furthest back, most offset */}
@@ -66,7 +80,7 @@ export function Card({ padding = 20,
         ],
         className,
       )}
-      style={{ ...risoStyle, ...({ padding, ...style }) }}
+      style={{ ...risoStyle, ...{ padding, ...style } }}
       {...props}
     >
       {stackLayers}
@@ -148,5 +162,3 @@ export function CardFooter({
     />
   );
 }
-
-

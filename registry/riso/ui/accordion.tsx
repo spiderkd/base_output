@@ -1,6 +1,6 @@
 "use client";
 
-// registry/new-york/ui/accordion.tsx — Risograph Accordion
+// registry/riso/ui/accordion.tsx — Risograph Accordion
 //
 // Theming — three ways, lowest → highest priority:
 //   1. globals.css  :root vars from riso-theme install  (automatic, zero config)

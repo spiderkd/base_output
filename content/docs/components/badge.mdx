@@ -4,11 +4,12 @@ description: Status indicators with hard-shadow misregistration. The overprint v
 ---
 
 import { PreviewContainer } from "@/components/preview/PreviewContainer";
-import { Badge } from "@/registry/new-york/ui/badge";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Badge } from "@/registry/riso/ui/badge";
 
 <PreviewContainer
   componentName="badge"
-  code={`import { Badge } from '@/registry/new-york/ui/badge'
+  code={`import { Badge } from '@/registry/riso/ui/badge'
 
 <Badge variant="primary">Active</Badge>`}
 >
@@ -17,9 +18,15 @@ import { Badge } from "@/registry/new-york/ui/badge";
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/badge.json
-```
+<InstallTabs slug="badge"  />
+
+## Props
+
+The examples above cover the most common ways to use `Badge`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `variant` | `BadgeVariant` | `"default"` | Visual variant for the component. |
 
 ## Variants
 
@@ -45,3 +52,5 @@ npx shadcn add https://riso.dev/r/badge.json
 The **overprint** variant renders two rectangles with `mix-blend-mode: multiply`. The overlap region produces the "third ink" color automatically — just like physical riso printing where two ink layers create a new color where they cross.
 
 The **stamp** variant uses `border-style: dashed` to simulate a rubber stamp impression.
+
+That restraint is what keeps `Badge` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

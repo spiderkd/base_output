@@ -3,12 +3,13 @@ title: Avatar
 description: Two concentric circles — primary border foreground with secondary offset shadow behind. Misregistration built into the geometry.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Avatar, AvatarGroup } from "@/registry/new-york/ui/avatar"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Avatar, AvatarGroup } from "@/registry/riso/ui/avatar";
 
 <PreviewContainer
   componentName="avatar"
-  code={`import { Avatar } from '@/registry/new-york/ui/avatar'
+  code={`import { Avatar } from '@/registry/riso/ui/avatar'
 
 <Avatar initials="JD" size="md" />`}
 >
@@ -17,9 +18,19 @@ import { Avatar, AvatarGroup } from "@/registry/new-york/ui/avatar"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/avatar.json
-```
+<InstallTabs slug="avatar"  />
+
+## Props
+
+The examples above cover single avatars, size changes, and grouped layouts. Start with the core avatar props, then use `AvatarGroup` when you want a stacked presentation.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `src` | `string` | - | Image source for the avatar artwork |
+| `alt` | `string` | `""` | Accessible alt text for the image |
+| `initials` | `string` | - | Fallback initials shown when no image is provided |
+| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` | Controls the avatar scale |
+| `variant` | `"default" \| "stamp" \| "filled"` | `"default"` | Changes the border and fill treatment |
 
 ## Sizes
 
@@ -71,3 +82,15 @@ npx shadcn add https://riso.dev/r/avatar.json
     <Avatar initials="+4" variant="filled" />
   </AvatarGroup>
 </PreviewContainer>
+
+## AvatarGroup props
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `children` | `React.ReactNode` | - | Avatars rendered in the overlapping group |
+
+Both `Avatar` and `AvatarGroup` accept the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
+
+## Design notes
+
+That restraint is what keeps `Avatar` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

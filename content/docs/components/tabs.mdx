@@ -3,12 +3,13 @@ title: Tabs
 description: Active tab floods with primary ink. A misregistration underline runs beneath the entire tab list in secondary color.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { Tabs } from "@/registry/new-york/ui/tabs"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { Tabs } from "@/registry/riso/ui/tabs";
 
 <PreviewContainer
   componentName="tabs"
-  code={`import { Tabs } from '@/registry/new-york/ui/tabs'
+  code={`import { Tabs } from '@/registry/riso/ui/tabs'
 
 <Tabs
   defaultValue="setup"
@@ -31,9 +32,18 @@ import { Tabs } from "@/registry/new-york/ui/tabs"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/tabs.json
-```
+<InstallTabs slug="tabs"  />
+
+## Props
+
+The examples above cover the most common ways to use `Tabs`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `tabs` | `{ label: string; value: string; content: React.ReactNode }[]` | - | Tab definitions with labels, values, and content. |
+| `defaultValue` | `string` | - | Value selected on initial render. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Design notes
 
@@ -42,3 +52,5 @@ The active tab has `background: var(--riso-primary)` and sits 2px lower than the
 The secondary misregistration line runs the entire width of the tab list at `translateY(2px)` below the primary border — visible at the ends of the list where no tab covers it. This detail is the risograph effect: the second ink plate never quite lines up.
 
 There is intentionally **no border-radius** on any tab. All corners are sharp 90°.
+
+That restraint is what keeps `Tabs` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

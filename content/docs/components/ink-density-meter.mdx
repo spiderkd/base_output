@@ -3,12 +3,13 @@ title: InkDensityMeter
 description: Vertical fill meter where intensity is shown by halftone dot density — sparse dots at 0%, overlapping dots at 100%. Animates smoothly on value change. ★ Innovative
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { InkDensityMeter } from "@/registry/new-york/ui/ink-density-meter"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { InkDensityMeter } from "@/registry/riso/ui/ink-density-meter";
 
 <PreviewContainer
   componentName="ink-density-meter"
-  code={`import { InkDensityMeter } from '@/registry/new-york/ui/ink-density-meter'
+  code={`import { InkDensityMeter } from '@/registry/riso/ui/ink-density-meter'
 
 <InkDensityMeter value={72} label="Primary Ink" />`}
 >
@@ -17,9 +18,22 @@ import { InkDensityMeter } from "@/registry/new-york/ui/ink-density-meter"
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/ink-density-meter.json
-```
+<InstallTabs slug="ink-density-meter"  />
+
+## Props
+
+The examples above cover the most common ways to use `InkDensityMeter`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `value` | `number` | - | Fill value from `0` to `100`. |
+| `label` | `string` | - | Optional label shown above the meter. |
+| `height` | `number` | `160` | Configures `height` for the component. |
+| `width` | `number` | `44` | Configures `width` for the component. |
+| `showValue` | `boolean` | `true` | Shows the numeric reading under the meter. |
+| `animated` | `boolean` | `true` | Animates fill changes. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Multiple meters
 
@@ -32,9 +46,9 @@ npx shadcn add https://riso.dev/r/ink-density-meter.json
 </div>`}
 >
   <div style={{ display: "flex", gap: 24, alignItems: "flex-end" }}>
-    <InkDensityMeter value={72}  label="Primary"   height={160} />
-    <InkDensityMeter value={38}  label="Secondary"  height={160} />
-    <InkDensityMeter value={95}  label="Accuracy"   height={160} />
+    <InkDensityMeter value={72} label="Primary" height={160} />
+    <InkDensityMeter value={38} label="Secondary" height={160} />
+    <InkDensityMeter value={95} label="Accuracy" height={160} />
   </div>
 </PreviewContainer>
 
@@ -50,8 +64,20 @@ npx shadcn add https://riso.dev/r/ink-density-meter.json
 >
   <div style={{ display: "flex", gap: 16, alignItems: "flex-end" }}>
     <InkDensityMeter value={60} width={32} height={120} showValue />
-    <InkDensityMeter value={80} width={44} height={160} label="Default" showValue />
-    <InkDensityMeter value={40} width={60} height={200} label="Large" showValue />
+    <InkDensityMeter
+      value={80}
+      width={44}
+      height={160}
+      label="Default"
+      showValue
+    />
+    <InkDensityMeter
+      value={40}
+      width={60}
+      height={200}
+      label="Large"
+      showValue
+    />
   </div>
 </PreviewContainer>
 
@@ -64,19 +90,12 @@ npx shadcn add https://riso.dev/r/ink-density-meter.json
   <InkDensityMeter value={65} animated={false} />
 </PreviewContainer>
 
-## Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `value` | `number` | — | Fill level 0–100 |
-| `label` | `string` | — | Rotated vertical label |
-| `height` | `number` | `160` | Meter height in px |
-| `width` | `number` | `44` | Meter width in px |
-| `showValue` | `boolean` | `true` | Show percentage below meter |
-| `animated` | `boolean` | `true` | Animate fill on value change |
-
 ## How the density fill works
 
 The meter is divided into 12 horizontal bands. Each band has a unique SVG `<pattern>` with dot radius growing from `0.8px` (bottom, dense end for low values) to `5px` (top, dense end for high values). Only bands within the fill level render.
 
 On value change, the fill animates via `requestAnimationFrame` with an `ease-out-cubic` curve over 600ms. Three tick marks at 25%, 50%, 75% use the double-rule pattern (primary + secondary offset).
+
+## Design notes
+
+That restraint is what keeps `InkDensityMeter` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.

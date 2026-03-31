@@ -3,26 +3,27 @@ title: CommandPalette
 description: Keyboard-driven search overlay with halftone backdrop, primary-fill active result, and grouped category headers. Arrow keys to navigate, Enter to select, Escape to close.
 ---
 
-import { PreviewContainer } from "@/components/preview/PreviewContainer"
-import { CommandPaletteDemo } from "@/components/demos/command-palette-demos"
+import { PreviewContainer } from "@/components/preview/PreviewContainer";
+import { InstallTabs } from "@/components/preview/riso-install-tabs.tsx";
+import { CommandPaletteDemo } from "@/components/demos/command-palette-demos";
 
 <PreviewContainer
   componentName="command-palette"
-  code={`import { CommandPalette } from '@/registry/new-york/ui/command-palette'
-import { Button } from '@/registry/new-york/ui/button'
+  code={`import { CommandPalette } from '@/registry/riso/ui/command-palette'
+import { Button } from '@/registry/riso/ui/button'
 
 const [open, setOpen] = React.useState(false)
 
 // Wire to keyboard shortcut
 React.useEffect(() => {
-  const handler = (e: KeyboardEvent) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-      e.preventDefault()
-      setOpen(o => !o)
-    }
-  }
-  document.addEventListener("keydown", handler)
-  return () => document.removeEventListener("keydown", handler)
+const handler = (e: KeyboardEvent) => {
+if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+e.preventDefault()
+setOpen(o => !o)
+}
+}
+document.addEventListener("keydown", handler)
+return () => document.removeEventListener("keydown", handler)
 }, [])
 
 <Button onClick={() => setOpen(true)}>Open Palette ⌘K</Button>
@@ -42,30 +43,41 @@ React.useEffect(() => {
 
 ## Installation
 
-```bash
-npx shadcn add https://riso.dev/r/command-palette.json
-```
+<InstallTabs slug="command-palette"  />
+
+## Props
+
+The examples above cover the most common ways to use `CommandPalette`. Start with the default example, then layer in the props below when you need more control.
+
+| Prop | Type | Default | Description |
+| -------------- | ------------------------- | ----------- | ------------------------------- |
+| `open` | `boolean` | - | Controls whether the palette is visible. |
+| `onClose` | `() => void` | - | Called when the component should close. |
+| `items` | `CommandItem[]` | - | Command definitions rendered in the result list. |
+| `placeholder` | `string` | - | Search field placeholder text. |
+
+This component also accepts the shared `theme`, `primary`, `secondary`, `overlap`, and `paper` overrides.
 
 ## Item definition
 
 ```tsx
 interface CommandItem {
-  id: string
-  label: string
-  description?: string    // shown below label
-  category?: string       // groups items under a header
-  keywords?: string[]     // extra search terms beyond label/description
-  onSelect?: () => void   // called on click or Enter
+  id: string;
+  label: string;
+  description?: string; // shown below label
+  category?: string; // groups items under a header
+  keywords?: string[]; // extra search terms beyond label/description
+  onSelect?: () => void; // called on click or Enter
 }
 ```
 
 ## Keyboard navigation
 
-| Key | Action |
-|---|---|
-| `↑` / `↓` | Move between results |
-| `Enter` | Select active result |
-| `Escape` | Close palette |
+| Key             | Action                     |
+| --------------- | -------------------------- |
+| `↑` / `↓`       | Move between results       |
+| `Enter`         | Select active result       |
+| `Escape`        | Close palette              |
 | `⌘K` / `Ctrl+K` | Open (wire in your layout) |
 
 ## Design notes
@@ -77,3 +89,5 @@ Active/hovered result: solid primary fill with a halftone dot overlay (`radial-g
 Category headers are 8px Space Grotesk uppercase with extra letter spacing and a light secondary-tint rule below.
 
 The panel shadow layer starts at `translate(6px, 6px)` — larger than the standard `4px` because it is a top-level overlay.
+
+That restraint is what keeps `CommandPalette` feeling printed instead of purely digital: the offsets stay small, the edges stay sharp, and the ink contrast does most of the visual work.
